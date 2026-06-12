@@ -1,7 +1,26 @@
+<div align="center">
+
 # 营造 yingzao · Skill 打磨工坊
 
-> **把"自己能用"的 Agent Skill，打磨成"别人敢用"的资产。**
-> 真实战绩：一轮大修，独立评审 65 → 72.5 分；实测对比，装载版 29/30 vs 裸 AI 11/30——**每一分都有证据。**
+**把"自己能用"的 Agent Skill，打磨成"别人敢用"的资产。**
+
+借中国古建营造的工序意象——查勘、大修、落成、岁修——把 Skill 优化做成一门有验收标准的手艺。
+**v1.1** · 更新于 2026-06-12 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-1.1-blue.svg)](#whats-new-in-v11)
+[![Agent Skill](https://img.shields.io/badge/Agent%20Skill-Compatible-blueviolet)](#快速开始)
+[![Multi Runtime](https://img.shields.io/badge/Multi--Runtime-4%20platforms-green)](#快速开始)
+
+```bash
+git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh claude-code
+```
+
+</div>
+
+---
+
+> **真实战绩**：一轮大修，独立评审 65 → 72.5 分；新建测试实跑对比，装载版 29/30 vs 裸 AI 11/30——**每一分都有证据，每一轮都可回退。**
 
 ## 你是否遇到过这些情况
 
@@ -21,22 +40,15 @@
 | **全程证据链** | 独立评审打分 + 改前/改后测试实跑对比 + 每轮 patch 可回退 | "变好了"不靠感觉，靠数据；改坏了随时退回任意一轮 |
 | **可复跑的测试资产** | 留在你 skill 里的 tests/ 目录 | 以后任何人（包括 AI）再改这个 skill，跑一下测试就知道改好还是改坏 |
 
-## 快速开始
+## What's New in v1.1
 
-```bash
-git clone https://github.com/songshishuang/yingzao && cd yingzao
-./install.sh claude-code        # 安装到 ~/.claude/skills/（默认）
-./install.sh cursor --project /path/to/project
-./install.sh codex
-./install.sh opencode --project /path/to/project
-```
+对标社区 [darwin-skill 2.0](https://github.com/alchaincyf/darwin-skill)（同谱系自动优化器）后吸收三个机制，并按营造的受控工程哲学加了防滥用约束：
 
-装完对 AI 说一句话即可开工：
-
-```text
-查勘 ~/my-skills/我的skill        ← 体检，什么都不改
-大修 ~/my-skills/我的skill        ← 完整打磨（改动前会先问你）
-```
+| 新机制 | 干什么 | 营造化约束 |
+|--------|--------|------------|
+| **Runtime 中立性红灯**（规则预检 P5） | 扫描「仅支持某工具」类锁定措辞——这类措辞会让其他 runtime 的 agent 判"不是给我用的"直接拒装 | frontmatter 触发词区豁免；多平台路径并列不误报 |
+| **分数序列台账** | 台账从"首尾两个分"升级为逐轮记录 `65 →(触发词重写) 68 →(失败模式补全) 72.5` | 估分轮标 `*`，占比 >30% 整体视为弱证据——岁修据此归因"哪类改动提分最大" |
+| **落架 · 推倒重写** | 单变量微调连续两轮过不了验证门时，整体重构再同台对比——微调爬不动的坡，拆了重盖翻过去 | 必经你点头才执行；**赢了才换、输了恢复**（落架不破棘轮，红线第 16 条） |
 
 ## 两个档位：查勘 vs 大修
 
@@ -98,7 +110,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao
 **对你的价值**：报告就是你向团队/老板展示的成果物；岁修清单让下次打磨不用从零开始。
 **产出**：10 节大修报告 + 落成匾 + 下一轮入口。
 
-## 打磨引擎：像做实验一样改文档（SkillOpt 式受控优化）
+## 打磨引擎：像做实验一样改文档
 
 细作环节那些规矩不是零散的小心谨慎，而是一套完整的优化方法论——**把 skill 文档当成"可训练的参数"，把每次改写当成一次受控实验**（与微软 SkillOpt、社区 darwin-skill 同谱系，营造做了团队场景适配）：
 
@@ -110,22 +122,9 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao
 | **早停** | 单轮提升 <1 分自动收手 | AI 为了"显得有产出"硬凑改动，文档越改越臃肿 |
 | **边际复测** | 优势微弱时加跑一次，仍微弱判不过 | 一次运行的随机波动被当成"真的变好了" |
 | **比样 Pareto**（可选） | 每轮 3 个候选改写同台竞技，逐测试实例比胜负面——总分高但某一项崩坏的候选不得入选 | 单候选撞运气；或总分掩盖单点退化 |
+| **落架**（v1.1 卡死保险） | 连续两轮过不了门 → 提议整体重构再同台对比，赢了才换、输了恢复 | 单变量微调困在局部最优，永远翻不过那道坡 |
 
 一句话：**别的工具帮你"改"，营造帮你"改 + 证明改对了"。** 每轮实验数据（改了什么、测试对比、过没过门）全部留档，随时可审计、可回退。
-
-## 越用越准：营造的自我进化（双轨）
-
-营造不是一把出厂后就定型的尺子——它有制度化的进化机制：
-
-**轨 1 · 每次打磨后的增量自学**
-每修完一个 skill，营造做 30 秒复盘：这次发现了新的打磨套路吗？踩到新坑了吗？使用者纠正过我的判断吗？有 → 记入自己的台账（case-log）和红线清单（anti-patterns 增量区）。比如"跨 skill 相对路径引用"这个坑，第一次在某个 skill 发现后入了账，后来批量体检时一抓一个准。
-**纪律**：记账直接写（git 可审计），但**改自己行为规则必须先生成候选 diff 经你确认**——它不能悄悄变成另一个工具。
-
-**轨 2 · 满 5 个触发"岁修"（用自己打磨自己）**
-台账每攒满 5 个 skill，营造会主动说"该给我自己做一轮大修了"——用同一套七步流程、同一把九维尺子量自己，且按**开源标准**自检（验收视角强制切换为"第一次见到营造的陌生用户"，自己不能既当裁判又当运动员）。
-
-**数据飞轮**
-台账积累的每条记录（什么形态的 skill / 改了什么 / 提了多少分）都是校准素材——当前九维权重是参考实证研究的启发式起点，**攒够真实案例后会用实测数据重新校准权重**。也就是说：你用它修的 skill 越多，这把尺子对你团队就越准。
 
 ## 九维评分：尺子长什么样
 
@@ -143,6 +142,8 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao
 
 **为什么实测权重最高**：写得再漂亮、跑起来不行的 skill 是最危险的——它看起来可信。所以营造规定：**没有测试用例的 skill，总分最高 70**，写出花来也进不了优秀区。这一条会逼着每个被打磨的 skill 留下测试资产——这正是团队最缺的东西。
 
+权重按 skill 形态（工具型 / 方法论型 / 工作流型 / 风格型）动态调整，单文件 skill 按组织合理性评分不按文件数量——细则见 `references/scoring.md`。
+
 ## 三个可选输入（不说也能跑，说了更准）
 
 | 输入 | 说法示例 | 影响 |
@@ -153,7 +154,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao
 
 可选模式「**比样**」：说「比样大修」，关键改写每轮生成 3 个候选、择优录取（成本约 ×2，适合把重要 skill 修成标杆）。
 
-卡死保险「**落架**」：细作连续两轮过不了验证门时，营造会提议「落架」——保存当前最优版后整体推倒重写，再同台测试对比，**赢了才换、输了就恢复**（必经你点头才执行，成本约 ×1.5-2）。微调爬不动的坡，有时要拆了重盖才能翻过去。
+卡死保险「**落架**」：细作连续两轮过不了验证门时，营造会提议「落架」——保存当前最优版后整体推倒重写，再同台测试对比，**赢了才换、输了就恢复**（必经你点头才执行，成本约 ×1.5-2）。
 
 ## 安全承诺（营造永远不会做的事）
 
@@ -164,21 +165,19 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao
 - **运行产物不污染你的项目**——工作档案默认存在营造自己的目录（`~/.yingzao/runs/`），目录名脱敏；
 - **评分不说谎**——没实测的分数一律标"估分"，对标找不到就写"未访得"，绝不编造。
 
-## 文件结构
+## 越用越准：营造的自我进化（双轨）
 
-```
-yingzao/
-├── SKILL.md              # 主流程（双档七步 + 全部纪律）
-├── references/
-│   ├── scoring.md        # 九维评分细则 + 形态权重 + 单文件适配
-│   ├── roles.md          # 岗位画像 + 团队内部源 + 发布目标
-│   ├── anti-patterns.md  # 16 条红线（营造自己不许犯的错）
-│   └── case-log.md       # 打磨台账（脱敏）+ 岁修计数器
-├── tools/inspect-skill.sh    # 规则预检脚本：零 token、秒级、可挂 CI
-└── templates/                # 查勘/大修报告模板
-```
+营造不是一把出厂后就定型的尺子——它有制度化的进化机制：
 
-`inspect-skill.sh` 可以单独用：`bash tools/inspect-skill.sh <你的skill目录>` ——不花一个 token，3 秒出一份结构体检（断链/密钥残留/行数超标/测试缺失），适合挂进团队 CI 当门禁。
+**轨 1 · 每次打磨后的增量自学**
+每修完一个 skill，营造做 30 秒复盘：这次发现了新的打磨套路吗？踩到新坑了吗？使用者纠正过我的判断吗？有 → 记入自己的台账（case-log）和红线清单（anti-patterns 增量区）。比如"跨 skill 相对路径引用"这个坑，第一次在某个 skill 发现后入了账，后来批量体检时一抓一个准。
+**纪律**：记账直接写（git 可审计），但**改自己行为规则必须先生成候选 diff 经你确认**——它不能悄悄变成另一个工具。
+
+**轨 2 · 满 5 个触发"岁修"（用自己打磨自己）**
+台账每攒满 5 个 skill，营造会主动说"该给我自己做一轮大修了"——用同一套七步流程、同一把九维尺子量自己，且按**开源标准**自检（验收视角强制切换为"第一次见到营造的陌生用户"，自己不能既当裁判又当运动员）。
+
+**数据飞轮**
+台账积累的每条记录（什么形态的 skill / 逐轮改了什么 / 每轮提了多少分）都是校准素材——当前九维权重是参考实证研究的启发式起点，**攒够真实案例后会用实测数据重新校准权重**。也就是说：你用它修的 skill 越多，这把尺子对你团队就越准。
 
 ## 它和"直接让 AI 改"的区别
 
@@ -192,6 +191,66 @@ yingzao/
 
 **它不替代 skill-creator**：从零造新 skill 用 skill-creator（生成器），造出毛坯后交营造打磨（打磨器）——上下游分工。
 
+## 快速开始
+
+```bash
+git clone https://github.com/songshishuang/yingzao && cd yingzao
+./install.sh claude-code        # 安装到 ~/.claude/skills/（默认）
+./install.sh cursor --project /path/to/project
+./install.sh codex
+./install.sh opencode --project /path/to/project
+```
+
+装完对 AI 说一句话即可开工：
+
+```text
+查勘 ~/my-skills/我的skill        ← 体检，什么都不改
+大修 ~/my-skills/我的skill        ← 完整打磨（改动前会先问你）
+比样大修 ~/my-skills/我的skill    ← 每轮 3 候选择优（标杆级打磨）
+```
+
+## 文件结构
+
+```
+yingzao/
+├── SKILL.md              # 主流程（双档七步 + 全部纪律）
+├── references/
+│   ├── scoring.md        # 九维评分细则 + 形态权重 + 单文件适配
+│   ├── roles.md          # 岗位画像 + 团队内部源 + 发布目标
+│   ├── anti-patterns.md  # 16 条红线（营造自己不许犯的错）
+│   └── case-log.md       # 打磨台账（脱敏 + 逐轮分数序列）+ 岁修计数器
+├── tools/inspect-skill.sh    # 规则预检脚本：零 token、秒级、可挂 CI
+└── templates/                # 查勘/大修报告模板
+```
+
+`inspect-skill.sh` 可以单独用：`bash tools/inspect-skill.sh <你的skill目录>` ——不花一个 token，3 秒出一份结构体检（断链 / 密钥残留 / 行数超标 / 测试缺失 / runtime 锁定措辞），适合挂进团队 CI 当门禁。
+
+## References
+
+营造的验证机制设计参考了以下实证研究，推荐 skill 生态的工程师阅读：
+
+> Microsoft Research. *From Raw Experience to Skill Consumption: A Systematic Study of Model-Generated Agent Skills.* [arXiv:2605.23899](https://arxiv.org/abs/2605.23899), 2026.
+> —— 九维评分谱系与"改评分离"纪律的实证来源（LLM 自评准确率仅 46.4%，加入 meta 维度后升至 73.8%）。
+
+> Microsoft Research. *SkillOpt: Executive Strategy for Self-Evolving Agent Skills.* [arXiv:2605.23904](https://arxiv.org/abs/2605.23904), 2026.
+> —— validation-gated edits 形式化框架；营造的验证门 / 单变量 / 早停 / 估分比例告警与其对齐。
+
+> [darwin-skill](https://github.com/alchaincyf/darwin-skill) —— 同谱系的自动优化器。v1.1 对标后吸收 Runtime 中立性检查、分数序列台账、探索性重写三机制（吸收记录见 SKILL.md Changelog）。两者哲学分叉：darwin 信任自动循环，营造信任使用者——所有写入必经祈使授权。
+
 ## License
 
 MIT
+
+---
+
+<div align="center">
+
+**skill-creator** 造毛坯。<br>
+**营造** 打磨成器。<br><br>
+*改动是被测量的，不是被感觉的。*
+
+<br>
+
+MIT License © [songshishuang](https://github.com/songshishuang)
+
+</div>
