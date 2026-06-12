@@ -128,17 +128,19 @@ for f in $(find "$SKILL_DIR" \( -name .git -o -name node_modules \) -prune -o \
 done
 [ "$SECRET_HIT" -eq 0 ] && pass "未发现疑似密钥文件"
 
-# 8. 测试 prompt 存在性
+# 8. 测试资产存在性（只认独立测试文件——正文提及"测试 prompt"不算资产，防自述蒙混）
 HAS_TEST=0
-if find "$SKILL_DIR" \( -name .git \) -prune -o \( -iname '*test*prompt*' -o -iname 'test-prompts*' -o -iname 'evals*' \) -type f -print 2>/dev/null | grep -q .; then
-  HAS_TEST=1
-elif [ -f "$SKILL_MD" ] && grep -qE '测试 prompt|test prompt|验证与测试|## 测试' "$SKILL_MD" 2>/dev/null; then
+if find "$SKILL_DIR" \( -name .git \) -prune -o \( -iname '*test*prompt*' -o -iname 'test-prompts*' -o -iname 'evals*' -o -path '*/tests/*' \) -type f -print 2>/dev/null | grep -q .; then
   HAS_TEST=1
 fi
 if [ "$HAS_TEST" -eq 1 ]; then
-  pass "存在测试 prompt 资产或测试章节"
+  pass "存在独立测试资产文件"
 else
-  warn "无测试 prompt——勘验「实测表现」将记 0 分且总分上限 70（见 references/scoring.md）"
+  if [ -f "$SKILL_MD" ] && grep -qE '测试 prompt|test prompt|验证与测试' "$SKILL_MD" 2>/dev/null; then
+    warn "正文提及测试但无独立测试资产文件——「实测表现」记 0 分且总分上限 70；判据须落为带四件套的独立文件"
+  else
+    warn "无测试资产——勘验「实测表现」将记 0 分且总分上限 70（见 references/scoring.md）"
+  fi
 fi
 
 echo ""
