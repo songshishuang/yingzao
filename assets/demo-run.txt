@@ -1,0 +1,56 @@
+# 营造 demo 真实运行存档 · 2026-06-13（终端 SVG 的逐字数据源）
+## RUN A · 病体 fixture（--target opensource）
+$ bash yingzao/tools/inspect-skill.sh yingzao/tests/fixtures/bad-skill-demo --target opensource
+── 营造 · 规则预检 ──  目标: /Users/songshishuang/project/yingzao/yingzao/tests/fixtures/bad-skill-demo
+── 发布目标: opensource
+
+【基础段 · 团队复用就绪度】
+PASS  SKILL.md 存在
+PASS  frontmatter 含 name
+WARN  [应该改] description 过短（44c）——补使用者真实会说的触发词与负触发
+PASS  SKILL.md 行数 27 ≤ 500
+PASS  引用链一层深（references 内无二级引用）
+PASS  代码栅栏闭合（``` × 0）
+FAIL  [必须改] 内链文件不存在: references/setup.md
+PASS  无 TODO/TBD/占位符残留
+FAIL  [必须改] 疑似密钥文件: fake_api_token.txt（公开前必须移除；本脚本不读其内容）
+WARN  [应该改] 无测试资产——勘验「实测表现」将记 0 分且总分上限 70（见 references/scoring.md）
+
+【传播段 · 开源发布就绪度（发布目标=opensource）】
+WARN  [应该改] 缺 LICENSE——开源出门必备
+FAIL  [必须改] 无 README——开源目标下首屏信任无从谈起（若本目录是装载副本而非发行仓库根：传播段检查请对源仓跑，或改用 --target internal）
+WARN  [应该改] 缺 demo GIF/视频——可见产物是首屏信任核心
+WARN  [应该改] 缺一行安装命令——安装摩擦未消除
+WARN  [应该改] runtime 锁定措辞 ×1（SKILL.md）——改为 runtime 中立表述或显式标注「runtime-specific」章节，否则跨 runtime 分发会被拒装
+
+── 汇总 ──
+PASS: 6   WARN: 6   FAIL: 3   INFO: 0
+结论: 存在必须改项（FAIL）——先清零再进入勘验评分
+
+## RUN B · 营造自身（--target opensource）
+$ bash yingzao/tools/inspect-skill.sh yingzao --target opensource
+── 营造 · 规则预检 ──  目标: /Users/songshishuang/project/yingzao/yingzao
+── 发布目标: opensource
+
+【基础段 · 团队复用就绪度】
+PASS  SKILL.md 存在
+PASS  frontmatter 含 name
+PASS  frontmatter 含 description 且有触发语料（853c）
+PASS  SKILL.md 行数 146 ≤ 500
+PASS  引用链一层深（references 内无二级引用）
+PASS  代码栅栏闭合（``` × 0）
+PASS  内链文件全部存在（带扩展名路径）
+PASS  无 TODO/TBD/占位符残留
+PASS  未发现疑似密钥文件
+PASS  存在独立测试资产文件
+
+【传播段 · 开源发布就绪度（发布目标=opensource）】
+PASS  LICENSE 存在
+PASS  README 含安装与触发小节
+WARN  [应该改] 缺 demo GIF/视频——可见产物是首屏信任核心
+PASS  README 含一行安装路径
+PASS  无 runtime 锁定措辞（中立性红灯零命中）
+
+── 汇总 ──
+PASS: 14   WARN: 1   FAIL: 0   INFO: 0
+结论: 无必须改项；WARN 进入查勘报告 P1 清单，INFO 留作开源出门清单

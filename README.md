@@ -215,6 +215,8 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 
 > **测试的测试**（saas-arch-diagrams T3）：裸基线对照发现"拒绝编造功能"这条测试裸 AI 也能通过——按"裸基线完美通过 = 永真断言"规则**当场收紧判据**，改为锚定 skill 专属的 cookbook 列宽组合知识。连测试本身都要被测试，这就是营造的较真程度。
 
+**第六场的对象是营造自己**：台账满 5 触发首次岁修——陌生用户视角盲评 66 分起修，六轮后 **86.3**，过程中抓出自己评分公式的负权重 bug、顶住了"同事写的给个面子分"的人情压力测试（照实给 22 分）。完整案例：[examples/overhaul-case-Y010.md](examples/overhaul-case-Y010.md)——**一个打磨方法论敢不敢吃自己的药，这就是答卷。**
+
 ## 它和"直接让 AI 改"的区别
 
 | | 直接让 AI 改 | 营造 |
@@ -244,6 +246,12 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao
 大修 ~/my-skills/我的skill        ← 完整打磨（改动前会先问你）
 比样大修 ~/my-skills/我的skill    ← 每轮 3 候选择优（标杆级打磨）
 ```
+
+附带的零 token 预检脚本单独就能用——同一把尺子，两种命运：
+
+<img src="assets/demo-terminal.svg" alt="inspect-skill.sh 真实运行对比：病体 fixture 3 FAIL vs 营造自身 14 PASS" width="100%">
+
+> 输出逐字取自真实运行（原始记录 [assets/demo-run.txt](assets/demo-run.txt)，vhs 录制脚本 [assets/demo.tape](assets/demo.tape) 已入库——有 vhs 环境即可复现为动图）。
 
 ## 文件结构
 

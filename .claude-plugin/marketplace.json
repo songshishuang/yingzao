@@ -1,0 +1,17 @@
+{
+  "name": "yingzao",
+  "owner": { "name": "songshishuang", "url": "https://github.com/songshishuang" },
+  "metadata": { "description": "营造 yingzao —— Skill 打磨工坊：查勘快检 + 大修全流程，把能用的 skill 打磨到能交付。" },
+  "plugins": [
+    {
+      "name": "yingzao",
+      "description": "把团队任何岗位「能用」的 Agent Skill 按统一标准量出差距、打磨到「能交付」：九维评分（独立评委盲评）、七步大修（验证门+棘轮+落架）、可复跑测试资产、零 token 规则预检脚本。",
+      "version": "1.2.1",
+      "author": { "name": "songshishuang", "url": "https://github.com/songshishuang" },
+      "source": "./",
+      "category": "productivity",
+      "keywords": ["skill-quality", "skill-polish", "evaluation", "agent-skills", "营造"],
+      "homepage": "https://github.com/songshishuang/yingzao"
+    }
+  ]
+}

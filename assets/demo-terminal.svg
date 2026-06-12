@@ -1,0 +1,70 @@
+<svg viewBox="0 0 1340 600" xmlns="http://www.w3.org/2000/svg" font-family="'SF Mono','JetBrains Mono',Menlo,Consolas,monospace">
+  <rect width="1340" height="600" fill="#faf8f5"/>
+  <text x="670" y="30" text-anchor="middle" font-family="-apple-system,'PingFang SC',sans-serif" font-size="15" font-weight="700" fill="#475569">inspect-skill.sh · 同一把尺子，两种命运（输出逐字取自真实运行，原始记录见 assets/demo-run.txt）</text>
+
+  <!-- ============ 窗 A：病体 fixture ============ -->
+  <g>
+    <rect x="12" y="48" width="650" height="536" rx="10" fill="#1b1f27"/>
+    <rect x="12" y="48" width="650" height="30" rx="10" fill="#2a2f3a"/>
+    <rect x="12" y="66" width="650" height="12" fill="#2a2f3a"/>
+    <circle cx="32" cy="63" r="5.5" fill="#ff5f57"/><circle cx="50" cy="63" r="5.5" fill="#febc2e"/><circle cx="68" cy="63" r="5.5" fill="#28c840"/>
+    <text x="337" y="68" text-anchor="middle" font-size="11" fill="#9aa4b2">体检一个有病的 skill</text>
+
+    <g font-size="11" fill="#c8d0dc">
+      <text x="28" y="100" fill="#7ee787">$ </text><text x="42" y="100" fill="#e6edf3">inspect-skill.sh tests/fixtures/bad-skill-demo --target opensource</text>
+      <text x="28" y="122" fill="#8b949e">── 营造 · 规则预检 ──  目标: …/fixtures/bad-skill-demo · opensource</text>
+      <text x="28" y="144" fill="#d2a8ff">【基础段 · 团队复用就绪度】</text>
+      <text x="28" y="164"><tspan fill="#3fb950">PASS</tspan>  SKILL.md 存在</text>
+      <text x="28" y="184"><tspan fill="#3fb950">PASS</tspan>  frontmatter 含 name</text>
+      <text x="28" y="204"><tspan fill="#d29922">WARN</tspan>  [应该改] description 过短（44c）——补真实触发词与负触发</text>
+      <text x="28" y="224"><tspan fill="#3fb950">PASS</tspan>  SKILL.md 行数 27 ≤ 500</text>
+      <text x="28" y="244"><tspan fill="#3fb950">PASS</tspan>  引用链一层深 · <tspan fill="#3fb950">PASS</tspan>  代码栅栏闭合</text>
+      <text x="28" y="264"><tspan fill="#f85149">FAIL</tspan>  [必须改] 内链文件不存在: references/setup.md</text>
+      <text x="28" y="284"><tspan fill="#3fb950">PASS</tspan>  无 TODO/TBD/占位符残留</text>
+      <text x="28" y="304"><tspan fill="#f85149">FAIL</tspan>  [必须改] 疑似密钥文件: fake_api_token.txt（不读内容）</text>
+      <text x="28" y="324"><tspan fill="#d29922">WARN</tspan>  [应该改] 无测试资产——实测 0 分且总分上限 70</text>
+      <text x="28" y="350" fill="#d2a8ff">【传播段 · 开源发布就绪度】</text>
+      <text x="28" y="370"><tspan fill="#d29922">WARN</tspan>  [应该改] 缺 LICENSE——开源出门必备</text>
+      <text x="28" y="390"><tspan fill="#f85149">FAIL</tspan>  [必须改] 无 README——首屏信任无从谈起</text>
+      <text x="28" y="410"><tspan fill="#d29922">WARN</tspan>  [应该改] 缺 demo GIF/视频</text>
+      <text x="28" y="430"><tspan fill="#d29922">WARN</tspan>  [应该改] 缺一行安装命令</text>
+      <text x="28" y="450"><tspan fill="#d29922">WARN</tspan>  [应该改] runtime 锁定措辞 ×1——跨 runtime 分发会被拒装</text>
+    </g>
+    <rect x="28" y="474" width="618" height="86" rx="8" fill="#2d1a1d" stroke="#f85149" stroke-width="1.5"/>
+    <text x="44" y="504" font-size="12.5" fill="#e6edf3">── 汇总 ──  <tspan fill="#3fb950" font-weight="700">PASS: 6</tspan>   <tspan fill="#d29922" font-weight="700">WARN: 6</tspan>   <tspan fill="#f85149" font-weight="700">FAIL: 3</tspan></text>
+    <text x="44" y="530" font-size="12.5" fill="#f85149" font-weight="700">结论: 存在必须改项（FAIL）——先清零再进入勘验评分</text>
+    <text x="44" y="550" font-size="11" fill="#8b949e">exit 1 · 可直接挂 CI 当门禁</text>
+  </g>
+
+  <!-- ============ 窗 B：营造自身 ============ -->
+  <g>
+    <rect x="678" y="48" width="650" height="536" rx="10" fill="#1b1f27"/>
+    <rect x="678" y="48" width="650" height="30" rx="10" fill="#2a2f3a"/>
+    <rect x="678" y="66" width="650" height="12" fill="#2a2f3a"/>
+    <circle cx="698" cy="63" r="5.5" fill="#ff5f57"/><circle cx="716" cy="63" r="5.5" fill="#febc2e"/><circle cx="734" cy="63" r="5.5" fill="#28c840"/>
+    <text x="1003" y="68" text-anchor="middle" font-size="11" fill="#9aa4b2">体检营造自己（岁修之后）</text>
+
+    <g font-size="11" fill="#c8d0dc">
+      <text x="694" y="100" fill="#7ee787">$ </text><text x="708" y="100" fill="#e6edf3">inspect-skill.sh yingzao --target opensource</text>
+      <text x="694" y="122" fill="#8b949e">── 营造 · 规则预检 ──  目标: …/yingzao · opensource</text>
+      <text x="694" y="144" fill="#d2a8ff">【基础段 · 团队复用就绪度】</text>
+      <text x="694" y="164"><tspan fill="#3fb950">PASS</tspan>  SKILL.md 存在 · <tspan fill="#3fb950">PASS</tspan>  frontmatter 含 name</text>
+      <text x="694" y="184"><tspan fill="#3fb950">PASS</tspan>  description 触发语料充分（853c）</text>
+      <text x="694" y="204"><tspan fill="#3fb950">PASS</tspan>  SKILL.md 行数 146 ≤ 500</text>
+      <text x="694" y="224"><tspan fill="#3fb950">PASS</tspan>  引用链一层深 · <tspan fill="#3fb950">PASS</tspan>  代码栅栏闭合</text>
+      <text x="694" y="244"><tspan fill="#3fb950">PASS</tspan>  内链文件全部存在</text>
+      <text x="694" y="264"><tspan fill="#3fb950">PASS</tspan>  无占位符残留 · <tspan fill="#3fb950">PASS</tspan>  未发现疑似密钥文件</text>
+      <text x="694" y="284"><tspan fill="#3fb950">PASS</tspan>  存在独立测试资产文件（tests/ 四件套）</text>
+      <text x="694" y="310" fill="#d2a8ff">【传播段 · 开源发布就绪度】</text>
+      <text x="694" y="330"><tspan fill="#3fb950">PASS</tspan>  LICENSE 存在</text>
+      <text x="694" y="350"><tspan fill="#3fb950">PASS</tspan>  README 含安装与触发小节</text>
+      <text x="694" y="370"><tspan fill="#d29922">WARN</tspan>  [应该改] 缺 demo GIF/视频（你正在看的这张图就是答卷）</text>
+      <text x="694" y="390"><tspan fill="#3fb950">PASS</tspan>  README 含一行安装路径</text>
+      <text x="694" y="410"><tspan fill="#3fb950">PASS</tspan>  无 runtime 锁定措辞（中立性红灯零命中）</text>
+    </g>
+    <rect x="694" y="474" width="618" height="86" rx="8" fill="#15251b" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="710" y="504" font-size="12.5" fill="#e6edf3">── 汇总 ──  <tspan fill="#3fb950" font-weight="700">PASS: 14</tspan>   <tspan fill="#d29922" font-weight="700">WARN: 1</tspan>   <tspan fill="#3fb950" font-weight="700">FAIL: 0</tspan></text>
+    <text x="710" y="530" font-size="12.5" fill="#3fb950" font-weight="700">结论: 无必须改项——营造过了自己的门</text>
+    <text x="710" y="550" font-size="11" fill="#8b949e">零 token · 3 秒出结果 · 岁修 66 → 86.3 的起点就是左边那种报告</text>
+  </g>
+</svg>
