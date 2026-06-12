@@ -1,0 +1,103 @@
+<svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2c5f63"/>
+    </marker>
+    <marker id="a2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/>
+    </marker>
+    <marker id="a2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3a7d44"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1000" height="700" fill="#faf8f5"/>
+
+  <!-- 顶：P0 清单 -->
+  <rect x="330" y="28" width="340" height="52" rx="26" fill="#2c5f63"/>
+  <text x="500" y="60" text-anchor="middle" font-size="17" font-weight="700" fill="#ffffff">P0 差距清单驱动</text>
+
+  <path d="M500,80 L500,108" stroke="#2c5f63" stroke-width="2.4" marker-end="url(#a2)"/>
+
+  <!-- 改写 -->
+  <rect x="350" y="110" width="300" height="74" rx="10" fill="#ffffff" stroke="#2c5f63" stroke-width="2"/>
+  <text x="500" y="140" text-anchor="middle" font-size="17" font-weight="700" fill="#1f2937">改写一个变量</text>
+  <text x="500" y="164" text-anchor="middle" font-size="12.5" fill="#6b7280">单候选 ／ 比样 3 候选 Pareto 取优</text>
+
+  <path d="M500,184 L500,212" stroke="#2c5f63" stroke-width="2.4" marker-end="url(#a2)"/>
+
+  <!-- 盲评 -->
+  <rect x="350" y="214" width="300" height="74" rx="10" fill="#ffffff" stroke="#2c5f63" stroke-width="2"/>
+  <text x="500" y="244" text-anchor="middle" font-size="17" font-weight="700" fill="#1f2937">独立评委盲评</text>
+  <text x="500" y="268" text-anchor="middle" font-size="12.5" fill="#6b7280">改的人不打分 · 每轮换评委防锚定</text>
+
+  <path d="M500,288 L500,318" stroke="#2c5f63" stroke-width="2.4" marker-end="url(#a2)"/>
+
+  <!-- 验证门（门楼形） -->
+  <g>
+    <path d="M390,330 L390,318 Q390,308 400,308 L600,308 Q610,308 610,318 L610,330" fill="none" stroke="#b07d48" stroke-width="3"/>
+    <rect x="402" y="320" width="196" height="64" rx="6" fill="#fdf6ee" stroke="#b07d48" stroke-width="2.4"/>
+    <text x="500" y="348" text-anchor="middle" font-size="18" font-weight="800" fill="#8a5a28">验 证 门</text>
+    <text x="500" y="370" text-anchor="middle" font-size="12" fill="#8a5a28">测试结果严格优于原版？</text>
+    <text x="500" y="398" text-anchor="middle" font-size="10.5" fill="#b07d48">优势微弱 → 加跑一次边际复测，仍微弱判不过</text>
+  </g>
+
+  <!-- 过门 → 右支 -->
+  <path d="M610,352 L718,352" stroke="#3a7d44" stroke-width="2.4" marker-end="url(#a2g)"/>
+  <text x="638" y="342" font-size="13" font-weight="700" fill="#3a7d44">过门 ✓</text>
+
+  <rect x="720" y="316" width="236" height="72" rx="10" fill="#f0f7f1" stroke="#3a7d44" stroke-width="2"/>
+  <text x="838" y="346" text-anchor="middle" font-size="15.5" font-weight="700" fill="#2d5f36">落盘应用</text>
+  <text x="838" y="368" text-anchor="middle" font-size="11.5" fill="#4b6b51">正反 patch 留底 · 逐轮可回退</text>
+
+  <path d="M838,388 L838,428" stroke="#3a7d44" stroke-width="2.4" marker-end="url(#a2g)"/>
+
+  <!-- 终止判定 -->
+  <rect x="724" y="430" width="228" height="64" rx="10" fill="#ffffff" stroke="#3a7d44" stroke-width="1.8"/>
+  <text x="838" y="456" text-anchor="middle" font-size="13.5" font-weight="700" fill="#2d5f36">P0 清空？或单轮提升 &lt;1 分？</text>
+  <text x="838" y="478" text-anchor="middle" font-size="11" fill="#6b7280">（早停：不为"显得有产出"硬凑）</text>
+
+  <!-- 否→回改写 -->
+  <path d="M952,462 L976,462 L976,147 L652,147" stroke="#3a7d44" stroke-width="2" stroke-dasharray="7,5" fill="none" marker-end="url(#a2g)"/>
+  <text x="906" y="134" font-size="12" font-weight="600" fill="#3a7d44">否 → 继续下一轮</text>
+
+  <!-- 是→收工 -->
+  <path d="M838,494 L838,540" stroke="#3a7d44" stroke-width="2.4" marker-end="url(#a2g)"/>
+  <rect x="742" y="542" width="192" height="56" rx="28" fill="#3a7d44"/>
+  <text x="838" y="576" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">收工 → ⑦落成</text>
+
+  <!-- 不过门 → 左支 -->
+  <path d="M390,352 L282,352" stroke="#c0392b" stroke-width="2.4" marker-end="url(#a2r)"/>
+  <text x="318" y="342" font-size="13" font-weight="700" fill="#c0392b">不过 ✗</text>
+
+  <rect x="44" y="316" width="236" height="72" rx="10" fill="#fdf0ee" stroke="#c0392b" stroke-width="2"/>
+  <text x="162" y="346" text-anchor="middle" font-size="15.5" font-weight="700" fill="#a93226">丢弃该轮</text>
+  <text x="162" y="368" text-anchor="middle" font-size="11.5" fill="#8a5a52">棘轮：分数只升不降，绝不带病落盘</text>
+
+  <path d="M162,388 L162,428" stroke="#c0392b" stroke-width="2.4" marker-end="url(#a2r)"/>
+
+  <!-- 连续两轮判定 -->
+  <rect x="56" y="430" width="212" height="56" rx="10" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="162" y="464" text-anchor="middle" font-size="13.5" font-weight="700" fill="#a93226">连续两轮过不了门？</text>
+
+  <!-- 否→回改写 -->
+  <path d="M56,458 L24,458 L24,147 L348,147" stroke="#c0392b" stroke-width="2" stroke-dasharray="7,5" fill="none" marker-end="url(#a2r)"/>
+  <text x="36" y="134" font-size="12" font-weight="600" fill="#c0392b">否 → 换变量再试</text>
+
+  <!-- 是→落架 -->
+  <path d="M162,486 L162,530" stroke="#c0392b" stroke-width="2.4" marker-end="url(#a2r)"/>
+
+  <rect x="44" y="532" width="280" height="116" rx="10" fill="#fff" stroke="#c0392b" stroke-width="3"/>
+  <rect x="44" y="532" width="280" height="34" rx="10" fill="#c0392b"/>
+  <text x="184" y="555" text-anchor="middle" font-size="15" font-weight="800" fill="#ffffff">落架 · 推倒重写（卡死保险）</text>
+  <text x="184" y="586" text-anchor="middle" font-size="11.5" fill="#475569">微调爬不动的坡，拆了重盖翻过去</text>
+  <text x="184" y="606" text-anchor="middle" font-size="11.5" font-weight="700" fill="#a93226">须你授权 · 重写版同台对比</text>
+  <text x="184" y="626" text-anchor="middle" font-size="11.5" font-weight="700" fill="#a93226">赢了才换 · 输了恢复现版</text>
+
+  <!-- 落架→回盲评 -->
+  <path d="M324,590 L356,590 Q372,590 372,574 L372,304 Q372,292 384,288 L394,285" stroke="#c0392b" stroke-width="2" stroke-dasharray="7,5" fill="none" marker-end="url(#a2r)"/>
+  <text x="382" y="560" font-size="11.5" fill="#c0392b">重写版进盲评</text>
+
+  <!-- 底注 -->
+  <text x="500" y="676" text-anchor="middle" font-size="12.5" fill="#94a3b8">每轮实验全留档：改了什么 · 测试对比 · 过没过门 —— 随时可审计、可回退</text>
+</svg>

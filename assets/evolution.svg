@@ -1,0 +1,95 @@
+<svg viewBox="0 0 1080 560" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2c5f63"/>
+    </marker>
+    <marker id="a3w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b07d48"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1080" height="560" fill="#faf8f5"/>
+
+  <!-- 中心印章 -->
+  <g>
+    <rect x="468" y="232" width="144" height="96" rx="10" fill="#c0392b" opacity="0.94"/>
+    <rect x="476" y="240" width="128" height="80" rx="6" fill="none" stroke="#ffffff" stroke-width="1.6" opacity="0.85"/>
+    <text x="540" y="272" text-anchor="middle" font-size="21" font-weight="800" fill="#ffffff">越用越准</text>
+    <text x="540" y="300" text-anchor="middle" font-size="12" fill="#ffe8e4">当前岁修计数 3 / 5</text>
+  </g>
+
+  <!-- ===== 上行：左 → 右 ===== -->
+  <!-- 大修收尾 -->
+  <rect x="48" y="64" width="180" height="78" rx="10" fill="#ffffff" stroke="#2c5f63" stroke-width="2"/>
+  <text x="138" y="97" text-anchor="middle" font-size="16.5" font-weight="700" fill="#1f2937">每次大修收尾</text>
+  <text x="138" y="121" text-anchor="middle" font-size="12" fill="#6b7280">⑦落成之后</text>
+
+  <path d="M228,103 L274,103" stroke="#2c5f63" stroke-width="2.4" marker-end="url(#a3)"/>
+
+  <!-- 复盘 -->
+  <rect x="276" y="64" width="168" height="78" rx="10" fill="#ffffff" stroke="#2c5f63" stroke-width="2"/>
+  <text x="360" y="97" text-anchor="middle" font-size="16.5" font-weight="700" fill="#1f2937">30 秒复盘</text>
+  <text x="360" y="121" text-anchor="middle" font-size="12" fill="#6b7280">新套路？新坑？被纠正？</text>
+
+  <path d="M444,103 L490,103" stroke="#2c5f63" stroke-width="2.4" marker-end="url(#a3)"/>
+
+  <!-- 双轨（上下两小卡） -->
+  <g>
+    <rect x="492" y="40" width="280" height="60" rx="9" fill="#eef6f5" stroke="#2c5f63" stroke-width="1.8"/>
+    <text x="632" y="64" text-anchor="middle" font-size="13.5" font-weight="700" fill="#2c5f63">轨一 · 台账直写（git 可审计）</text>
+    <text x="632" y="86" text-anchor="middle" font-size="11" fill="#475569">case-log 逐轮分数序列 + 模式标签</text>
+
+    <rect x="492" y="108" width="280" height="60" rx="9" fill="#fdf6ee" stroke="#b07d48" stroke-width="1.8"/>
+    <text x="632" y="132" text-anchor="middle" font-size="13.5" font-weight="700" fill="#8a5a28">轨二 · 行为规则变更走候选 diff</text>
+    <text x="632" y="154" text-anchor="middle" font-size="11" fill="#8a5a28">等你确认才写——不悄悄变成另一个工具</text>
+  </g>
+
+  <path d="M772,103 L818,103" stroke="#2c5f63" stroke-width="2.4" marker-end="url(#a3)"/>
+
+  <!-- 计数器 -->
+  <rect x="820" y="64" width="180" height="78" rx="10" fill="#ffffff" stroke="#2c5f63" stroke-width="2"/>
+  <text x="910" y="93" text-anchor="middle" font-size="16" font-weight="700" fill="#1f2937">台账满 5 个？</text>
+  <g>
+    <circle cx="862" cy="118" r="8" fill="#c0392b"/>
+    <circle cx="886" cy="118" r="8" fill="#c0392b"/>
+    <circle cx="910" cy="118" r="8" fill="#c0392b"/>
+    <circle cx="934" cy="118" r="8" fill="none" stroke="#cbd5e1" stroke-width="2"/>
+    <circle cx="958" cy="118" r="8" fill="none" stroke="#cbd5e1" stroke-width="2"/>
+  </g>
+
+  <!-- 右弯下行 -->
+  <path d="M1000,103 L1024,103 Q1040,103 1040,119 L1040,272 Q1040,288 1024,288 L1004,288" stroke="#b07d48" stroke-width="2.6" fill="none" marker-end="url(#a3w)"/>
+  <text x="1052" y="200" font-size="13" font-weight="700" fill="#b07d48" writing-mode="tb">满 五 触 发</text>
+
+  <!-- ===== 岁修大卡（右中） ===== -->
+  <rect x="744" y="240" width="258" height="118" rx="10" fill="#ffffff" stroke="#b07d48" stroke-width="3"/>
+  <rect x="744" y="240" width="258" height="36" rx="10" fill="#b07d48"/>
+  <text x="873" y="264" text-anchor="middle" font-size="16" font-weight="800" fill="#ffffff">岁修 · 用自己大修自己</text>
+  <text x="873" y="298" text-anchor="middle" font-size="12" fill="#475569">同一套七步 · 同一把九维尺子</text>
+  <text x="873" y="318" text-anchor="middle" font-size="12" fill="#475569">按开源标准自检 · 陌生用户视角验收</text>
+  <text x="873" y="340" text-anchor="middle" font-size="11.5" font-weight="700" fill="#8a5a28">自己不能既当裁判又当运动员</text>
+
+  <!-- 岁修 → 校准 -->
+  <path d="M873,358 L873,400" stroke="#b07d48" stroke-width="2.6" marker-end="url(#a3w)"/>
+
+  <!-- ===== 下行：右 → 左 ===== -->
+  <rect x="744" y="402" width="258" height="76" rx="10" fill="#eef6f5" stroke="#2c5f63" stroke-width="2"/>
+  <text x="873" y="433" text-anchor="middle" font-size="15.5" font-weight="700" fill="#2c5f63">实测数据校准九维权重</text>
+  <text x="873" y="457" text-anchor="middle" font-size="11.5" fill="#475569">哪类改动最常见 · 哪类提分最大</text>
+
+  <path d="M744,440 L562,440" stroke="#2c5f63" stroke-width="2.4" marker-end="url(#a3)"/>
+
+  <rect x="320" y="402" width="240" height="76" rx="38" fill="#f1efe9" stroke="#9aa6b2" stroke-width="1.6"/>
+  <text x="440" y="433" text-anchor="middle" font-size="15" font-weight="700" fill="#475569">尺子越用越准</text>
+  <text x="440" y="457" text-anchor="middle" font-size="11.5" fill="#6b7280">修得越多，对你团队越准</text>
+
+  <!-- 左弯回起点 -->
+  <path d="M320,440 L120,440 Q104,440 104,424 L104,160 Q104,146 118,144 L130,143" stroke="#2c5f63" stroke-width="2.4" fill="none" stroke-dasharray="8,6" marker-end="url(#a3)"/>
+  <text x="116" y="300" font-size="13" font-weight="700" fill="#2c5f63" writing-mode="tb">回 到 下 一 场 大 修</text>
+
+  <!-- 两个已发生实例（左下角注脚） -->
+  <g>
+    <rect x="48" y="496" width="984" height="44" rx="8" fill="#ffffff" stroke="#e2e0da" stroke-width="1.4"/>
+    <text x="64" y="523" font-size="12" fill="#6b7280"><tspan font-weight="700" fill="#475569">已发生的进化：</tspan>「跨 skill 相对路径」入账后批量体检一抓一个准（命中 ×3）　·　裸基线抓出永真判据 → 「测试必须锚定 skill 专属资产」成为新纪律</text>
+  </g>
+</svg>
