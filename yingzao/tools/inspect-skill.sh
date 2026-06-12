@@ -188,6 +188,24 @@ else
   prop_gap warn "缺一行安装命令——安装摩擦未消除"
 fi
 
+# P5. Runtime 中立性红灯（锁定单一 runtime 的措辞会让其他 agent/runtime 解析时判「不是给我用的」直接拒装）
+# 只扫锁定性措辞，不扫路径本身（多平台路径并列是正当的）；frontmatter 触发词区豁免
+RT_PATTERN='在 (Claude Code|Cursor|Codex) (里|中)|(Claude Code|Cursor|Codex) (skill|专用|用户专属)|(仅|只)(支持|适用于|限) ?(Claude Code|Cursor|Codex|Gemini CLI)|(Claude Code|Cursor|Codex) only'
+RT_HITS=0
+for doc in "$SKILL_MD" "$README"; do
+  [ -n "$doc" ] && [ -f "$doc" ] || continue
+  if [ "$doc" = "$SKILL_MD" ]; then
+    HITS=$(awk 'BEGIN{fm=0} /^---$/{fm++; next} fm!=1' "$doc" | grep -cE "$RT_PATTERN" 2>/dev/null) || HITS=0
+  else
+    HITS=$(grep -cE "$RT_PATTERN" "$doc" 2>/dev/null) || HITS=0
+  fi
+  if [ "$HITS" -gt 0 ]; then
+    prop_gap warn "runtime 锁定措辞 ×${HITS}（${doc##*/}）——改为 runtime 中立表述或显式标注「runtime-specific」章节，否则跨 runtime 分发会被拒装"
+    RT_HITS=$((RT_HITS+HITS))
+  fi
+done
+[ "$RT_HITS" -eq 0 ] && pass "无 runtime 锁定措辞（中立性红灯零命中）"
+
 echo ""
 echo "── 汇总 ──"
 echo "PASS: $PASS_N   WARN: $WARN_N   FAIL: $FAIL_N   INFO: $INFO_N"
