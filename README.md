@@ -257,7 +257,13 @@ yingzao/
 > Microsoft Research. *SkillOpt: Executive Strategy for Self-Evolving Agent Skills.* [arXiv:2605.23904](https://arxiv.org/abs/2605.23904), 2026.
 > —— validation-gated edits 形式化框架；营造的验证门 / 单变量 / 早停 / 估分比例告警与其对齐。
 
-> [darwin-skill](https://github.com/alchaincyf/darwin-skill) —— 同谱系的自动优化器。v1.1 对标后吸收 Runtime 中立性检查、分数序列台账、探索性重写三机制（吸收记录见 SKILL.md Changelog）。两者哲学分叉：darwin 信任自动循环，营造信任使用者——所有写入必经祈使授权。
+> GEPA. [arXiv:2507.19457](https://arxiv.org/abs/2507.19457) · [gepa-ai/gepa](https://github.com/gepa-ai/gepa)（ICLR 收录的反思式提示词演化工作，现为 DSPy 内置优化器）。
+> —— Pareto 候选选择的来源：营造「比样」模式的逐实例胜负面对比——总分更高但在某个测试上明显崩坏的候选不得入选——防的就是单标量陷阱。
+
+> Anthropic. [*Skill authoring best practices*](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)（官方文档）。
+> —— 规则预检脚本的结构检查清单（行数预算 / 引用一层深 / 触发词质量）参考其 Core quality checklist；「evaluation-driven development——先建评估、再动笔改」的理念与营造的备样前置同源。
+
+> [darwin-skill](https://github.com/alchaincyf/darwin-skill) —— 同谱系的自动优化器，其棘轮机制自述源自 [Karpathy autoresearch](https://github.com/karpathy/autoresearch) 的「只保留被测量证实的改进」——这条思想链（autoresearch → darwin → 营造）是棘轮纪律的完整谱系。v1.1 对标后吸收 Runtime 中立性检查、分数序列台账、探索性重写三机制（吸收记录见 SKILL.md Changelog）。两者哲学分叉：darwin 信任自动循环，营造信任使用者——所有写入必经祈使授权。
 
 ## License
 
