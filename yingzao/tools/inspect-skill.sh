@@ -100,15 +100,15 @@ else
     fail "代码栅栏不闭合（\`\`\` × ${FENCE}，奇数）——渲染会整段错乱"
   fi
 
-  # 5. 内链文件存在性（SKILL.md 中提到的 references/templates/scripts|tools 路径）
+  # 5. 内链文件存在性（只认带扩展名的真实文件路径，避免把并列列举文字当路径）
   MISS_LINK=0
-  for p in $(grep -oE '(references|templates|scripts|tools)/[A-Za-z0-9._/-]+' "$SKILL_MD" 2>/dev/null | sort -u); do
+  for p in $(grep -oE '(references|templates|scripts|tools)/[A-Za-z0-9._-]+\.(md|sh|json|py|yaml|yml|txt)' "$SKILL_MD" 2>/dev/null | sort -u); do
     if [ ! -e "$SKILL_DIR/$p" ]; then
       fail "内链文件不存在: $p"
       MISS_LINK=1
     fi
   done
-  [ "$MISS_LINK" -eq 0 ] && pass "内链文件全部存在"
+  [ "$MISS_LINK" -eq 0 ] && pass "内链文件全部存在（带扩展名路径）"
 
   # 6. 占位符残留（术语一致性深检交 LLM 勘验）
   PLACEHOLDER=$(grep -cE 'TODO|TBD|FIXME|【待填|\[待定' "$SKILL_MD" 2>/dev/null) || PLACEHOLDER=0
