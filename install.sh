@@ -6,8 +6,8 @@
 #   ./install.sh cursor --project /path/...   # 装到指定项目的 .cursor-plugin/
 #   ./install.sh codex                        # 装到 ~/.codex/skills/
 #   ./install.sh opencode --project /path/... # 装到指定项目的 .opencode/
-# 重装保护：references/case-log.md 与 case-map.local.md 是运行期本地状态（打磨台账与映射），
-#           重装时自动备份并还原，不会被源仓版本覆盖。
+# 重装保护：case-map.local.md（含岁修计数）为运行期本地状态，无条件还原；case-log.md 随仓
+#           部分=公开战绩证据，本地新增台账行多于源仓时保本地（详见 case-log.md 头注释）。
 
 set -euo pipefail
 
@@ -67,14 +67,15 @@ install_skills_to() {  # $1 = 目标根目录
                 cp "$tmp_state/case-map.local.md" "$dest/references/case-map.local.md"
                 restored="映射"
             fi
-            # case-log.md：保「已大修 skill 数」计数更大的一方（本地新=纯使用者运行态；源仓新=开发侧已更新）
+            # case-log.md：保台账行数多的一方（v1.2 起岁修计数器在 case-map.local.md，上行已无条件还原——
+            # 计数即运行态随映射文件走，新装机器天然从 0 起；此处只比台账证据行数，防丢使用者本地新增记录）
             if [[ -f "$tmp_state/case-log.md" && -f "$dest/references/case-log.md" ]]; then
                 local n_local n_src
-                n_local=$(grep -oE '已大修 skill 数：[0-9]+' "$tmp_state/case-log.md" | grep -oE '[0-9]+' || echo 0)
-                n_src=$(grep -oE '已大修 skill 数：[0-9]+' "$dest/references/case-log.md" | grep -oE '[0-9]+' || echo 0)
+                n_local=$(grep -cE '^\| Y-[0-9]+' "$tmp_state/case-log.md" 2>/dev/null || echo 0)
+                n_src=$(grep -cE '^\| Y-[0-9]+' "$dest/references/case-log.md" 2>/dev/null || echo 0)
                 if [[ "${n_local:-0}" -gt "${n_src:-0}" ]]; then
                     cp "$tmp_state/case-log.md" "$dest/references/case-log.md"
-                    restored="${restored:+$restored+}台账(本地计数 $n_local > 源仓 $n_src)"
+                    restored="${restored:+$restored+}台账(本地 $n_local 行 > 源仓 $n_src 行)"
                 fi
             fi
             rm -rf "$tmp_state"
@@ -107,12 +108,14 @@ case "$PLATFORM" in
         install_skills_to "$PROJECT_DIR/.cursor-plugin/yingzao"
         PLUGIN_JSON="$PROJECT_DIR/.cursor-plugin/plugin.json"
         if [[ ! -f "$PLUGIN_JSON" ]]; then
+            # 版本号从 SKILL.md Changelog 首行动态读取（真相源唯一，防硬编码漂移）
+            YZ_VERSION=$(grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' "$SCRIPT_DIR/yingzao/SKILL.md" | head -1 | tr -d 'v')
             cat > "$PLUGIN_JSON" <<EOF
 {
   "name": "yingzao",
   "displayName": "营造 yingzao",
   "description": "Skill 打磨工坊：查勘快检 + 大修全流程，把能用的 skill 打磨到能交付",
-  "version": "1.0.0",
+  "version": "${YZ_VERSION:-1.2}",
   "skills": "./yingzao/"
 }
 EOF

@@ -5,10 +5,10 @@
 **把"自己能用"的 Agent Skill，打磨成"别人敢用"的资产。**
 
 借中国古建营造的工序意象——查勘、大修、落成、岁修——把 Skill 优化做成一门有验收标准的手艺。
-**v1.1** · 更新于 2026-06-12 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
+**v1.2** · 更新于 2026-06-13 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.1-blue.svg)](#whats-new-in-v11)
+[![Version](https://img.shields.io/badge/version-1.2-blue.svg)](#whats-new-in-v12岁修)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-Compatible-blueviolet)](#快速开始)
 [![Multi Runtime](https://img.shields.io/badge/Multi--Runtime-4%20platforms-green)](#快速开始)
 
@@ -20,7 +20,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 
 ---
 
-> **真实战绩**：三场大修全过验证门——**65→72.5、74→84、58.5→75.5（平均 +11.5 分）**；装载版实测 29/30 vs 裸 AI 11/30。每一分都有独立评审证据，每一轮都可回退。（三场明细见下文[真实战绩](#真实战绩三场大修一场没输)）
+> **真实战绩**：五场大修全过验证门——**65→72.5、74→84、58.5→75.5、61→~85、58→83（平均 +16.7 分）**；装载版实测 29/30 vs 裸 AI 11/30。每一分都有独立评审证据（逐轮序列随仓可查：`yingzao/references/case-log.md`），每一轮都可回退。（五场明细见下文[真实战绩](#真实战绩五场大修一场没输)）
 
 ## 你是否遇到过这些情况
 
@@ -36,9 +36,21 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 | 你得到 | 形式 | 价值 |
 |--------|------|------|
 | **一页体检报告** | 九维评分 + 问题清单 + 一句话建议 | 10 分钟知道自己的 skill 几斤几两、最该先修什么 |
-| **一个被实际改好的 skill** | 按差距清单逐项动手优化——修断链、清矛盾、补测试、优化触发词、重排结构……每轮改动经你授权落盘 | **不是一份建议清单，是动完手、提了分的成品**（三场实战：65→72.5 / 74→84 / 58.5→75.5，见下文战绩） |
+| **一个被实际改好的 skill** | 按差距清单逐项动手优化——修断链、清矛盾、补测试、优化触发词、重排结构……每轮改动经你授权落盘 | **不是一份建议清单，是动完手、提了分的成品**（五场实战平均 +16.7 分，见下文战绩） |
 | **全程证据链** | 独立评审打分 + 改前/改后测试实跑对比 + 每轮 patch 可回退 | "变好了"不靠感觉，靠数据；改坏了随时退回任意一轮 |
 | **可复跑的测试资产** | 留在你 skill 里的 tests/ 目录 | 以后任何人（包括 AI）再改这个 skill，跑一下测试就知道改好还是改坏 |
+
+## What's New in v1.2（岁修）
+
+营造首次**用自己打磨自己**——台账满 5 场触发岁修制度，陌生用户视角独立盲评给营造自己量出 66 分（毛坯），抓出 5 处「要求别人做到而自己失守」的自指缺口，全部修复：
+
+| 修复 | 内容 |
+|------|------|
+| **自己先过自己的门** | 自身 tests/ 四件套从零建（含密钥哨兵自证陷阱的病体 fixture）+ 自检 FAIL 清零 |
+| **评分公式数学 bug** | 形态加权旧算法在 2/4 形态下产生负权重——改为全表等比归一，任何形态恒合法 |
+| **出厂态/运行态分离** | 岁修计数器迁入本地文件，新装机器从 0 起计不继承作者状态；随仓台账明确为公开战绩证据 |
+| **真相源收敛** | 版本号三处统一、战绩 3→5 场、装载副本死链修复 |
+| **Harness 加固** | 「同 cwd 裸基线必污染」入红线第 17 条（Y-009 实测教训：裸基线必须禁读 skill 目录/剥离全局注入，否则增益只配估分） |
 
 ## What's New in v1.1
 
@@ -171,7 +183,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 
 ## 越用越准：营造的自我进化（双轨）
 
-营造不是一把出厂后就定型的尺子——它有制度化的进化机制，而且**正在发生**（当前岁修计数 3/5）：
+营造不是一把出厂后就定型的尺子——它有制度化的进化机制，而且**已经兑现过**（台账满 5 场触发了首次岁修：营造用大修档打磨自己，盲评 66 起修——见上方 What's New in v1.2；你的本机计数从 0 起，存本地文件不随仓）：
 
 <img src="assets/evolution.svg" alt="自我进化双轨飞轮：复盘→台账/候选diff→满5触发岁修→校准权重→回到下一场大修" width="100%">
 
@@ -185,15 +197,17 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 **数据飞轮**
 台账积累的每条记录（什么形态的 skill / 逐轮改了什么 / 每轮提了多少分）都是校准素材——当前九维权重是参考实证研究的启发式起点，**攒够真实案例后会用实测数据重新校准权重**。也就是说：你用它修的 skill 越多，这把尺子对你团队就越准。
 
-## 真实战绩：三场大修，一场没输
+## 真实战绩：五场大修，一场没输
 
-同一天、同一套流程、三种不同形态的 skill（2026-06-12，分数均为独立评委盲评、每场换评委）：
+同一套流程、四种不同形态的 skill（2026-06-12 起，分数均为独立评委盲评、每场换评委，逐轮序列在随仓台账 `yingzao/references/case-log.md` 可查）：
 
 | skill | 形态 | 打磨前 → 后 | 关键动作 |
 |-------|------|------------|----------|
 | prd-writer | 工作流型 | 65 → **72.5**（+ 装载实测 29/30 vs 裸 AI 11/30） | 测试资产从零建 · 一致性修复 19 处 · 节序重排 |
 | prd-reviewer | 流程纪律型 | 74 → **84** | golden 样例路径 bug 修复 · 四组样例两关盲测实绩全齐 · lite 门禁 fixture 从零建 |
 | saas-arch-diagrams | 方法论型 | 58.5 → **75.5**（毛坯翻身进可用区） | source-of-truth 矛盾裁决 · 幽灵 class 修正 · 模板复制即用化 |
+| saas-prototype-design | 方法论+风格型 | 61 → **~85**（盲评 2 题实测 6→9.5 / 8.5→9.5） | 主工作流从零建 · 死链补骨架 · 双真相源收敛 · README 出门 |
+| pm-wiki-maintainer | 工作流型 | 58 → **83**（装载实测 T2/T3 全判据过） | decisions 粒度矛盾裁决 · 骨架自举从零建 · 跨 skill 死链修复 · wiki 根探测对齐 |
 
 两个最说明问题的瞬间：
 
@@ -239,9 +253,10 @@ yingzao/
 ├── references/
 │   ├── scoring.md        # 九维评分细则 + 形态权重 + 单文件适配
 │   ├── roles.md          # 岗位画像 + 团队内部源 + 发布目标
-│   ├── anti-patterns.md  # 16 条红线（营造自己不许犯的错）
+│   ├── anti-patterns.md  # 17 条红线（营造自己不许犯的错）
 │   └── case-log.md       # 打磨台账（脱敏 + 逐轮分数序列）+ 岁修计数器
 ├── tools/inspect-skill.sh    # 规则预检脚本：零 token、秒级、可挂 CI
+├── tests/                    # 自身测试资产：三条四件套 + 病体 fixture（含密钥哨兵）+ 判分 key
 └── templates/                # 查勘/大修报告模板
 ```
 

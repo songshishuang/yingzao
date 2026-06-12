@@ -4,7 +4,7 @@
 # 用法: inspect-skill.sh <skill-dir> [--target internal|opensource]
 #   <skill-dir> 为含 SKILL.md 的目录（单文件 skill 同样适用）
 # 输出: 每条 PASS/WARN/FAIL/INFO + 严重度（必须改/应该改/最佳实践）；FAIL>0 时 exit 1
-# 设计依据: docs/superpowers/specs/2026-06-12-yingzao-skill-polisher-design.md §5.1
+# 设计依据: 源仓库 docs/ 下设计文档 §5.1（github.com/songshishuang/yingzao；装载副本不含 docs/）
 # 注: 术语一致性的语义深检由 LLM 勘验承担；本脚本负责确定性可判项（含占位符残留扫描）。
 set -euo pipefail
 
@@ -101,10 +101,13 @@ else
   fi
 
   # 5. 内链文件存在性（只认带扩展名的真实文件路径，避免把并列列举文字当路径）
-  # 注: 扩展名白名单曾缺 html/css/js/csv，导致 templates/page-skeleton.html 死链漏检（Y-008 大修实测）。
-  #     扫描范围 = SKILL.md 正文；references 内交叉引用因相对路径基准不一暂不扫（边界留岁修）。
+  # 注: 扩展名白名单曾缺 html/css/js/csv，导致死链漏检（Y-008 大修实测，扩展名见下行正则）。
+  #     扫描范围 = SKILL.md 正文且止于 "## Changelog"——Changelog 是叙述区，提及的历史/示例路径
+  #     不构成本 skill 内链（叙述性路径误报三案后的治本规则，Y-010 岁修）。
+  #     references 内交叉引用因相对路径基准不一暂不扫（边界留岁修）。
   MISS_LINK=0
-  for p in $(grep -oE '(references|templates|scripts|tools|assets)/[A-Za-z0-9._-]+\.(md|sh|json|py|yaml|yml|txt|html|css|js|csv|png|svg|gif)' "$SKILL_MD" 2>/dev/null | sort -u); do
+  BODY_PRECHANGELOG=$(awk '/^## Changelog/{exit} {print}' "$SKILL_MD")
+  for p in $(printf '%s' "$BODY_PRECHANGELOG" | grep -oE '(references|templates|scripts|tools|assets)/[A-Za-z0-9._-]+\.(md|sh|json|py|yaml|yml|txt|html|css|js|csv|png|svg|gif)' | sort -u); do
     if [ ! -e "$SKILL_DIR/$p" ]; then
       fail "内链文件不存在: $p"
       MISS_LINK=1
@@ -124,8 +127,9 @@ fi
 # 7. 疑似密钥文件扫描（只报存在，不读内容）
 # 注: '*token*' 会撞前端「设计令牌」术语家族（tokens.css / design-tokens.md）——Y-008 大修实测误报，
 #     按命名白名单排除；真密钥文件（api_token / access-token / *.key 等）仍命中。
+#     tests/fixtures/ 整目录豁免——测试夹具的病灶是故意预埋的教具，不计宿主体检（Y-010 岁修）。
 SECRET_HIT=0
-for f in $(find "$SKILL_DIR" \( -name .git -o -name node_modules \) -prune -o \
+for f in $(find "$SKILL_DIR" \( -name .git -o -name node_modules -o -path '*/tests/fixtures' \) -prune -o \
   \( -name '.env' -o -name '*.pem' -o -name 'id_rsa' -o -name '*token*' -o -name '*.key' \) -type f -print 2>/dev/null | head -8); do
   base=$(basename "$f")
   case "$base" in
@@ -138,7 +142,9 @@ done
 
 # 8. 测试资产存在性（只认独立测试文件——正文提及"测试 prompt"不算资产，防自述蒙混）
 HAS_TEST=0
-if find "$SKILL_DIR" \( -name .git \) -prune -o \( -iname '*test*prompt*' -o -iname 'test-prompts*' -o -iname 'evals*' -o -path '*/tests/*' \) -type f -print 2>/dev/null | grep -q .; then
+# 注: 路径匹配以 $SKILL_DIR 为根的相对路径（cd 后 find .）——绝对路径匹配 '*/tests/*' 会在
+#     查勘对象本身位于宿主 tests/ 树下（如 fixtures 教具）时恒假阳性（Y-010 实测实例反向发现）。
+if (cd "$SKILL_DIR" && find . \( -name .git \) -prune -o \( -iname '*test*prompt*' -o -iname 'test-prompts*' -o -iname 'evals*' -o -path './tests/*' \) -type f -print 2>/dev/null) | grep -q .; then
   HAS_TEST=1
 fi
 if [ "$HAS_TEST" -eq 1 ]; then
@@ -174,7 +180,7 @@ if [ -n "$README" ]; then
     prop_gap warn "README 缺安装/触发方式小节——首屏 10 秒讲不清"
   fi
 else
-  prop_gap fail "无 README——开源目标下首屏信任无从谈起"
+  prop_gap fail "无 README——开源目标下首屏信任无从谈起（若本目录是装载副本而非发行仓库根：传播段检查请对源仓跑，或改用 --target internal）"
 fi
 
 # P3. demo 视觉产物及录制脚本
