@@ -140,5 +140,6 @@ P0（不补无法交付/公开）/ P1（补上显著提升安装率与信任）/
 
 ## Changelog
 
+- **2026-06-12 · v1.1.1** — inspect-skill.sh 双 bug 修复（Y-008 大修 saas-prototype-design 反向发现，使用者授权）：① 密钥扫描 `*token*` 误伤前端「设计令牌」家族（tokens.css / design-tokens.md）——按命名白名单排除，真密钥（api_token 等）仍命中；② 内链存在性检查的扩展名白名单缺 html/css/js/csv 导致 `templates/page-skeleton.html` 死链漏检——白名单补全 + assets/ 前缀；三方验证（死链 fixture FAIL ✓ / 真密钥 FAIL ✓ / 设计令牌不报 ✓）。references 内交叉引用扫描因相对路径基准不一留岁修。
 - **2026-06-12 · v1.1** — 对标 darwin-skill 2.0 吸收三机制并营造化：① 规则预检新增 **Runtime 中立性红灯**（P5，锁定单一 runtime 的措辞跨 runtime 分发会被拒装）；② case-log 台账 **分数序列纪律**（逐轮分数+变量+估分标记，岁修可归因哪类改动提分最大）；③ 细作新增 **落架 · 探索性重写**（连续两轮不过门时的卡死保险，强制停手授权、落架不破棘轮，停手点⑦）。
 - **2026-06-12 · v1.0** — 初始版。设计蒸馏自团队场景需求（双档分流 / 形态×岗位×发布目标三输入 / 团队内部源 / 非 git 三层版本保护 / 双标制术语），机制吸收社区方法论实证（九维评分谱系 / 盲评分离 / 棘轮早停 / 验证门 / Pareto 比样 / 执行 harness 与安全闸），经 5 轮外部审核 34 条意见闭环。设计文档：docs/superpowers/specs/2026-06-12-yingzao-skill-polisher-design.md。

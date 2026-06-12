@@ -101,8 +101,10 @@ else
   fi
 
   # 5. 内链文件存在性（只认带扩展名的真实文件路径，避免把并列列举文字当路径）
+  # 注: 扩展名白名单曾缺 html/css/js/csv，导致 templates/page-skeleton.html 死链漏检（Y-008 大修实测）。
+  #     扫描范围 = SKILL.md 正文；references 内交叉引用因相对路径基准不一暂不扫（边界留岁修）。
   MISS_LINK=0
-  for p in $(grep -oE '(references|templates|scripts|tools)/[A-Za-z0-9._-]+\.(md|sh|json|py|yaml|yml|txt)' "$SKILL_MD" 2>/dev/null | sort -u); do
+  for p in $(grep -oE '(references|templates|scripts|tools|assets)/[A-Za-z0-9._-]+\.(md|sh|json|py|yaml|yml|txt|html|css|js|csv|png|svg|gif)' "$SKILL_MD" 2>/dev/null | sort -u); do
     if [ ! -e "$SKILL_DIR/$p" ]; then
       fail "内链文件不存在: $p"
       MISS_LINK=1
@@ -120,9 +122,15 @@ else
 fi
 
 # 7. 疑似密钥文件扫描（只报存在，不读内容）
+# 注: '*token*' 会撞前端「设计令牌」术语家族（tokens.css / design-tokens.md）——Y-008 大修实测误报，
+#     按命名白名单排除；真密钥文件（api_token / access-token / *.key 等）仍命中。
 SECRET_HIT=0
 for f in $(find "$SKILL_DIR" \( -name .git -o -name node_modules \) -prune -o \
-  \( -name '.env' -o -name '*.pem' -o -name 'id_rsa' -o -name '*token*' -o -name '*.key' \) -type f -print 2>/dev/null | head -5); do
+  \( -name '.env' -o -name '*.pem' -o -name 'id_rsa' -o -name '*token*' -o -name '*.key' \) -type f -print 2>/dev/null | head -8); do
+  base=$(basename "$f")
+  case "$base" in
+    tokens.css|tokens.json|*design-token*|*design_token*|*-tokens.md|*-tokens.css) continue ;;  # 设计令牌，非密钥
+  esac
   fail "疑似密钥文件: ${f#"$SKILL_DIR"/}（公开前必须移除；本脚本不读其内容）"
   SECRET_HIT=1
 done
