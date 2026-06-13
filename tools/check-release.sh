@@ -31,6 +31,12 @@ tbl=$(grep -oE '→ \*\*[~]?[0-9]{2,}(\.[0-9])?\*\*' README.md | sed -E 's/→ \
 if [ -n "$sub" ] && [ "$sub" = "$tbl" ]; then ok "README 战绩自洽（副标题 = 战绩表后分: $sub）"
 else bad "README 战绩不自洽 — 副标题[$sub] vs 战绩表[$tbl]"; fi
 
+# 5b. README 平均分自洽：所有「平均 +N 分」文字必须同值（堵手写平均分漂移——确定性脚本此前的盲区）
+avg_uniq=$(grep -oE '平均 \+[0-9]+(\.[0-9])? 分' README.md | sort -u || true)
+avg_n=$(printf '%s\n' "$avg_uniq" | sed '/^$/d' | wc -l | tr -d ' ')
+if [ "$avg_n" -le 1 ]; then ok "README 平均分自洽（$(printf '%s' "$avg_uniq" | tr '\n' ' ')）"
+else bad "README 平均分不一致 — $(printf '%s' "$avg_uniq" | tr '\n' ' / ')"; fi
+
 # 6. baseline.lock 是最新的（核心改动后须 gen-baseline 重新生成，否则完整性哨兵基线过期）
 if bash yingzao/tools/gen-baseline.sh --check >/dev/null 2>&1; then ok "baseline.lock 是最新的（核心完整性基线）"; else bad "baseline.lock 已过期——运行 bash yingzao/tools/gen-baseline.sh 重新生成"; fi
 

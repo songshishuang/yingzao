@@ -107,13 +107,13 @@ case "$PLATFORM" in
         PLUGIN_JSON="$PROJECT_DIR/.cursor-plugin/plugin.json"
         if [[ ! -f "$PLUGIN_JSON" ]]; then
             # 版本号从 VERSION 文件读取（唯一真相源，check-release.sh 校验四处一致）
-            YZ_VERSION=$(tr -d ' \n' < "$SCRIPT_DIR/VERSION" 2>/dev/null || echo "1.3.0")
+            YZ_VERSION=$(tr -d ' \n' < "$SCRIPT_DIR/VERSION" 2>/dev/null || echo "")
             cat > "$PLUGIN_JSON" <<EOF
 {
   "name": "yingzao",
   "displayName": "营造 yingzao",
   "description": "Skill 打磨工坊：查勘快检 + 大修全流程，把能用的 skill 打磨到能交付",
-  "version": "${YZ_VERSION:-1.2}",
+  "version": "${YZ_VERSION:-0.0.0}",
   "skills": "./yingzao/"
 }
 EOF
