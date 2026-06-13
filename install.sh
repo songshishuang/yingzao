@@ -4,7 +4,7 @@
 #   ./install.sh                              # 装到 Claude Code (~/.claude/skills/)
 #   ./install.sh claude-code                  # 同上
 #   ./install.sh cursor --project /path/...   # 装到指定项目的 .cursor-plugin/
-#   ./install.sh codex                        # 装到 ~/.codex/skills/
+#   ./install.sh codex                        # 装到 ~/.agents/skills/（Codex 官方用户级路径）
 #   ./install.sh opencode --project /path/... # 装到指定项目的 .opencode/
 # 重装保护（v1.4 分层）：本地扩展层 *.local.md 无条件保留使用者积累；主线核心（含 case-log.md
 #           作者公开战绩）随仓覆盖。case-map.local.md 含真实路径，源端无条件删除（隐私闸）。
@@ -30,8 +30,8 @@ while [[ $# -gt 0 ]]; do
 支持平台:
   claude-code    安装到 ~/.claude/skills/（用户全局，默认）
   cursor         安装到 <project>/.cursor-plugin/yingzao/ (必须 --project)
-  codex          探测式：~/.codex/skills/ 已存在则装入，否则按官方约定创建；
-                 若你的 Codex 用其他目录体系（如 plugins/ + AGENTS.md），用 --dest 指定
+  codex          装到 ~/.agents/skills/（Codex 官方用户级标准路径，放入即自动发现）；
+                 ~/.codex/ 存在时兼容补装 ~/.codex/skills/；仍不识别用 --dest 指定
   opencode       安装到 <project>/.opencode/plugins/yingzao/ (必须 --project)
 
 通用选项:
@@ -130,17 +130,19 @@ EOF
         fi
         ;;
     codex)
-        # Codex 各版本/配置的目录约定不一，探测式选路：
-        # 机器上 ~/.codex/skills/ 已存在（说明本机 Codex 认这个约定）→ 装入；
-        # 不存在 → 按当前官方约定创建 skills/ 并提示核对；
-        # 用 plugins/ + AGENTS.md 体系的环境 → ./install.sh codex --dest ~/.codex/plugins/yingzao
-        if [[ -d "$HOME/.codex/skills" ]]; then
+        # Codex Agent Skills（2025.12+）用户级标准路径 = ~/.agents/skills/
+        #   （OpenAI 官方 developers.openai.com/codex/skills 与 /concepts/customization 双处确认）。
+        # 加载机制：放入即自动发现；若未出现，重启 Codex 触发 skill 目录 rescan，无需改 config.toml。
+        # 旧版/部分第三方文档用 ~/.codex/skills/：官方路径为主，~/.codex/ 存在时补装一份兼容，
+        #   Codex 只加载它认的那个，不冲突。仍不识别的环境用 --dest 逃生门。
+        install_skills_to "$HOME/.agents/skills"
+        if [[ -d "$HOME/.codex" ]]; then
             install_skills_to "$HOME/.codex/skills"
+            echo "  ℹ️ 已双装：~/.agents/skills/（官方标准）+ ~/.codex/skills/（兼容旧约定）"
         else
-            install_skills_to "$HOME/.codex/skills"
-            echo "  ⚠️ 本机原无 ~/.codex/skills/，已按当前 Codex 约定创建；若你的 Codex 加载不到，"
-            echo "     请核对其文档后用 --dest 指定实际目录（如 plugins 体系需配 ~/.codex/AGENTS.md 引用）"
+            echo "  ℹ️ 已装入官方标准路径 ~/.agents/skills/"
         fi
+        echo "     若 Codex 未识别，重启 Codex 触发 rescan；仍不识别用 --dest 指定目录。"
         ;;
     opencode)
         if [[ -z "$PROJECT_DIR" ]]; then
