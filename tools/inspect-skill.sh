@@ -107,7 +107,12 @@ else
   #     references 内交叉引用因相对路径基准不一暂不扫（边界留岁修）。
   MISS_LINK=0
   BODY_PRECHANGELOG=$(awk '/^## Changelog/{exit} {print}' "$SKILL_MD")
-  for p in $(printf '%s' "$BODY_PRECHANGELOG" | grep -oE '(references|templates|scripts|tools|assets)/[A-Za-z0-9._-]+\.(md|sh|json|py|yaml|yml|txt|html|css|js|csv|png|svg|gif)' | sort -u); do
+  # 注: 旧正则 grep -oE 会从 '../../tools/REGISTRY.md' 提取子串 'tools/REGISTRY.md'（丢失 ../ 前缀），
+  #     再当 skill 目录内路径检查 → monorepo 上级共享资源被误报死链（Y-011 dogfood 实测 churn-prevention/analytics 两案）。
+  #     治法: 先用前导边界 (^|[^A-Za-z0-9._/-]) 筛掉前面紧跟 / . 字母数字 - 的路径（排除 ../ ./ x/ 等跨/上级目录引用），
+  #     再提取干净路径。代价: 显式 ./references/ 写法一并豁免（少见，且漏报远轻于 FAIL 级误报）。回归用例见 tests/test-linkcheck.sh。
+  LINK_RE='(references|templates|scripts|tools|assets)/[A-Za-z0-9._-]+\.(md|sh|json|py|yaml|yml|txt|html|css|js|csv|png|svg|gif)'
+  for p in $(printf '%s' "$BODY_PRECHANGELOG" | grep -oE "(^|[^A-Za-z0-9._/-])$LINK_RE" | grep -oE "$LINK_RE" | sort -u); do
     if [ ! -e "$SKILL_DIR/$p" ]; then
       fail "内链文件不存在: $p"
       MISS_LINK=1
@@ -123,6 +128,16 @@ else
     warn "发现 ${PLACEHOLDER} 处占位符（TODO/TBD/待填）——交付前清零"
   fi
 fi
+
+# 6b. shell 变量边界（$VAR 紧贴多字节字符 → UTF-8 locale + set -u 下变量名被字节污染崩；须 ${} 边界。v1.5.1 darwin 实测教训）
+VARSEP_HIT=0
+for sf in $(find "$SKILL_DIR" \( -name .git -o -path '*/tests/fixtures' \) -prune -o -name '*.sh' -type f -print 2>/dev/null); do
+  if LC_ALL=C grep -nE '\$[A-Za-z_][A-Za-z0-9_]*[^ -~]' "$sf" >/dev/null 2>&1; then
+    warn "shell 变量紧贴多字节字符缺 \${} 边界: ${sf#"$SKILL_DIR"/}（UTF-8 + set -u 下变量名污染崩，改 \${VAR}）"
+    VARSEP_HIT=1
+  fi
+done
+[ "$VARSEP_HIT" -eq 0 ] && pass "shell 变量边界安全（无 \$VAR 紧贴多字节）"
 
 # 7. 疑似密钥文件扫描（只报存在，不读内容）
 # 注: '*token*' 会撞前端「设计令牌」术语家族（tokens.css / design-tokens.md）——Y-008 大修实测误报，

@@ -53,3 +53,12 @@ jobs:
 
       - name: 分层与哨兵确定性测试（T1 报警 / T2 不误报 / T3 升级 / T4 态判据）
         run: bash tests/test-layering.sh
+
+      - name: UTF-8 locale 实测（堵 $VAR 多字节污染 / sort locale 漂移——v1.5.1 教训）
+        run: |
+          export LC_ALL=C.UTF-8 LANG=C.UTF-8
+          echo "locale = $LC_ALL"
+          bash tools/self-integrity.sh
+          bash tools/check-release.sh
+          bash tools/gen-baseline.sh --check
+          bash tests/test-layering.sh
