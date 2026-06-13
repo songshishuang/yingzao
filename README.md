@@ -294,7 +294,7 @@ yingzao/
 > Anthropic. [*Skill authoring best practices*](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)（官方文档）。
 > —— 规则预检脚本的结构检查清单（行数预算 / 引用一层深 / 触发词质量）参考其 Core quality checklist；「evaluation-driven development——先建评估、再动笔改」的理念与营造的备样前置同源。
 
-> [darwin-skill](https://github.com/alchaincyf/darwin-skill) —— 同谱系的自动优化器，其棘轮机制自述源自 [Karpathy autoresearch](https://github.com/karpathy/autoresearch) 的「只保留被测量证实的改进」——这条思想链（autoresearch → darwin → 营造）是棘轮纪律的完整谱系。v1.1 对标后吸收 Runtime 中立性检查、分数序列台账、探索性重写三机制（吸收记录见 SKILL.md Changelog）。两者哲学分叉：darwin 信任自动循环，营造信任使用者——所有写入必经祈使授权。
+> [darwin-skill](https://github.com/alchaincyf/darwin-skill)（3.9k★，作者花叔）—— 同谱系的优化器，其棘轮机制自述源自 [Karpathy autoresearch](https://github.com/karpathy/autoresearch) 的「只保留被测量证实的改进」——这条思想链（autoresearch → darwin → 营造）是棘轮纪律的完整谱系。v1.1 对标后吸收 Runtime 中立性检查、分数序列台账、探索性重写三机制（吸收记录见 SKILL.md Changelog）。**两者评分机制高度趋同**（同源 SkillLens / SkillOpt 实证，darwin v2.0 亦强制人工 checkpoint）；营造的差异不在评分机制，而在**团队场景适配 + 生态位维度（访例 / 定式）+ 双档分流**——darwin 把单个 skill 的分数爬上去，营造管整个团队从「能用」到「能发布」。
 
 ## License
 
