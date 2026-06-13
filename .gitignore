@@ -1,3 +1,6 @@
 # 营造 · 出厂预置（运行时永不修改本文件，规则变更只走候选 diff）
+# case-map.local.md 含真实路径映射 + 岁修计数（本机运行态）——不入库
 yingzao/references/case-map.local.md
+# 其余 *.local.md（anti-patterns / roles / case-log）是「本地扩展层」出厂空壳模板：
+# 故意入库随仓发布，安装态由 install.sh 在重装时保留使用者积累、不被覆盖
 .DS_Store

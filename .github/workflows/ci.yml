@@ -16,6 +16,9 @@ jobs:
         run: |
           bash -n install.sh
           bash -n yingzao/tools/inspect-skill.sh
+          bash -n yingzao/tools/gen-baseline.sh
+          bash -n yingzao/tools/self-integrity.sh
+          bash -n yingzao/tests/test-layering.sh
           bash -n tools/check-release.sh
 
       - name: dogfood — 营造自查自己（opensource 口径，应 0 FAIL）
@@ -44,3 +47,9 @@ jobs:
             echo "✅ 本机映射未泄漏到安装目标"
           fi
           rm -f yingzao/references/case-map.local.md   # 清理测试残留（CI 工作区）
+
+      - name: 核心完整性哨兵自检（核心 == baseline，应 PASS）
+        run: bash yingzao/tools/self-integrity.sh
+
+      - name: 分层与哨兵确定性测试（T1 报警 / T2 不误报 / T3 升级 / T4 态判据）
+        run: bash yingzao/tests/test-layering.sh

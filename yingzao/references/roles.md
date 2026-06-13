@@ -1,20 +1,6 @@
-# 岗位画像 · 团队内部源 · 发布目标
+# 岗位画像 · 发布目标
 
-## 团队内部源（全岗位共享，可选配置）
-
-> 配置后访例阶段**优先扫内部源**——对标自家同事的同类 skill，比对标外网更贴近团队互相看齐的场景。未配置自动跳过，不影响流程。内部源条目**只进内部版报告**；可外发版一律以代号（内部对标 #1）指代。
-
-```yaml
-# 在此登记（可多条），示例：
-# internal_sources:
-#   - type: git
-#     url: git@git.internal.example.com:ai/team-skills.git
-#     note: 团队 skill 主仓
-#   - type: dir
-#     path: /Volumes/shared/agent-skills/
-#     note: 内网共享目录
-internal_sources: []
-```
+> **团队内部源配置已移至本地扩展层** `roles.local.md`（使用者可写 · 升级保留）。营造访例阶段读取那里登记的内部源；未配置自动跳过。本文件（岗位画像方法论 + 发布目标）属**主线只读**，由作者维护、升级直接覆盖。
 
 ## 发布目标（开工时确认，默认 internal）
 

@@ -6,14 +6,14 @@
 #   ./install.sh cursor --project /path/...   # 装到指定项目的 .cursor-plugin/
 #   ./install.sh codex                        # 装到 ~/.codex/skills/
 #   ./install.sh opencode --project /path/... # 装到指定项目的 .opencode/
-# 重装保护：case-map.local.md（含岁修计数）为运行期本地状态，无条件还原；case-log.md 随仓
-#           部分=公开战绩证据，本地新增台账行多于源仓时保本地（详见 case-log.md 头注释）。
+# 重装保护（v1.4 分层）：本地扩展层 *.local.md 无条件保留使用者积累；主线核心（含 case-log.md
+#           作者公开战绩）随仓覆盖。case-map.local.md 含真实路径，源端无条件删除（隐私闸）。
 
 set -euo pipefail
 
 SKILLS=(yingzao)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-LOCAL_STATE_FILES=(case-log.md case-map.local.md)
+LOCAL_STATE_FILES=(case-log.local.md case-map.local.md anti-patterns.local.md roles.local.md)
 
 PLATFORM="${1:-claude-code}"
 PROJECT_DIR=""
@@ -38,7 +38,7 @@ while [[ $# -gt 0 ]]; do
   --dest <dir>   覆盖任何平台的默认安装根目录（你的环境与默认约定不符时的逃生门）
 
 含 1 个 skill：yingzao（Skill 打磨工坊：查勘快检 / 大修全流程）
-重装不会丢失本地打磨台账（case-log.md / case-map.local.md 自动保留）
+重装不会丢失本地扩展层（*.local.md：台账/反模式/团队源/映射 自动保留）
 EOF
             exit 0
             ;;
@@ -61,35 +61,28 @@ install_skills_to() {  # $1 = 目标根目录
         rm -rf "$dest"
         cp -R "$SCRIPT_DIR/$s" "$dest"
         # ── 隐私安全闸（P0）──
-        # 源端（开发机仓库）可能含本地状态文件：case-map.local.md 被 .gitignore 屏蔽进 Git，
-        # 但文件在磁盘实存且含真实项目路径。cp -R 会把它一并带到目标 → 从开发机装到任何
-        # 新 runtime / 团队共享目录都会泄漏。无条件先删「源端带来的」，只允许从目标端原有备份还原。
+        # case-map.local.md 含真实路径映射 + 岁修计数（本机运行态）。cp -R 会把开发机源端的
+        # 一并带到目标 → 从开发机装到任何新 runtime/团队目录都会泄漏。无条件先删源端带来的，
+        # 只允许从目标端原有备份还原（新装机器天然无此文件 → 岁修计数从 0 起）。
         rm -f "$dest/references/case-map.local.md"
+        # ── 本地扩展层重装保护（v1.4 分层）──
+        # 还原目标端原有的 *.local（保留使用者岁修积累，不被源端出厂空壳模板覆盖）；
+        # 首次安装目标端无备份：case-map 保持删除态，其余 .local 用源端出厂空壳。
+        local restored=""
         if [[ -n "$tmp_state" ]]; then
-            local restored=""
-            # case-map.local.md：仅还原「目标端原本就有」的（源端带来的已在上方删除）
-            if [[ -f "$tmp_state/case-map.local.md" ]]; then
-                cp "$tmp_state/case-map.local.md" "$dest/references/case-map.local.md"
-                restored="映射"
-            fi
-            # case-log.md：保台账行数多的一方（v1.2 起岁修计数器在 case-map.local.md，上行已无条件还原——
-            # 计数即运行态随映射文件走，新装机器天然从 0 起；此处只比台账证据行数，防丢使用者本地新增记录）
-            if [[ -f "$tmp_state/case-log.md" && -f "$dest/references/case-log.md" ]]; then
-                local n_local n_src
-                n_local=$(grep -cE '^\| Y-[0-9]+' "$tmp_state/case-log.md" 2>/dev/null || echo 0)
-                n_src=$(grep -cE '^\| Y-[0-9]+' "$dest/references/case-log.md" 2>/dev/null || echo 0)
-                if [[ "${n_local:-0}" -gt "${n_src:-0}" ]]; then
-                    cp "$tmp_state/case-log.md" "$dest/references/case-log.md"
-                    restored="${restored:+$restored+}台账(本地 $n_local 行 > 源仓 $n_src 行)"
+            for f in "${LOCAL_STATE_FILES[@]}"; do
+                if [[ -f "$tmp_state/$f" ]]; then
+                    cp "$tmp_state/$f" "$dest/references/$f"
+                    restored="${restored:+$restored, }$f"
                 fi
-            fi
+            done
             rm -rf "$tmp_state"
-            if [[ -n "$restored" ]]; then
-                echo "  ✅ $s → $dest（已保留本地状态：$restored）"
-                continue
-            fi
         fi
-        echo "  ✅ $s → $dest"
+        if [[ -n "$restored" ]]; then
+            echo "  ✅ $s → $dest（已保留本地扩展层：$restored）"
+        else
+            echo "  ✅ $s → $dest"
+        fi
     done
 }
 

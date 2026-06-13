@@ -31,6 +31,9 @@ tbl=$(grep -oE '→ \*\*[~]?[0-9]{2,}(\.[0-9])?\*\*' README.md | sed -E 's/→ \
 if [ -n "$sub" ] && [ "$sub" = "$tbl" ]; then ok "README 战绩自洽（副标题 = 战绩表后分: $sub）"
 else bad "README 战绩不自洽 — 副标题[$sub] vs 战绩表[$tbl]"; fi
 
+# 6. baseline.lock 是最新的（核心改动后须 gen-baseline 重新生成，否则完整性哨兵基线过期）
+if bash yingzao/tools/gen-baseline.sh --check >/dev/null 2>&1; then ok "baseline.lock 是最新的（核心完整性基线）"; else bad "baseline.lock 已过期——运行 bash yingzao/tools/gen-baseline.sh 重新生成"; fi
+
 echo "──"
 if [ "$FAIL" -eq 0 ]; then echo "✅ 发布一致性全过"; else echo "❌ 存在不一致，发布前修复"; fi
 exit $FAIL

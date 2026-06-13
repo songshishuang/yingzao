@@ -5,10 +5,10 @@
 **把"自己能用"的 Agent Skill，打磨成"别人敢用"的资产。**
 
 借中国古建营造的工序意象——查勘、大修、落成、岁修——把 Skill 优化做成一门有验收标准的手艺。
-**v1.3** · 更新于 2026-06-13 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
+**v1.4** · 更新于 2026-06-13 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)](#快速开始)
+[![Version](https://img.shields.io/badge/version-1.4.0-blue.svg)](#快速开始)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-Compatible-blueviolet)](#快速开始)
 [![Multi Runtime](https://img.shields.io/badge/Multi--Runtime-4%20platforms-green)](#快速开始)
 
@@ -179,7 +179,8 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 - **不碰你的 git**——不执行 commit / revert / push，版本操作权永远在你手里；没有 git 的目录自动快照备份，零 git 知识也能安全回滚；
 - **测试不执行真实副作用**——被测 skill 想发布内容、调外部接口、删文件？一律先列计划等你授权；
 - **运行产物不污染你的项目**——工作档案默认存在营造自己的目录（`~/.yingzao/runs/`），目录名脱敏；
-- **评分不说谎**——没实测的分数一律标"估分"，对标找不到就写"未访得"，绝不编造。
+- **评分不说谎**——没实测的分数一律标"估分"，对标找不到就写"未访得"，绝不编造；
+- **核心不会悄悄漂移**——你装的营造和官方主线一致：岁修只往本地扩展层（`*.local.md`）写、安装态拒绝改自己的核心；开工先跑完整性哨兵，核心被任何外部改动都会当场告知"已偏离官方、结果可能不可复现"。
 
 ## 越用越准：营造的自我进化（双轨）
 
@@ -188,11 +189,11 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 <img src="assets/evolution.svg" alt="自我进化双轨飞轮：复盘→台账/候选diff→满5触发岁修→校准权重→回到下一场大修" width="100%">
 
 **轨 1 · 每次打磨后的增量自学**
-每修完一个 skill，营造做 30 秒复盘：这次发现了新的打磨套路吗？踩到新坑了吗？使用者纠正过我的判断吗？有 → 记入自己的台账（case-log）和红线清单（anti-patterns 增量区）。两个已发生的实例：**"跨 skill 相对路径引用"** 这个坑第一次在某个 skill 发现后入账，后来批量体检 8 个 skill 时一抓一个准（命中 3 个）；**"裸基线抓出永真判据"** 后，"测试判据必须锚定 skill 专属资产"成了新的设计纪律。
-**纪律**：记账直接写（git 可审计），但**改自己行为规则必须先生成候选 diff 经你确认**——它不能悄悄变成另一个工具。
+每修完一个 skill，营造做 30 秒复盘：这次发现了新的打磨套路吗？踩到新坑了吗？使用者纠正过我的判断吗？有 → 记入本地扩展层的台账（case-log.local.md）和红线清单（anti-patterns.local.md，`L-N` 编号）。两个已发生的实例：**"跨 skill 相对路径引用"** 这个坑第一次在某个 skill 发现后入账，后来批量体检 8 个 skill 时一抓一个准（命中 3 个）；**"裸基线抓出永真判据"** 后，"测试判据必须锚定 skill 专属资产"成了新的设计纪律。
+**纪律（v1.4 分层）**：所有自学写入只落**本地扩展层**（`*.local.md`：台账→case-log.local.md、新反模式→anti-patterns.local.md）——**主线核心永不被运行时改动**，升级直接覆盖、零冲突。改行为规则仍须先候选 diff 经你确认；它不能悄悄变成另一个工具，也不会和官方主线悄悄分叉。
 
 **轨 2 · 满 5 个触发"岁修"（用自己打磨自己）**
-台账每攒满 5 个 skill，营造会主动说"该给我自己做一轮大修了"——用同一套七步流程、同一把九维尺子量自己，且按**开源标准**自检（验收视角强制切换为"第一次见到营造的陌生用户"，自己不能既当裁判又当运动员）。
+台账每攒满 5 个 skill：**你的安装**（运行态）会提示"已积累 N 条本地反模式 + M 场台账，导出贡献包回馈主线？"——**不改自己的核心**，只把改进汇成可提 PR 的贡献包；**作者源仓**（开发态，含 docs/）才用同一套七步流程打磨核心自身，按**开源标准**自检（陌生用户视角，自己不能既当裁判又当运动员）。这样人人能贡献、却没人会悄悄分叉出"自己的版本"。
 
 **数据飞轮**
 台账积累的每条记录（什么形态的 skill / 逐轮改了什么 / 每轮提了多少分）都是校准素材——当前九维权重是参考实证研究的启发式起点，**攒够真实案例后会用实测数据重新校准权重**。也就是说：你用它修的 skill 越多，这把尺子对你团队就越准。
@@ -259,13 +260,20 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao
 yingzao/
 ├── SKILL.md              # 主流程（双档七步 + 全部纪律）
 ├── references/
-│   ├── scoring.md        # 九维评分细则 + 形态权重 + 单文件适配
-│   ├── roles.md          # 岗位画像 + 团队内部源 + 发布目标
-│   ├── anti-patterns.md  # 17 条红线（营造自己不许犯的错）
-│   └── case-log.md       # 打磨台账（脱敏 + 逐轮分数序列）+ 岁修计数器
-├── tools/inspect-skill.sh    # 规则预检脚本：零 token、秒级、可挂 CI
-├── tests/                    # 自身测试资产：三条四件套 + 病体 fixture（含密钥哨兵）+ 判分 key
-└── templates/                # 查勘/大修报告模板
+│   ├── scoring.md        # 九维评分细则 + 形态权重（🔒 主线只读）
+│   ├── roles.md          # 岗位画像 + 发布目标（🔒 主线只读）
+│   ├── anti-patterns.md  # 18 条红线（🔒 主线只读）
+│   ├── case-log.md       # 作者公开战绩台账（🔒 主线只读）
+│   └── *.local.md        # 🟢 本地扩展层（使用者可写 · 升级保留）：
+│                         #   anti-patterns.local（本地红线 L-N）· roles.local（团队内部源）
+│                         #   case-log.local（你的台账）· case-map.local（映射+计数，gitignore）
+├── tools/
+│   ├── inspect-skill.sh  # 规则预检脚本：零 token、秒级、可挂 CI
+│   ├── self-integrity.sh # 🛡️ 核心完整性哨兵：开工比对 baseline.lock，偏离即告警
+│   ├── gen-baseline.sh   # 生成 baseline.lock（开发态发版用）
+│   └── baseline.lock     # 主线核心 hash 基线（11 个核心文件）
+├── tests/                # 自身测试资产：四件套 + 病体 fixture（含密钥哨兵）+ 判分 key
+└── templates/            # 查勘/大修报告模板
 ```
 
 `inspect-skill.sh` 可以单独用：`bash tools/inspect-skill.sh <你的skill目录>` ——不花一个 token，3 秒出一份结构体检（断链 / 密钥残留 / 行数超标 / 测试缺失 / runtime 锁定措辞），适合挂进团队 CI 当门禁。
