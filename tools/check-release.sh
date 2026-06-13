@@ -28,7 +28,7 @@ if grep -qE "v($V|$VMM)\b" SKILL.md; then ok "SKILL.md Changelog 含 v$VMM 系";
 #    口径：前分为整数或 NN.N、后分允许 ~ 前缀；副标题分数序列集合 == 战绩表后分集合
 sub=$(grep -oE '[0-9]{2,}(\.[0-9])?→[~]?[0-9]{2,}(\.[0-9])?' README.md | sed -E 's/.*→[~]?//' | sort -u | tr '\n' ' ')
 tbl=$(grep -oE '→ \*\*[~]?[0-9]{2,}(\.[0-9])?\*\*' README.md | sed -E 's/→ \*\*[~]?//; s/\*\*//' | sort -u | tr '\n' ' ')
-if [ -n "$sub" ] && [ "$sub" = "$tbl" ]; then ok "README 战绩自洽（副标题 = 战绩表后分: $sub）"
+if [ -n "$sub" ] && [ "$sub" = "$tbl" ]; then ok "README 战绩自洽（副标题 = 战绩表后分: ${sub}）"
 else bad "README 战绩不自洽 — 副标题[$sub] vs 战绩表[$tbl]"; fi
 
 # 5b. README 平均分自洽：所有「平均 +N 分」文字必须同值（堵手写平均分漂移——确定性脚本此前的盲区）

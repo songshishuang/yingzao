@@ -207,7 +207,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 | 留下什么 | 一次性的改动 | 测试资产 + 打磨报告 + 下轮入口 |
 | 和同行比怎么样 | 不知道 | 带 URL 的对标调研 |
 
-**它不替代 skill-creator**：从零造新 skill 用 skill-creator（生成器），造出毛坯后交营造打磨（打磨器）——上下游分工。
+**它和 skill-creator 的关系（已更新）**：skill-creator 现在也内置了 eval——能跑测试、盲比版本、聚合基准。但那是一条**你自己定义断言的测试跑道**（rubric-light，盲评还标为可选）。营造给的是另一层：一把**统一的九维质量标尺**（按形态加权、无测试封顶 70）、一套**带生态位调研（访例 / 定式）的打磨工艺**、和留在你项目里**人人可复跑的测试资产**。两者叠加最顺——从零造新 skill、跑断言测试用 skill-creator；要量质量、定标准、做对标、改到能交付，用营造。
 
 ## 快速开始
 
@@ -271,7 +271,7 @@ yingzao/  （仓库根即 skill —— SKILL.md 在根，扁平化、兼容 npx 
 > Anthropic. [*Skill authoring best practices*](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)（官方文档）。
 > —— 规则预检脚本的结构检查清单（行数预算 / 引用一层深 / 触发词质量）参考其 Core quality checklist；「evaluation-driven development——先建评估、再动笔改」的理念与营造的备样前置同源。
 
-> [darwin-skill](https://github.com/alchaincyf/darwin-skill)（3.9k★，作者花叔）—— 同谱系的优化器，其棘轮机制自述源自 [Karpathy autoresearch](https://github.com/karpathy/autoresearch) 的「只保留被测量证实的改进」——这条思想链（autoresearch → darwin → 营造）是棘轮纪律的完整谱系。v1.1 对标后吸收 Runtime 中立性检查、分数序列台账、探索性重写三机制（吸收记录见 SKILL.md Changelog）。**两者评分机制高度趋同**（同源 SkillLens / SkillOpt 实证，darwin v2.0 亦强制人工 checkpoint）；营造的差异不在评分机制，而在**团队场景适配 + 生态位维度（访例 / 定式）+ 双档分流**——darwin 把单个 skill 的分数爬上去，营造管整个团队从「能用」到「能发布」。
+> [darwin-skill](https://github.com/alchaincyf/darwin-skill)（3.9k★，作者花叔）—— 同谱系的优化器，其棘轮机制自述源自 [Karpathy autoresearch](https://github.com/karpathy/autoresearch) 的「只保留被测量证实的改进」——这条思想链（autoresearch → darwin → 营造）是棘轮纪律的完整谱系。v1.1 对标后吸收 Runtime 中立性检查、分数序列台账、探索性重写三机制（吸收记录见 SKILL.md Changelog）。**两者评分机制高度趋同**（同源 SkillLens / SkillOpt 实证，darwin v2.0 亦强制人工 checkpoint）；营造的差异不在评分机制，而在**团队场景适配 + 生态位维度（访例 / 定式）+ 双档分流**——darwin 把单个 skill 的分数爬上去；营造给团队一把统一的尺子和一套打磨工艺，让多岗位的 skill 都能从「能用」修到「能发布」。
 
 ## License
 
@@ -281,8 +281,8 @@ MIT
 
 <div align="center">
 
-**skill-creator** 造毛坯。<br>
-**营造** 打磨成器。<br><br>
+**别的工具帮你改好一个 skill。**<br>
+**营造给团队一把统一的尺子，和一套打磨的手艺。**<br><br>
 *改动是被测量的，不是被感觉的。*
 
 <br>

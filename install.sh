@@ -88,7 +88,7 @@ install_skills_to() {  # $1 = 目标根目录
             rm -rf "$tmp_state"
         fi
         if [[ -n "$restored" ]]; then
-            echo "  ✅ $s → $dest（已保留本地扩展层：$restored）"
+            echo "  ✅ $s → ${dest}（已保留本地扩展层：${restored}）"
         else
             echo "  ✅ $s → $dest"
         fi
@@ -148,7 +148,7 @@ EOF
         fi
         install_skills_to "$PROJECT_DIR/.opencode/plugins/yingzao"
         ;;
-    *) echo "❌ 未知平台: $PLATFORM（支持 claude-code / cursor / codex / opencode）"; exit 1 ;;
+    *) echo "❌ 未知平台: ${PLATFORM}（支持 claude-code / cursor / codex / opencode）"; exit 1 ;;
 esac
 
 echo ""
