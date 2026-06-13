@@ -5,10 +5,10 @@
 **把"自己能用"的 Agent Skill，打磨成"别人敢用"的资产。**
 
 借中国古建营造的工序意象——查勘、大修、落成、岁修——把 Skill 优化做成一门有验收标准的手艺。
-**v1.2** · 更新于 2026-06-13 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
+**v1.3** · 更新于 2026-06-13 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.2-blue.svg)](#whats-new-in-v12岁修)
+[![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)](#快速开始)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-Compatible-blueviolet)](#快速开始)
 [![Multi Runtime](https://img.shields.io/badge/Multi--Runtime-4%20platforms-green)](#快速开始)
 
@@ -20,7 +20,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 
 ---
 
-> **真实战绩**：五场大修全过验证门——**65→72.5、74→84、58.5→75.5、61→~85、58→83（平均 +16.7 分）**；装载版实测 29/30 vs 裸 AI 11/30。每一分都有独立评审证据（逐轮序列随仓可查：`yingzao/references/case-log.md`），每一轮都可回退。（五场明细见下文[真实战绩](#真实战绩五场大修一场没输)）
+> **真实战绩**：五场大修全过验证门——**65→72.5、74→89.7、58.5→75.5、61→~85、58→83（平均 +17.8 分）**；装载版实测 29/30 vs 裸 AI 11/30。每一分都有独立评审证据（逐轮序列随仓可查：`yingzao/references/case-log.md`），每一轮都可回退。（五场明细见下文[真实战绩](#真实战绩五场大修一场没输)）
 
 ## 你是否遇到过这些情况
 
@@ -204,7 +204,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 | skill | 形态 | 打磨前 → 后 | 关键动作 |
 |-------|------|------------|----------|
 | prd-writer | 工作流型 | 65 → **72.5**（+ 装载实测 29/30 vs 裸 AI 11/30） | 测试资产从零建 · 一致性修复 19 处 · 节序重排 |
-| prd-reviewer | 流程纪律型 | 74 → **84** | golden 样例路径 bug 修复 · 四组样例两关盲测实绩全齐 · lite 门禁 fixture 从零建 |
+| prd-reviewer | 流程纪律型 | 74 → **89.7** | golden 样例路径 bug 修复 · 四组样例两关盲测实绩全齐 · lite 门禁 fixture 从零建 · 06-13 复勘负触发达出师线 |
 | saas-arch-diagrams | 方法论型 | 58.5 → **75.5**（毛坯翻身进可用区） | source-of-truth 矛盾裁决 · 幽灵 class 修正 · 模板复制即用化 |
 | saas-prototype-design | 方法论+风格型 | 61 → **~85**（盲评 2 题实测 6→9.5 / 8.5→9.5） | 主工作流从零建 · 死链补骨架 · 双真相源收敛 · README 出门 |
 | pm-wiki-maintainer | 工作流型 | 58 → **83**（装载实测 T2/T3 全判据过） | decisions 粒度矛盾裁决 · 骨架自举从零建 · 跨 skill 死链修复 · wiki 根探测对齐 |

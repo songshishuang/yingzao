@@ -1,0 +1,46 @@
+name: yingzao CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 语法检查（install.sh / 工具脚本）
+        run: |
+          bash -n install.sh
+          bash -n yingzao/tools/inspect-skill.sh
+          bash -n tools/check-release.sh
+
+      - name: dogfood — 营造自查自己（opensource 口径，应 0 FAIL）
+        run: bash yingzao/tools/inspect-skill.sh yingzao --target opensource
+
+      - name: fixture — 病体应被预检判 FAIL（exit 1 才算对）
+        run: |
+          if bash yingzao/tools/inspect-skill.sh yingzao/tests/fixtures/bad-skill-demo --target opensource; then
+            echo "::error::病体 fixture 未被判 FAIL，预检失效"; exit 1
+          else
+            echo "✅ 病体如期被判 FAIL"
+          fi
+
+      - name: 发布一致性门禁（版本四处 + 战绩自洽）
+        run: bash tools/check-release.sh
+
+      - name: 安装隐私安全闸 — 装到临时目录不得带出本机 case-map
+        run: |
+          TMPD=$(mktemp -d)
+          # 模拟开发机本地状态（源端含真实路径映射）
+          printf 'Y-X: /real/private/path\n' > yingzao/references/case-map.local.md
+          bash install.sh --dest "$TMPD/sk" >/dev/null
+          if [ -f "$TMPD/sk/yingzao/references/case-map.local.md" ]; then
+            echo "::error::case-map.local.md 泄漏到安装目标"; exit 1
+          else
+            echo "✅ 本机映射未泄漏到安装目标"
+          fi
+          rm -f yingzao/references/case-map.local.md   # 清理测试残留（CI 工作区）

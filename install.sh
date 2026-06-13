@@ -60,9 +60,14 @@ install_skills_to() {  # $1 = 目标根目录
         fi
         rm -rf "$dest"
         cp -R "$SCRIPT_DIR/$s" "$dest"
+        # ── 隐私安全闸（P0）──
+        # 源端（开发机仓库）可能含本地状态文件：case-map.local.md 被 .gitignore 屏蔽进 Git，
+        # 但文件在磁盘实存且含真实项目路径。cp -R 会把它一并带到目标 → 从开发机装到任何
+        # 新 runtime / 团队共享目录都会泄漏。无条件先删「源端带来的」，只允许从目标端原有备份还原。
+        rm -f "$dest/references/case-map.local.md"
         if [[ -n "$tmp_state" ]]; then
             local restored=""
-            # case-map.local.md：源仓被 gitignore 永不含它——本地版本无条件还原
+            # case-map.local.md：仅还原「目标端原本就有」的（源端带来的已在上方删除）
             if [[ -f "$tmp_state/case-map.local.md" ]]; then
                 cp "$tmp_state/case-map.local.md" "$dest/references/case-map.local.md"
                 restored="映射"
@@ -108,8 +113,8 @@ case "$PLATFORM" in
         install_skills_to "$PROJECT_DIR/.cursor-plugin/yingzao"
         PLUGIN_JSON="$PROJECT_DIR/.cursor-plugin/plugin.json"
         if [[ ! -f "$PLUGIN_JSON" ]]; then
-            # 版本号从 SKILL.md Changelog 首行动态读取（真相源唯一，防硬编码漂移）
-            YZ_VERSION=$(grep -oE 'v[0-9]+\.[0-9]+(\.[0-9]+)?' "$SCRIPT_DIR/yingzao/SKILL.md" | head -1 | tr -d 'v')
+            # 版本号从 VERSION 文件读取（唯一真相源，check-release.sh 校验四处一致）
+            YZ_VERSION=$(tr -d ' \n' < "$SCRIPT_DIR/VERSION" 2>/dev/null || echo "1.3.0")
             cat > "$PLUGIN_JSON" <<EOF
 {
   "name": "yingzao",
