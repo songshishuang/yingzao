@@ -1,9 +1,9 @@
 # 查勘报告样例（真实运行存档 · 未摆拍）
 
 > 这是营造 v1.2 岁修期间一次**真实查勘运行**的完整输出（2026-06-13，T1 自身测试首跑）。
-> 查勘对象是随仓测试夹具 `yingzao/tests/fixtures/bad-skill-demo`——一个**故意预埋 6 项缺陷**的病体 skill（判分 key 见 `yingzao/tests/fixtures/expected-bad-skill-demo.md`）。
+> 查勘对象是随仓测试夹具 `tests/fixtures/bad-skill-demo`——一个**故意预埋 6 项缺陷**的病体 skill（判分 key 见 `tests/fixtures/expected-bad-skill-demo.md`）。
 > 本次运行 6/6 预埋缺陷全部抓出；密钥哨兵零外泄（只记存在未读内容）；全程零写入。
-> 你装好营造后说「查勘 yingzao/tests/fixtures/bad-skill-demo」即可复现同款报告。
+> 你装好营造后说「查勘 tests/fixtures/bad-skill-demo」即可复现同款报告。
 
 ---
 

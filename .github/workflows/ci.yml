@@ -15,18 +15,18 @@ jobs:
       - name: 语法检查（install.sh / 工具脚本）
         run: |
           bash -n install.sh
-          bash -n yingzao/tools/inspect-skill.sh
-          bash -n yingzao/tools/gen-baseline.sh
-          bash -n yingzao/tools/self-integrity.sh
-          bash -n yingzao/tests/test-layering.sh
+          bash -n tools/inspect-skill.sh
+          bash -n tools/gen-baseline.sh
+          bash -n tools/self-integrity.sh
+          bash -n tests/test-layering.sh
           bash -n tools/check-release.sh
 
       - name: dogfood — 营造自查自己（opensource 口径，应 0 FAIL）
-        run: bash yingzao/tools/inspect-skill.sh yingzao --target opensource
+        run: bash tools/inspect-skill.sh . --target opensource
 
       - name: fixture — 病体应被预检判 FAIL（exit 1 才算对）
         run: |
-          if bash yingzao/tools/inspect-skill.sh yingzao/tests/fixtures/bad-skill-demo --target opensource; then
+          if bash tools/inspect-skill.sh tests/fixtures/bad-skill-demo --target opensource; then
             echo "::error::病体 fixture 未被判 FAIL，预检失效"; exit 1
           else
             echo "✅ 病体如期被判 FAIL"
@@ -39,17 +39,17 @@ jobs:
         run: |
           TMPD=$(mktemp -d)
           # 模拟开发机本地状态（源端含真实路径映射）
-          printf 'Y-X: /real/private/path\n' > yingzao/references/case-map.local.md
+          printf 'Y-X: /real/private/path\n' > references/case-map.local.md
           bash install.sh --dest "$TMPD/sk" >/dev/null
           if [ -f "$TMPD/sk/yingzao/references/case-map.local.md" ]; then
             echo "::error::case-map.local.md 泄漏到安装目标"; exit 1
           else
             echo "✅ 本机映射未泄漏到安装目标"
           fi
-          rm -f yingzao/references/case-map.local.md   # 清理测试残留（CI 工作区）
+          rm -f references/case-map.local.md   # 清理测试残留（CI 工作区）
 
       - name: 核心完整性哨兵自检（核心 == baseline，应 PASS）
-        run: bash yingzao/tools/self-integrity.sh
+        run: bash tools/self-integrity.sh
 
       - name: 分层与哨兵确定性测试（T1 报警 / T2 不误报 / T3 升级 / T4 态判据）
-        run: bash yingzao/tests/test-layering.sh
+        run: bash tests/test-layering.sh

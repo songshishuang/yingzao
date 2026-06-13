@@ -5,10 +5,10 @@
 **把"自己能用"的 Agent Skill，打磨成"别人敢用"的资产。**
 
 借中国古建营造的工序意象——查勘、大修、落成、岁修——把 Skill 优化做成一门有验收标准的手艺。
-**v1.4** · 更新于 2026-06-13 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
+**v1.5** · 更新于 2026-06-13 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.4.0-blue.svg)](#快速开始)
+[![Version](https://img.shields.io/badge/version-1.5.0-blue.svg)](#快速开始)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-Compatible-blueviolet)](#快速开始)
 [![Multi Runtime](https://img.shields.io/badge/Multi--Runtime-4%20platforms-green)](#快速开始)
 
@@ -20,7 +20,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 
 ---
 
-> **真实战绩**：五场大修全过验证门——**65→72.5、74→89.7、58.5→75.5、61→~85、58→83（平均 +17.8 分）**；装载版实测 29/30 vs 裸 AI 11/30（prd-writer 一场）。每一分都有独立评审证据（逐轮序列随仓可查：`yingzao/references/case-log.md`），每一轮都可回退。（五场明细见下文[真实战绩](#真实战绩五场大修一场没输)）
+> **真实战绩**：五场大修全过验证门——**65→72.5、74→89.7、58.5→75.5、61→~85、58→83（平均 +17.8 分）**；装载版实测 29/30 vs 裸 AI 11/30（prd-writer 一场）。每一分都有独立评审证据（逐轮序列随仓可查：`references/case-log.md`），每一轮都可回退。（五场明细见下文[真实战绩](#真实战绩五场大修一场没输)）
 
 ## 你是否遇到过这些情况
 
@@ -178,7 +178,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 
 ## 真实战绩：五场大修，一场没输
 
-同一套流程、四种不同形态的 skill（2026-06-12 起，分数均为独立评委盲评、每场换评委，逐轮序列在随仓台账 `yingzao/references/case-log.md` 可查）：
+同一套流程、四种不同形态的 skill（2026-06-12 起，分数均为独立评委盲评、每场换评委，逐轮序列在随仓台账 `references/case-log.md` 可查）：
 
 | skill | 形态 | 打磨前 → 后 | 关键动作 |
 |-------|------|------------|----------|
@@ -236,23 +236,21 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao
 ## 文件结构
 
 ```
-yingzao/
+yingzao/  （仓库根即 skill —— SKILL.md 在根，扁平化、兼容 npx skills add）
+
+  ── skill 核心（由 tools/skill-manifest.txt 划定，随安装）──
 ├── SKILL.md              # 主流程（双档七步 + 全部纪律）
-├── references/
-│   ├── scoring.md        # 九维评分细则 + 形态权重（🔒 主线只读）
-│   ├── roles.md          # 岗位画像 + 发布目标（🔒 主线只读）
-│   ├── anti-patterns.md  # 18 条红线（🔒 主线只读）
-│   ├── case-log.md       # 作者公开战绩台账（🔒 主线只读）
-│   └── *.local.md        # 🟢 本地扩展层（使用者可写 · 升级保留）：
-│                         #   anti-patterns.local（本地红线 L-N）· roles.local（团队内部源）
-│                         #   case-log.local（你的台账）· case-map.local（映射+计数，gitignore）
-├── tools/
-│   ├── inspect-skill.sh  # 规则预检脚本：零 token、秒级、可挂 CI
-│   ├── self-integrity.sh # 🛡️ 核心完整性哨兵：开工比对 baseline.lock，偏离即告警
-│   ├── gen-baseline.sh   # 生成 baseline.lock（开发态发版用）
-│   └── baseline.lock     # 主线核心 hash 基线（11 个核心文件）
-├── tests/                # 自身测试资产：四件套 + 病体 fixture（含密钥哨兵）+ 判分 key
-└── templates/            # 查勘/大修报告模板
+├── references/           # scoring / roles / anti-patterns / readme-standards / case-log（🔒 主线只读）
+│                         #   + *.local.md（🟢 本地扩展层，使用者可写、升级保留）
+├── templates/            # 查勘 / 大修报告模板
+├── tests/                # 四件套 + 病体 fixture（含密钥哨兵）+ test-layering
+└── tools/                # inspect-skill · self-integrity🛡️ · gen-baseline · baseline.lock · skill-manifest.txt
+
+  ── 工程 / 发行物（不随安装）──
+├── install.sh            # 多平台白名单安装器（按 manifest 装）
+├── tools/check-release.sh# 发布一致性门禁（CI 用，非 skill）
+└── README · LICENSE · assets/(demo) · .github/(CI) · marketplace.json · VERSION
+   （docs/ 设计草稿本地归档，不随仓）
 ```
 
 `inspect-skill.sh` 可以单独用：`bash tools/inspect-skill.sh <你的skill目录>` ——不花一个 token，3 秒出一份结构体检（断链 / 密钥残留 / 行数超标 / 测试缺失 / runtime 锁定措辞），适合挂进团队 CI 当门禁。

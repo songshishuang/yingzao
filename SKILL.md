@@ -128,7 +128,7 @@ P0（不补无法交付/公开）/ P1（补上显著提升安装率与信任）/
 ## 自迭代双轨（岁修机制）
 
 - **轨 1 · 增量自改（分级写入 · v1.4 分层路由，对象是营造自身仓库）**：查勘收尾**零写入**；大修收尾 30 秒自检（新打磨模式 / 新反模式 / 使用者纠正？）。**写入一律落本地扩展层 `*.local.md`，永不改主线核心**：打磨台账→`case-log.local.md`**能写则直接追加**（只读安装/写入失败不阻塞，台账项入报告）；新反模式→`anti-patterns.local.md` 生成候选 diff（`L-N` 编号，只增不改主线条目），使用者祈使授权后写入；评分权重（scoring.md）校准**仅开发态**做、安装态只读。自检不询问用户。ID→真实路径映射存 case-map.local.md（.gitignore 出厂预置忽略，营造运行时**永不修改自身 .gitignore**）。
-- **轨 2 · 岁修自打磨（v1.4 按态分流）**：以「装载副本是否含 `docs/` 设计文档」判运行态。**安装态**（无 docs/）——计数满 5 个**不打磨自身核心**，改为提示「已积累 N 条本地反模式 + M 场台账，导出贡献包回馈主线？」，营造**完全锁死、拒绝改自身主线 SKILL.md/references**（防静默漂移，见禁例 18）。**开发态**（作者源仓，含 docs/）——计数满 5 提示岁修，经同意**用大修档打磨营造自身**（发布目标按「开源」自检，验收视角强制切换陌生用户——改与评不得同一视角）。
+- **轨 2 · 岁修自打磨（v1.5 按态分流）**：以「装载副本是否含 `install.sh` / `.github`」判运行态（安装副本经 manifest 只含 skill 核心、不带工程文件）。**安装态**（无这些工程文件）——计数满 5 个**不打磨自身核心**，改为提示「已积累 N 条本地反模式 + M 场台账，导出贡献包回馈主线？」，营造**完全锁死、拒绝改自身主线 SKILL.md/references**（防静默漂移，见禁例 18）。**开发态**（作者源仓，含 install.sh/.github）——计数满 5 提示岁修，经同意**用大修档打磨营造自身**（发布目标按「开源」自检，验收视角强制切换陌生用户——改与评不得同一视角）。
 
 ## 三处可见原则（杜绝暗开关）
 
@@ -151,6 +151,7 @@ P0（不补无法交付/公开）/ P1（补上显著提升安装率与信任）/
 
 ## Changelog
 
+- **2026-06-13 · v1.5** — **仓库扁平化（开源呈现聚焦 + 生态兼容）**：① SKILL.md 提到仓库根（原 yingzao/ 子目录扁平化），对齐 darwin / skills.sh 生态约定、首屏即见 skill、为 npx skills add 铺路；② 新增 `tools/skill-manifest.txt` 作 skill 核心**单一真相源**——install 白名单安装 / gen-baseline hash 范围都读它，工程文件（install.sh / check-release / .github / assets / marketplace / VERSION）不随安装；③ 开发态/安装态判据从「含 docs/」换「含 install.sh / .github」（docs 设计草稿本地归档移出 git）；④ 连带 CI / check-release / 哨兵 / README 文件结构图全路径更新、test-layering 改用 install 副本测。
 - **2026-06-13 · v1.4** — **防静默漂移分层架构**（开源治理评审驱动）：① **核心冻结 + 本地扩展层**——主线只读层（SKILL.md / references 非 .local / templates / tools，升级覆盖）vs 本地扩展层（`*.local.md`，使用者可写、升级保留）；岁修轨 1 写入全改道 .local（台账→case-log.local.md、新反模式→anti-patterns.local.md 用 `L-N` 编号），核心永不静默漂移；② **轨 2 按态分流**——安装态（无 docs/）完全锁死、拒改自身核心、满 5 个改提示导出贡献包回馈主线，开发态才打磨核心（禁例 18 + 停手点⑧）；③ **核心完整性哨兵**——gen-baseline.sh 生成 baseline.lock、self-integrity.sh 开工比对，核心被外部改动即报「偏离官方、结果可能不可复现」（防 drift，不防 determined fork）；④ 拆混合文件（roles.md 团队源→roles.local.md、case-log.md 使用者台账→case-log.local.md）+ install.sh 删行数比较 hack 改 .local 统一保留 + check-release/CI 纳管 baseline 一致性。
 - **2026-06-13 · v1.3** — 外部反馈驱动的发布质量修复：① **install 隐私安全闸**——cp -R 后强删源端 case-map.local.md，杜绝开发机真实路径随安装泄漏到新 runtime/团队目录（双场景测试通过）；② **七步输出物显性化**——大修每步补「→ 本步产出（报告 §N）」+ 开头加七步↔10 节报告映射总览，回应"每阶段产出格式不明确"反馈；③ **真相源单一化**——新增 VERSION 文件为唯一版本源，README/marketplace/SKILL/install 全对齐 1.3.0，README 战绩 prd-reviewer 校正 84→89.7（对齐 case-log 复勘分）；④ **tools/check-release.sh** + **CI**（.github/workflows）把版本/战绩一致性落到 PR 门禁；⑤ 元收获：bundle 回查发现九维评分未覆盖「逐产出物格式定义」维度，已修 prd-writer（3 slices 补模板）/prd-reviewer（第三关+子节补格式骨架），查勘清单待加此项（岁修候选）。
 - **2026-06-13 · v1.2** — **首次岁修（Y-010 · 用自己打磨自己 · 陌生用户盲评 66 起修）**：① 自身 tests/ 四件套从零建（病体 fixture 预埋 6 缺陷 + 密钥哨兵自证陷阱，T1 查勘能力 / T2 人情压力 / T3 授权语义）+ 自检 FAIL 清零；② scoring.md 形态加权公式修复——旧「指定扣减源」算法在工作流型/风格型下产生负权重，改为全表等比归一（四形态数学恒合法，实测护栏 ≥20）；③ 出厂态/运行态分离——岁修计数器迁入 case-map.local.md（新装机器从 0 起计），随仓台账定位为公开战绩证据，install.sh 配合改台账行数比较；④ 真相源收敛——版本号三处统一（install.sh 改为从 SKILL.md 动态读取）、README 战绩 3→5 场、装载副本 docs/ 死链修复；⑤ 预检治本——内链检查止于 Changelog（叙述性路径误报三案后规则化）、tests/fixtures 教具豁免；⑥ 禁例 17「同 cwd 裸基线必污染」+ harness 裸基线隔离硬规则 + 查勘四大高频病种优先扫描序（台账归因回流）+ 落架补三处可见第③ + ID 抢号互斥

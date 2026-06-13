@@ -35,8 +35,8 @@ def color(line):
 def run(cmd):
     return subprocess.run(cmd, shell=True, capture_output=True, text=True).stdout.rstrip("\n")
 
-cmdA="bash yingzao/tools/inspect-skill.sh yingzao/tests/fixtures/bad-skill-demo --target opensource"
-cmdB="bash yingzao/tools/inspect-skill.sh yingzao --target opensource"
+cmdA="bash tools/inspect-skill.sh tests/fixtures/bad-skill-demo --target opensource"
+cmdB="bash tools/inspect-skill.sh . --target opensource"
 linesA=[f"$ {cmdA}"]+run(cmdA).split("\n")
 linesB=[f"$ {cmdB}"]+run(cmdB).split("\n")
 

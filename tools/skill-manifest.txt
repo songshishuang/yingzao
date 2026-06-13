@@ -1,0 +1,13 @@
+# 营造 skill 核心清单（单一真相源）—— install 装什么 / gen-baseline hash 什么，都读它。
+# 扁平化后仓库根混了 skill 文件与工程文件；此清单显式划定「哪些属于被安装的 skill」。
+# 不在此清单 = 工程/发行物，不随 skill 安装：
+#   install.sh · tools/check-release.sh · .github · assets · examples · marketplace.json · VERSION · README.md · docs
+SKILL.md
+references
+templates
+tests
+tools/inspect-skill.sh
+tools/gen-baseline.sh
+tools/self-integrity.sh
+tools/baseline.lock
+tools/skill-manifest.txt

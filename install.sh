@@ -59,7 +59,16 @@ install_skills_to() {  # $1 = 目标根目录
             done
         fi
         rm -rf "$dest"
-        cp -R "$SCRIPT_DIR/$s" "$dest"
+        mkdir -p "$dest"
+        # ── 按 tools/skill-manifest.txt 白名单安装（v1.5 扁平化）──
+        # 扁平化后仓库根混了工程文件，只装清单内的 skill 核心；
+        # install.sh / tools/check-release.sh / .github / assets / marketplace.json / VERSION / README / docs 等工程物不随装。
+        while IFS= read -r item; do
+            [[ -z "$item" || "$item" == \#* ]] && continue
+            [[ -e "$SCRIPT_DIR/$item" ]] || continue
+            mkdir -p "$dest/$(dirname "$item")"
+            cp -R "$SCRIPT_DIR/$item" "$dest/$item"
+        done < "$SCRIPT_DIR/tools/skill-manifest.txt"
         # ── 隐私安全闸（P0）──
         # case-map.local.md 含真实路径映射 + 岁修计数（本机运行态）。cp -R 会把开发机源端的
         # 一并带到目标 → 从开发机装到任何新 runtime/团队目录都会泄漏。无条件先删源端带来的，

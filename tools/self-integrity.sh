@@ -2,10 +2,10 @@
 # 营造 · 核心完整性哨兵（开工自检：主线核心是否偏离官方基线）
 # 比对主线行为核心 hash vs tools/baseline.lock。防 drift（无意漂移），不阻断运行、只如实告知。
 # 不防铁了心连 baseline.lock 一起改的 fork（那是自愿放弃官方身份）。
-# 用法: bash yingzao/tools/self-integrity.sh
+# 用法: bash tools/self-integrity.sh
 # 退出码: 0 完整 / 1 偏离或基线缺失
 set -euo pipefail
-cd "$(dirname "$0")/.."   # → skill 根 yingzao/
+cd "$(dirname "$0")/.."   # → 仓库根（扁平化后 skill 即仓库根）
 
 LOCK="tools/baseline.lock"
 sha() { if command -v sha256sum >/dev/null 2>&1; then sha256sum "$1" | awk '{print $1}'; else shasum -a 256 "$1" | awk '{print $1}'; fi; }

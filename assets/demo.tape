@@ -14,12 +14,12 @@ Set Padding 14
 
 Type "# 体检一个有病的 skill ——"
 Enter
-Type "bash yingzao/tools/inspect-skill.sh yingzao/tests/fixtures/bad-skill-demo --target opensource"
+Type "bash tools/inspect-skill.sh tests/fixtures/bad-skill-demo --target opensource"
 Enter
 Sleep 4s
 
 Type "# 体检营造自己（岁修之后）——"
 Enter
-Type "bash yingzao/tools/inspect-skill.sh yingzao --target opensource"
+Type "bash tools/inspect-skill.sh . --target opensource"
 Enter
 Sleep 4s

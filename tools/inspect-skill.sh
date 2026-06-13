@@ -4,7 +4,7 @@
 # 用法: inspect-skill.sh <skill-dir> [--target internal|opensource]
 #   <skill-dir> 为含 SKILL.md 的目录（单文件 skill 同样适用）
 # 输出: 每条 PASS/WARN/FAIL/INFO + 严重度（必须改/应该改/最佳实践）；FAIL>0 时 exit 1
-# 设计依据: 源仓库 docs/ 下设计文档 §5.1（github.com/songshishuang/yingzao；装载副本不含 docs/）
+# 设计依据: 源仓库设计文档 §5.1（github.com/songshishuang/yingzao；设计草稿本地归档，不随仓发行）
 # 注: 术语一致性的语义深检由 LLM 勘验承担；本脚本负责确定性可判项（含占位符残留扫描）。
 set -euo pipefail
 
