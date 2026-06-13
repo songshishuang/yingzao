@@ -250,9 +250,9 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao
 
 附带的零 token 预检脚本单独就能用——同一把尺子，两种命运：
 
-<img src="assets/demo-terminal.svg" alt="inspect-skill.sh 真实运行对比：病体 fixture 3 FAIL vs 营造自身 14 PASS" width="100%">
+<img src="assets/demo.gif" alt="inspect-skill.sh 真实运行：病体 fixture 3 FAIL vs 营造自身 0 FAIL / 14 PASS" width="100%">
 
-> 输出逐字取自真实运行（原始记录 [assets/demo-run.txt](assets/demo-run.txt)，vhs 录制脚本 [assets/demo.tape](assets/demo.tape) 已入库——有 vhs 环境即可复现为动图）。
+> 动图由 [assets/render-demo-gif.py](assets/render-demo-gif.py) 真实运行 inspect-skill.sh 渲染（纯 Python + Pillow，无需 vhs / brew；逐字数据存 [assets/demo-run.txt](assets/demo-run.txt)，静态版见 assets/demo-terminal.svg，vhs 录制脚本 demo.tape 亦保留）。
 
 ## 文件结构
 

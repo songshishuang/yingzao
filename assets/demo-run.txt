@@ -1,4 +1,4 @@
-# 营造 demo 真实运行存档 · 2026-06-13（终端 SVG 的逐字数据源）
+# 营造 demo 真实运行存档（GIF 数据源 · 由 render-demo-gif.py 真实运行生成）
 ## RUN A · 病体 fixture（--target opensource）
 $ bash yingzao/tools/inspect-skill.sh yingzao/tests/fixtures/bad-skill-demo --target opensource
 ── 营造 · 规则预检 ──  目标: /Users/songshishuang/project/yingzao/yingzao/tests/fixtures/bad-skill-demo
@@ -36,7 +36,7 @@ $ bash yingzao/tools/inspect-skill.sh yingzao --target opensource
 PASS  SKILL.md 存在
 PASS  frontmatter 含 name
 PASS  frontmatter 含 description 且有触发语料（853c）
-PASS  SKILL.md 行数 146 ≤ 500
+PASS  SKILL.md 行数 159 ≤ 500
 PASS  引用链一层深（references 内无二级引用）
 PASS  代码栅栏闭合（``` × 0）
 PASS  内链文件全部存在（带扩展名路径）
