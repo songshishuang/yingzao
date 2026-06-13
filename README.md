@@ -138,6 +138,8 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 
 权重按 skill 形态（工具型 / 方法论型 / 工作流型 / 风格型）动态调整，单文件 skill 按组织合理性评分不按文件数量——细则见 `references/scoring.md`。
 
+> **持续对齐前沿**：共存安全（Coexistence，对标官方 enterprise 5 维）、触发词对抗面（2026 学术证实第 1 维「触发词丰富」同时是攻击面）等新维已登记为评分检查点，经岁修流程逐步纳入权重——见 `references/scoring.md`「已知盲点」节。
+
 ## 三个可选输入（不说也能跑，说了更准）
 
 | 输入 | 说法示例 | 影响 |
@@ -207,7 +209,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 | 留下什么 | 一次性的改动 | 测试资产 + 打磨报告 + 下轮入口 |
 | 和同行比怎么样 | 不知道 | 带 URL 的对标调研 |
 
-**它和 skill-creator 的关系（已更新）**：skill-creator 现在也内置了 eval——能跑测试、盲比版本、聚合基准。但那是一条**你自己定义断言的测试跑道**（rubric-light，盲评还标为可选）。营造给的是另一层：一把**统一的九维质量标尺**（按形态加权、无测试封顶 70）、一套**带生态位调研（访例 / 定式）的打磨工艺**、和留在你项目里**人人可复跑的测试资产**。两者叠加最顺——从零造新 skill、跑断言测试用 skill-creator；要量质量、定标准、做对标、改到能交付，用营造。
+**它和官方质检 / 同类工具的关系（维修车间定位）**：Anthropic 官方[企业指南](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/enterprise)已给出 skill 质检标尺（触发准确 / 隔离 / 共存 / 遵循 / 产出 5 维 + 审批门 + 作者≠评审），skill-creator 也内置了 eval——**官方与工具链负责"发质检报告"**。营造补的是它们都不做的下一环：**把一个不合格的 skill 系统地修到能交付**——七步大修（单变量 / 棘轮 / 早停 / 比样 / 落架）+ 生态位调研（访例 / 定式）+ 留在项目里可复跑的测试资产。一句话：**官方告诉你合不合格，营造是把不合格件修到出厂的维修车间。** 标尺上与官方对齐（九维已含其 5 维同类项，并按形态加权、无测试封顶 70），工艺上做官方不做的事——两者叠加、不对打。而且 SKILL.md 已是 Claude / Codex / Copilot 通用的开放标准，营造 **runtime 中立**——面对一个 Claude+Codex 混编的团队，它是少数能横跨打磨的工具（官方 enterprise 治理只覆盖各自生态）。
 
 ## 快速开始
 
