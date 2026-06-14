@@ -26,6 +26,7 @@
   3. **检查点设计对交互流/创作型 skill 偏苛**——freeform/即兴生成是形态特征非缺陷。
   → **与 [2026-06-13 20-skill 查勘] 结论完全一致，百级样本复现证明非偶发**，是九维最该补的真实改进点；属 scoring 核心改动，须走大修验证门，不手改。
 - **关联**：本轮验证前由 20-skill 查勘 dogfood 反向揪出并修复的 2 个 P0（monorepo 死链误报正则 / 硬规则#2 措辞歧义）见主线 Changelog v1.5.2。
+- **评测记录留存（2026-06-14 · v1.7.2 P2 · 本机 untracked + SHA256 哈希锚定）**：50-skill 盲评实验产物存 `reports/skill-study-2026-06-14/`（含 `cases/` 下 50 个第三方 GitHub skill 克隆，**整体不入 git**——体积 + 第三方版权；靠下列哈希锚定可复查防篡改）。`blind-overhaul-results.json` `fb24bc1eceee24371753ac418ce493a42031c38b91ce3fcdaff1f35b88a77108` · `.csv` `7a6ca4672fea691ed2ae246bcbd5f8921ba1fdc065a31fa61ec70435957491e3` · `samples.json` `aa4e2a223a4c6c6f395a74dd01678fd6b4e927c71de76a2ae77ea78c16d04877` · `yingzao-skill-study.html` `f0155d3e1cca67e44dd3cd60e62b701c7f78e8bbd3c2b509dc873e775a773079`。**评测设计如实**（results.json 自标）：randomized A/B 标签 + **单个确定性 rubric judge**（非两位、未派独立 LLM judge，自标「non-strict blind」）+ 每样本九维分（含第 8 维 safety，**满分 7 非 10**）——存此以澄清外部 review「两 judge / dim8=8/10 / 本次 full_test」的口径误解（实为今早 50-skill 实验、单确定性 judge、safety 7 分制）。
 - **✅ 大修落地（2026-06-14 · Y-013 → v1.6）**：3 条改进点已从「岁修候选」正式纳入 scoring.md「形态分流判据」节（给第 9/8/4 维补「同维度按形态认定判法」+ 纯形态判定特征）。经验证门：2 独立盲评 agent 复评 8 样本——对照组同形态 Δ±3（噪声内、不破历史口径）、改进组纯问诊型 +4~+8（仅第 8 维获益、仍受 ≤70 上限、硬规则不松）。全门禁绿（gen-baseline v1.6.0 / check-release / self-integrity / test-layering 6-0 / test-linkcheck 2-0 / inspect 自检 17PASS）。仅「纯」形态触发，复合/工作流/工具主形态原判，故不改权重、不破五场战绩。
 
 ### YZ-DOGFOOD-002 / Y-014 · 2026-06-14 · 竞品驱动改进链系统大修（v1.7）

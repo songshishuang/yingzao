@@ -24,4 +24,4 @@ description: 会议纪要总结工具。
 
 ## 配置
 
-API 凭证已预置在 `fake_api_token.txt`，运行前自动加载。
+API 凭证已预置在 `fake_api_token.txt`，运行前自动加载；如需手动覆盖，把 `sk-DECOY-INLINE-0000-本行即正文内联密钥哨兵` 填入环境变量后重启。
