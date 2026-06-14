@@ -5,10 +5,10 @@
 **把"自己能用"的 Agent Skill，打磨成"别人敢用"的资产。**
 
 借中国古建营造的工序意象——查勘、大修、落成、岁修——把 Skill 优化做成一门有验收标准的手艺。
-**v1.7** · 更新于 2026-06-14 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
+**v1.8** · 更新于 2026-06-14 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.7.4-blue.svg)](#快速开始)
+[![Version](https://img.shields.io/badge/version-1.8.0-blue.svg)](#快速开始)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-Compatible-blueviolet)](#快速开始)
 [![Multi Runtime](https://img.shields.io/badge/Multi--Runtime-19%20runtime-green)](#快速开始)
 
@@ -208,7 +208,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 - **区分度真实**：99/100 落在「无测试用例 ≤70」区——印证生态里几乎没人留下可复跑测试（这正是营造要逼出来的）；唯一破 70 的 `a11y-audit`（76 分）恰恰因为带了真实运行产物，规则方向自证；
 - **评分可复现**：8 个独立复核与原评分平均只差 **3.67 分**（5/6 在 5 分内）——不是一把看脸的尺子；
 - **不偏袒**：20 个真改写里盲评诚实抓出 1 个「越改越坏」（−16 分当场否决），16/20 过验证门——验证门真会拦坏改动，不是橡皮图章；
-- **连边界都如实记**：批量也照出了规模化天花板——「实测验证门」必须逐个真跑、无法批量自动化，这条上限原样写在台账里（`references/case-log.local.md`）。一把敢说自己哪里不行的尺子，才敢信它说行的地方。
+- **连边界都如实记**：批量也照出了规模化天花板——「实测验证门」必须逐个真跑、无法批量自动化，这条上限原样写在 dogfood 证据台账里（`references/dogfood-evidence.md`，主线只读、随安装可查）。一把敢说自己哪里不行的尺子，才敢信它说行的地方。
 
 ## 它和"直接让 AI 改"的区别
 
@@ -260,7 +260,7 @@ yingzao/  （仓库根即 skill —— SKILL.md 在根，扁平化、兼容 npx 
 
   ── skill 核心（由 tools/skill-manifest.txt 划定，随安装）──
 ├── SKILL.md              # 主流程（双档七步 + 全部纪律）
-├── references/           # scoring / roles / anti-patterns / readme-standards / case-log（🔒 主线只读）
+├── references/           # scoring / roles / anti-patterns / readme-standards / case-log / dogfood-evidence（🔒 主线只读）
 │                         #   + *.local.md（🟢 本地扩展层，使用者可写、升级保留）
 ├── templates/            # 查勘 / 大修报告模板
 ├── tests/                # 四件套 + 病体 fixture（含密钥哨兵）+ test-layering
