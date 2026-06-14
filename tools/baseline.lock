@@ -1,8 +1,8 @@
-# yingzao 核心完整性基线 · version: 1.8.0 · 由 gen-baseline.sh 生成（开发态发版）
-ddabd2f03d05b802b3b789cbd3be76885bdbad0aab2a41fb5f9d2bd696fc0c7a  SKILL.md
+# yingzao 核心完整性基线 · version: 1.8.1 · 由 gen-baseline.sh 生成（开发态发版）
+6c52fc08a6a9f2ba92ca2264a4a1d6cc791b0129de489d8f823d611093835285  SKILL.md
 32f6a92e80297f07dd4570bc3b6f3d843d5e00dd34549288226f9af612e52b52  references/anti-patterns.md
 6b2a863a381e56ce8f97bee74d127174ed83d8d61336ac3a2ec74a4401770831  references/case-log.md
-d85047683448074f89f9e8b72a6185f6507afeaa6a21e9397b51c6bcd2ea60e8  references/changelog.md
+898c14b5e07d882f8e0c1223a8c2ede8a9f14ca195ff77afcfb04523cef342a4  references/changelog.md
 8da00370bee16f9fe34d784cab5dc39c0435b58086c3d030b796a1ce83b8e714  references/dogfood-evidence.md
 eba4062823ef58eb65ee5d55433a14d13be3db34a32001e1b8b46f52b696e8f2  references/readme-standards.md
 e52355a434771c2e576c59669df990f680774056233eaa459b5822a9576d9506  references/roles.md
