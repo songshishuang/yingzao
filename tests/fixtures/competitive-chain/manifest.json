@@ -1,0 +1,43 @@
+{
+  "generated": "2026-06-14",
+  "purpose": "竞品驱动链大修(v1.7)验证门固定样本 · 防漂移可审计 · 防事后挑样本",
+  "note": "commit 已锁 40 位; 外部 F2/F3 不入仓库(license/体积), 由 fetch-fixtures.sh 按本清单拉取并比对 SKILL.md SHA256 防漂移",
+  "fixtures": [
+    {
+      "id": "F1",
+      "role": "转化率+精度",
+      "repo": "(self)",
+      "commit": "af7171643c8226e9579ecbb2ff0fc6c591175c2b",
+      "path": "/",
+      "skill_md_sha256": "067cd70c9f5643b00baf9be99881327c6c18d9539390829ccdbcca1fb3e83d4f",
+      "gen_cmd": "git archive af71716 --prefix=F1-yingzao-af71716/ SKILL.md references templates",
+      "local": "F1-yingzao-af71716/ (已固化入仓库, 不可变)"
+    },
+    {
+      "id": "F2",
+      "role": "转化率+精度",
+      "repo": "github.com/alirezarezvani/claude-skills",
+      "commit": "4a3c05b69e64f4925f7fc65c88890f614f79caf0",
+      "path": "c-level-advisor/c-level-agents/skills/caio-review",
+      "skill_md_sha256": "4082151af5f6a3966a45b8e5ac7a5e13b55065d5615574130df4f51954517e23",
+      "fetch": "bash fetch-fixtures.sh F2",
+      "reason": "纯问诊型, 旧链下安全/实测维偏苛代表"
+    },
+    {
+      "id": "F3",
+      "role": "召回(隐藏金标)",
+      "repo": "github.com/coreyhaines31/marketingskills",
+      "commit": "bee3f2f42c9ead9271af59a6d2082ed8aca8b3d3",
+      "path": "skills/cold-email",
+      "skill_md_sha256": "b7f8d793169a5111c857e5720c6b80028686cc95d5a0d0d6570957c2710aff9e",
+      "fetch": "bash fetch-fixtures.sh F3",
+      "competitor_check": {
+        "cmd": "grep -icE 'competitor|alternative|相比|竞品|对比同类|other tools like' SKILL.md",
+        "output": 0,
+        "verified_at_commit": "bee3f2f42c9ead9271af59a6d2082ed8aca8b3d3",
+        "ts": "2026-06-14"
+      },
+      "hidden_gold": "NOT in repo/docs/tests — 隐藏金标竞品存被测 agent cwd 外的隔离评审区(见方案 §6.5); 台账只记 N/召回数/金标清单 SHA256, 不记明文"
+    }
+  ]
+}

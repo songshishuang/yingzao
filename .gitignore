@@ -6,3 +6,6 @@ references/case-map.local.md
 .DS_Store
 # 设计文档(开发草稿)本地归档，不入对外 git
 docs/
+
+# 竞品链验证门 fetch 工作区（外部 fixture 拉取，不入仓库）
+tests/fixtures/competitive-chain/.work/
