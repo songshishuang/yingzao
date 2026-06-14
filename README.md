@@ -8,7 +8,7 @@
 **v1.7** · 更新于 2026-06-14 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.7.3-blue.svg)](#快速开始)
+[![Version](https://img.shields.io/badge/version-1.7.4-blue.svg)](#快速开始)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-Compatible-blueviolet)](#快速开始)
 [![Multi Runtime](https://img.shields.io/badge/Multi--Runtime-19%20runtime-green)](#快速开始)
 
@@ -176,7 +176,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 **纪律（v1.4 分层）**：所有自学写入只落**本地扩展层**（`*.local.md`：台账→case-log.local.md、新反模式→anti-patterns.local.md）——**主线核心永不被运行时改动**，升级直接覆盖、零冲突。改行为规则仍须先候选 diff 经你确认；它不能悄悄变成另一个工具，也不会和官方主线悄悄分叉。
 
 **轨 2 · 满 5 个触发"岁修"（用自己打磨自己）**
-台账每攒满 5 个 skill：**你的安装**（运行态）会提示"已积累 N 条本地反模式 + M 场台账，导出贡献包回馈主线？"——**不改自己的核心**，只把改进汇成可提 PR 的贡献包；**作者源仓**（开发态，含 docs/）才用同一套七步流程打磨核心自身，按**开源标准**自检（陌生用户视角，自己不能既当裁判又当运动员）。这样人人能贡献、却没人会悄悄分叉出"自己的版本"。
+台账每攒满 5 个 skill：**你的安装**（运行态）会提示"已积累 N 条本地反模式 + M 场台账，导出贡献包回馈主线？"——**不改自己的核心**，只把改进汇成可提 PR 的贡献包；**作者源仓**（开发态，含 install.sh / .github）才用同一套七步流程打磨核心自身，按**开源标准**自检（陌生用户视角，自己不能既当裁判又当运动员）。这样人人能贡献、却没人会悄悄分叉出"自己的版本"。
 
 **数据飞轮**
 台账积累的每条记录（什么形态的 skill / 逐轮改了什么 / 每轮提了多少分）都是校准素材——当前九维权重是参考实证研究的启发式起点，**攒够真实案例后会用实测数据重新校准权重**。也就是说：你用它修的 skill 越多，这把尺子对你团队就越准。

@@ -20,6 +20,7 @@ jobs:
           bash -n tools/self-integrity.sh
           bash -n tests/test-layering.sh
           bash -n tools/check-release.sh
+          bash -n tools/validate-report-contract.sh
 
       - name: dogfood — 营造自查自己（opensource 口径，应 0 FAIL）
         run: bash tools/inspect-skill.sh . --target opensource
@@ -31,6 +32,17 @@ jobs:
           else
             echo "✅ 病体如期被判 FAIL"
           fi
+
+      - name: 报告契约校验 — validate-report-contract 行为样例（一致 PASS / 断流·凭空 FAIL）
+        run: |
+          bash tools/validate-report-contract.sh tests/fixtures/report-contract/pass.md
+          for f in break phantom; do
+            if bash tools/validate-report-contract.sh "tests/fixtures/report-contract/$f.md"; then
+              echo "::error::$f.md 应被判 FAIL（断流/凭空）却 PASS，契约校验失效"; exit 1
+            else
+              echo "✅ $f.md 如期被判 FAIL"
+            fi
+          done
 
       - name: 发布一致性门禁（版本四处 + 战绩自洽）
         run: bash tools/check-release.sh
