@@ -83,6 +83,7 @@ else
   if [ -d "$SKILL_DIR/references" ]; then
     for rf in "$SKILL_DIR"/references/*.md; do
       [ -f "$rf" ] || continue
+      case "$(basename "$rf")" in changelog.md) continue ;; esac  # 历史叙述，提及路径非真引用（同 SKILL.md Changelog 叙述豁免）
       if grep -q 'references/' "$rf" 2>/dev/null; then DEEP_REF=1; fi
     done
   fi

@@ -20,9 +20,9 @@ if grep -q "version-$V-" README.md; then ok "README badge = $V"; else bad "READM
 if grep -qE "\*\*v$V\*\*|\*\*v${V%.*}\*\*" README.md; then ok "README 头部版本声明含 $V 系"; else bad "README 头部版本声明缺 $V"; fi
 # 3. marketplace.json
 if grep -q "\"version\": \"$V\"" .claude-plugin/marketplace.json; then ok "marketplace.json = $V"; else bad "marketplace.json ≠ $V"; fi
-# 4. SKILL.md Changelog 含该版本（接受 vX.Y 或 vX.Y.Z，按 major.minor 匹配）
+# 4. references/changelog.md 含该版本（完整历史真相源；SKILL.md 只留最近两版摘要）
 VMM=${V%.*}
-if grep -qE "v($V|$VMM)\b" SKILL.md; then ok "SKILL.md Changelog 含 v$VMM 系"; else bad "SKILL.md Changelog 缺 v$VMM"; fi
+if grep -qE "v($V|$VMM)\b" references/changelog.md; then ok "changelog.md 含 v$VMM 系"; else bad "changelog.md 缺 v$VMM"; fi
 
 # 5. README 内部战绩自洽：战绩用「前→后」箭头表达，只取「整数前分→后分」形态（排除 6→9.5 这类实测子分）
 #    口径：前分为整数或 NN.N、后分允许 ~ 前缀；副标题分数序列集合 == 战绩表后分集合

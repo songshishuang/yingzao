@@ -5,14 +5,17 @@
 **把"自己能用"的 Agent Skill，打磨成"别人敢用"的资产。**
 
 借中国古建营造的工序意象——查勘、大修、落成、岁修——把 Skill 优化做成一门有验收标准的手艺。
-**v1.7** · 更新于 2026-06-13 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
+**v1.7** · 更新于 2026-06-14 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.7.0-blue.svg)](#快速开始)
+[![Version](https://img.shields.io/badge/version-1.7.1-blue.svg)](#快速开始)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-Compatible-blueviolet)](#快速开始)
-[![Multi Runtime](https://img.shields.io/badge/Multi--Runtime-4%20platforms-green)](#快速开始)
+[![Multi Runtime](https://img.shields.io/badge/Multi--Runtime-19%20runtime-green)](#快速开始)
 
 ```bash
+# 最快 · 跨 19 runtime（skills.sh universal，已实测）
+npx skills add songshishuang/yingzao
+# 或源码安装（含可单独用的 inspect/gen-baseline 等工具脚本）
 git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh claude-code
 ```
 
@@ -223,12 +226,18 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 ## 快速开始
 
 ```bash
+# 方式一 · 最快（跨 19 runtime，skills.sh universal）
+npx skills add songshishuang/yingzao
+
+# 方式二 · 源码（含 inspect-skill.sh 等可单独用的工具脚本）
 git clone https://github.com/songshishuang/yingzao && cd yingzao
 ./install.sh claude-code        # 安装到 ~/.claude/skills/（默认）
 ./install.sh cursor --project /path/to/project
 ./install.sh codex
 ./install.sh opencode --project /path/to/project
 ```
+
+> **公网安装实测**（2026-06-14 · Darwin arm64 · bash 3.2）：① `git clone + ./install.sh` 装出完整 skill ✓；② `npx skills add songshishuang/yingzao` → skills.sh 识别为 **universal**，跨 Amp / Antigravity / Cline / Codex 等 **19 个 runtime** ✓。两条公网路径均已跑通。
 
 装完对 AI 说一句话即可开工：
 
