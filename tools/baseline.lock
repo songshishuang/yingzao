@@ -1,10 +1,10 @@
-# yingzao 核心完整性基线 · version: 1.5.2 · 由 gen-baseline.sh 生成（开发态发版）
-3f4604efb9eddbf3fc23b987c2cff34ef4256c383085604e8ae58b6d9ec30706  SKILL.md
+# yingzao 核心完整性基线 · version: 1.6.0 · 由 gen-baseline.sh 生成（开发态发版）
+067cd70c9f5643b00baf9be99881327c6c18d9539390829ccdbcca1fb3e83d4f  SKILL.md
 32f6a92e80297f07dd4570bc3b6f3d843d5e00dd34549288226f9af612e52b52  references/anti-patterns.md
 6b2a863a381e56ce8f97bee74d127174ed83d8d61336ac3a2ec74a4401770831  references/case-log.md
 eba4062823ef58eb65ee5d55433a14d13be3db34a32001e1b8b46f52b696e8f2  references/readme-standards.md
 923e982cbae6a0e7d76ffe78efc0f4459f1e8a359d623c1540f08c76bed7d440  references/roles.md
-05c7f055886170d1200d03f36a3079210b7143009ce3e84768c049fdb61afeee  references/scoring.md
+1c34074df9d670575c15921e9f2a96221aacbde2504b68e6aa27a7c9ad7504b9  references/scoring.md
 e4d7a070caac99672515256f0548e819bc3da87c85679a55ea53b7c1251be1b6  templates/full-report.md
 e80f2020df3a6ec5ca94641c92cb189f2479a63233aabe12ea9cf1f7ad689f48  templates/quick-report.md
 9f4edf9229c66264ccec289c51f49ecbed6e14d33707285e3f0243891cac91ff  tools/gen-baseline.sh
