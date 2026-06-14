@@ -1,7 +1,7 @@
 # 营造 demo 真实运行存档（GIF 数据源 · 由 render-demo-gif.py 真实运行生成）
 ## RUN A · 病体 fixture（--target opensource）
 $ bash tools/inspect-skill.sh tests/fixtures/bad-skill-demo --target opensource
-── 营造 · 规则预检 ──  目标: /Users/songshishuang/project/yingzao/tests/fixtures/bad-skill-demo
+── 营造 · 规则预检 ──  目标: ~/project/yingzao/tests/fixtures/bad-skill-demo
 ── 发布目标: opensource
 
 【基础段 · 团队复用就绪度】
@@ -29,7 +29,7 @@ PASS: 6   WARN: 6   FAIL: 3   INFO: 0
 
 ## RUN B · 营造自身（--target opensource）
 $ bash tools/inspect-skill.sh . --target opensource
-── 营造 · 规则预检 ──  目标: /Users/songshishuang/project/yingzao
+── 营造 · 规则预检 ──  目标: ~/project/yingzao
 ── 发布目标: opensource
 
 【基础段 · 团队复用就绪度】
