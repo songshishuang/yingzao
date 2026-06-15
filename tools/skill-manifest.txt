@@ -10,5 +10,6 @@ tools/inspect-skill.sh
 tools/gen-baseline.sh
 tools/self-integrity.sh
 tools/validate-report-contract.sh
+tools/eval-harness.sh
 tools/baseline.lock
 tools/skill-manifest.txt

@@ -5,10 +5,10 @@
 **把"自己能用"的 Agent Skill，打磨成"别人敢用"的资产。**
 
 借中国古建营造的工序意象——查勘、大修、落成、岁修——把 Skill 优化做成一门有验收标准的手艺。
-**v1.8** · 更新于 2026-06-15 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
+**v1.9** · 更新于 2026-06-15 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.8.2-blue.svg)](#快速开始)
+[![Version](https://img.shields.io/badge/version-1.9.0-blue.svg)](#快速开始)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-Compatible-blueviolet)](#快速开始)
 [![Multi Runtime](https://img.shields.io/badge/Multi--Runtime-19%20runtime-green)](#快速开始)
 
@@ -45,7 +45,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 ## 两个档位：查勘 vs 大修
 
 - **查勘（快检档）·"先告诉我行不行"**：**全程只读不动文件**，一页报告（九维分附证据 + P0/P1 + 一句话建议），约 10 分钟 / 30–60K tokens。适合刚写完心里没底、同事发来帮看、周会前批量体检。
-- **大修（精装档）·"修到能交付"**：完整七步，**改动默认只出候选、你点头才落盘**。适合交付团队 / 开源前。成本三档：估分 0.2–0.5M / 隔离实测 0.5–1.5M / 比样 1–3M tokens。
+- **大修（精装档）·"修到能交付"**：完整七步（**先 headroom 预判**——原版已够好就建议维持/小修、不硬改避免越改越坏），**改动默认只出候选、你点头才落盘**。适合交付团队 / 开源前。成本三档：估分 0.2–0.5M / 隔离实测 0.5–1.5M / 比样 1–3M tokens。
 
 ## 大修七步
 
@@ -70,7 +70,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 | 机制 | 干什么 |
 |------|--------|
 | **单变量变异** | 每轮只改一个方向，变好变坏都知道因为啥 |
-| **验证门** | 测试**严格优于原版**才接受——挡住"好看但跑不动" |
+| **验证门** | **真实任务 before/after 盲评**严格优于原版才接受（结构分↑≠输出分↑，`tools/eval-harness.sh` 跑、宿主能隔离才记过门）——挡住"好看但跑不动" |
 | **棘轮 + 早停** | 分数只升不降；单轮提升 <1 分自动收手防硬凑 |
 | **边际复测** | 优势微弱加跑一次，仍微弱判不过——不被随机波动骗 |
 | **比样 Pareto**（可选） | 每轮 3 候选逐实例比胜负面，总分高但单点崩坏的不入选 |
@@ -149,7 +149,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 | 改的人和评的人 | 同一个（自评准确率 46.4%） | 强制分离 + 轮换评审 |
 | 和同行比怎么样 | 不知道 | 带 URL 的对标调研 |
 
-**和官方质检的关系（维修车间定位）**：Anthropic 官方[企业指南](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/enterprise)已给 skill 质检标尺（触发 / 隔离 / 共存 / 遵循 / 产出 5 维 + 审批门 + 作者≠评审），skill-creator 也内置 eval——**官方负责"发质检报告"**。营造补它们都不做的下一环：**把不合格的 skill 系统修到能交付**（七步大修 + 生态位调研 + 留在项目里可复跑的测试资产）。一句话：**官方告诉你合不合格，营造是把不合格件修到出厂的维修车间**——标尺与官方对齐、工艺做官方不做的，两者叠加、不对打。且 SKILL.md 是 Claude / Codex / Copilot 通用标准，营造 **runtime 中立**，混编团队反而是主场。
+**和官方质检的关系（维修车间定位）**：Anthropic 官方[企业指南](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/enterprise)已给 skill 质检标尺（触发 / 隔离 / 共存 / 遵循 / 产出 5 维 + 审批门 + 作者≠评审），skill-creator 也内置 eval——**官方负责"发质检报告"**。营造补它们都不做的下一环：**把不合格的 skill 系统修到能交付**（七步大修 + 生态位调研 + 留在项目里可复跑的测试资产）。一句话：**官方告诉你合不合格，营造是把不合格件修到出厂的维修车间**——标尺与官方对齐、工艺做官方不做的，两者叠加、不对打。且 SKILL.md 是 Claude / Codex / Copilot 通用标准，营造 **runtime 中立**，混编团队反而是主场（v1.9 起验证门 **runtime 感知**：Codex 2026-03 Subagents 的 `sandbox_mode=read-only`+worktree 工具层硬隔离，真实 before/after 验证门可直接跑、连含副作用的测试也能实测）。
 
 ## 快速开始
 
