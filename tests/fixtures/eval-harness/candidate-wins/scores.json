@@ -1,0 +1,5 @@
+[
+  {"prompt": "p1", "orig": 6.0, "cand": 8.0, "bare": 5.0},
+  {"prompt": "p2", "orig": 5.5, "cand": 7.5, "bare": 5.0},
+  {"prompt": "p3", "orig": 7.0, "cand": 8.5, "bare": 6.0}
+]

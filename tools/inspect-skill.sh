@@ -78,13 +78,15 @@ else
     warn "SKILL.md ${LINES} 行超 500 预算——建议拆分 references/（渐进披露）"
   fi
 
-  # 3. 引用链深度（references 内文件不应再引用 references/ 形成两层）
+  # 3. 引用链深度（references 内文件不应以 markdown 链接跳转到另一个 references/ 形成两层阅读路径）
+  #    只认操作性跳转 ](references/ ——行内代码与叙述提及（如 scoring 写 `references/x`、changelog 记录新增文件）不算两层，
+  #    避免叙述性路径误伤（同 §5 内链的叙述豁免思路；changelog 另行豁免作双保险）。
   DEEP_REF=0
   if [ -d "$SKILL_DIR/references" ]; then
     for rf in "$SKILL_DIR"/references/*.md; do
       [ -f "$rf" ] || continue
-      case "$(basename "$rf")" in changelog.md) continue ;; esac  # 历史叙述，提及路径非真引用（同 SKILL.md Changelog 叙述豁免）
-      if grep -q 'references/' "$rf" 2>/dev/null; then DEEP_REF=1; fi
+      case "$(basename "$rf")" in changelog.md) continue ;; esac  # 历史叙述，提及路径非真引用
+      if grep -qE '\]\(references/' "$rf" 2>/dev/null; then DEEP_REF=1; fi
     done
   fi
   if [ "$DEEP_REF" -eq 0 ]; then
@@ -160,7 +162,9 @@ done
 HAS_TEST=0
 # 注: 路径匹配以 $SKILL_DIR 为根的相对路径（cd 后 find .）——绝对路径匹配 '*/tests/*' 会在
 #     查勘对象本身位于宿主 tests/ 树下（如 fixtures 教具）时恒假阳性（Y-010 实测实例反向发现）。
-if (cd "$SKILL_DIR" && find . \( -name .git \) -prune -o \( -iname '*test*prompt*' -o -iname 'test-prompts*' -o -iname 'evals*' -o -path './tests/*' \) -type f -print 2>/dev/null) | grep -q .; then
+#     用 -print -quit（首个匹配即停、find 自身 exit 0）替 `| grep -q .`——后者在 set -o pipefail 下
+#     grep -q 提前关管道致 find 收 SIGPIPE 退 141、整条管道判失败 → 有 tests/ 也误报缺失（dogfood 自伤实测）。
+if [ -n "$(cd "$SKILL_DIR" && find . \( -name .git \) -prune -o \( -iname '*test*prompt*' -o -iname 'test-prompts*' -o -iname 'evals*' -o -path './tests/*' \) -type f -print -quit 2>/dev/null)" ]; then
   HAS_TEST=1
 fi
 if [ "$HAS_TEST" -eq 1 ]; then

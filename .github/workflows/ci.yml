@@ -21,6 +21,7 @@ jobs:
           bash -n tests/test-layering.sh
           bash -n tools/check-release.sh
           bash -n tools/validate-report-contract.sh
+          bash -n tests/test-eval-harness.sh
 
       - name: dogfood — 营造自查自己（opensource 口径，应 0 FAIL）
         run: bash tools/inspect-skill.sh . --target opensource
@@ -43,6 +44,9 @@ jobs:
               echo "✅ $f.md 如期被判 FAIL"
             fi
           done
+
+      - name: 验证门① eval-harness 行为夹具（candidate-wins→PASS / regression·weak·invalid→FAIL）
+        run: bash tests/test-eval-harness.sh
 
       - name: 发布一致性门禁（版本四处 + 战绩自洽）
         run: bash tools/check-release.sh
