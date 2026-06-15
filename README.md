@@ -5,10 +5,10 @@
 **把"自己能用"的 Agent Skill，打磨成"别人敢用"的资产。**
 
 借中国古建营造的工序意象——查勘、大修、落成、岁修——把 Skill 优化做成一门有验收标准的手艺。
-**v1.8** · 更新于 2026-06-14 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
+**v1.8** · 更新于 2026-06-15 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.8.1-blue.svg)](#快速开始)
+[![Version](https://img.shields.io/badge/version-1.8.2-blue.svg)](#快速开始)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-Compatible-blueviolet)](#快速开始)
 [![Multi Runtime](https://img.shields.io/badge/Multi--Runtime-19%20runtime-green)](#快速开始)
 
@@ -154,6 +154,8 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 可选模式「**比样**」：说「比样大修」，关键改写每轮生成 3 个候选、择优录取（成本约 ×2，适合把重要 skill 修成标杆）。
 
 卡死保险「**落架**」：细作连续两轮过不了验证门时，营造会提议「落架」——保存当前最优版后整体推倒重写，再同台测试对比，**赢了才换、输了就恢复**（必经你点头才执行，成本约 ×1.5-2）。
+
+召回稳定「**多轮并集召回模式**」：访例可选——说「多轮并集 / 满配召回 / 发布前召回加固」，N 个并行 agent 各跑一轮同类调研后并集去重（成本约 ×N，发布前 / dogfood 召回稳定刚需场景用）。单轮调研覆盖方差大是 LLM 固有随机、改搜索词降不了，多轮并集才收敛到满配（YZ-DOGFOOD-002 实测 6 轮并集≈单轮 3×）。
 
 ## 安全承诺（营造永远不会做的事）
 
