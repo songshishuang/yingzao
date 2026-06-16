@@ -5,10 +5,10 @@
 **把"自己能用"的 Agent Skill，打磨成"别人敢用"的资产。**
 
 借中国古建营造的工序意象——查勘、大修、落成、岁修——把 Skill 优化做成一门有验收标准的手艺。
-**v1.11** · 更新于 2026-06-16 · 与 Microsoft Research [SkillLens](https://microsoft.github.io/SkillLens) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
+**v1.12** · 更新于 2026-06-17 · 与 Microsoft Research [SkillLens](https://microsoft.github.io/SkillLens) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.11.0-blue.svg)](#快速开始)
+[![Version](https://img.shields.io/badge/version-1.12.0-blue.svg)](#快速开始)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-Compatible-blueviolet)](#快速开始)
 [![Multi Runtime](https://img.shields.io/badge/Multi--Runtime-19%20runtime-green)](#快速开始)
 
@@ -75,6 +75,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 | **边际复测** | 优势微弱加跑一次，仍微弱判不过——不被随机波动骗 |
 | **比样 Pareto + crossover**（可选·默认关） | 每轮 3 候选逐实例比胜负面；v1.11 加 crossover 融合两强候选互补优点（严格采纳门·诚实标期望增益≈0、仅少数互补案例） |
 | **落架**（卡死保险） | 连续两轮不过门 → 整体重构再同台对比，赢了才换、输了恢复 |
+| **报告双层**（运营/PM ↔ 研发 · v1.12） | 非技术画像报告自动加「人话版」区块（每条建议一句白话「什么问题→改完有何不同」）+ 术语双标；工程术语版照旧保留给研发/留档 |
 
 一句话：**别的工具帮你"改"，营造帮你"改 + 证明改对了"。** 每轮数据全留档，可审计、可回退。
 
