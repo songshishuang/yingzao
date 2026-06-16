@@ -5,10 +5,10 @@
 **把"自己能用"的 Agent Skill，打磨成"别人敢用"的资产。**
 
 借中国古建营造的工序意象——查勘、大修、落成、岁修——把 Skill 优化做成一门有验收标准的手艺。
-**v1.9** · 更新于 2026-06-15 · 与 Microsoft Research [SkillLens](https://arxiv.org/abs/2605.23899) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
+**v1.10** · 更新于 2026-06-16 · 与 Microsoft Research [SkillLens](https://microsoft.github.io/SkillLens) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.9.0-blue.svg)](#快速开始)
+[![Version](https://img.shields.io/badge/version-1.10.0-blue.svg)](#快速开始)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-Compatible-blueviolet)](#快速开始)
 [![Multi Runtime](https://img.shields.io/badge/Multi--Runtime-19%20runtime-green)](#快速开始)
 
@@ -56,7 +56,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 | 1 **相地** | 挑战前提：真问题成立吗？凭什么装它而非临时问 AI？前提不成立直接喊停 | 立项结论 |
 | 2 **访例** | 并行 AI 调查员搜遍 GitHub / 社区找同类，每个带真实链接、搜不到写"未访得"（v1.7 去锚定 + 四源 timebox 破确认偏误；v1.8 起可选「多轮并集召回」加固覆盖稳定性） | 对标清单 + 差异点 |
 | 3 **定式** | 交叉分析提炼**一句话生态位**——你在生态里独占的位置（就是你的 slogan） | 一句话定位 |
-| 4 **勘验** | 九维评分，**评分 AI 与打磨 AI 强制分离**（自评准确率仅 46.4%）、每轮换人防锚定 | 评分表（实测/估分标注） |
+| 4 **勘验** | 九维评分，**评分 AI 与打磨 AI 强制分离**（成对判官准确率仅 46.4%）、每轮换人防锚定 | 评分表（实测/估分标注） |
 | 5 **画样** | 问题分 P0/P1/P2 + 三方向（细修 / 做亮点 / 升套件）择一推荐 | 分级差距 + 方向 |
 | 6 **细作** | 核心环节：每轮只改一变量、改前先建测试（剔除裸 AI 也能过的废测试）、过验证门才留、每轮可回退 | 过门改动 + tests/ |
 | 7 **落成** | 大修报告 + 可截图"落成匾" + 岁修清单 | 10 节报告 |
@@ -146,7 +146,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 | 怎么知道变好了 | 感觉 | 独立评审打分 + 测试实跑对比 |
 | 测试本身可信吗 | 不写；或写"裸 AI 也能过"的样子货 | 结构化判据 + 对抗题 + 剔除废测试 |
 | 改坏了怎么办 | 重来 | 每轮 patch 可回退 |
-| 改的人和评的人 | 同一个（自评准确率 46.4%） | 强制分离 + 轮换评审 |
+| 改的人和评的人 | 同一个（成对判官准确率 46.4%） | 强制分离 + 轮换评审 |
 | 和同行比怎么样 | 不知道 | 带 URL 的对标调研 |
 
 **和官方质检的关系（维修车间定位）**：Anthropic 官方[企业指南](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/enterprise)已给 skill 质检标尺（触发 / 隔离 / 共存 / 遵循 / 产出 5 维 + 审批门 + 作者≠评审），skill-creator 也内置 eval——**官方负责"发质检报告"**。营造补它们都不做的下一环：**把不合格的 skill 系统修到能交付**（七步大修 + 生态位调研 + 留在项目里可复跑的测试资产）。一句话：**官方告诉你合不合格，营造是把不合格件修到出厂的维修车间**——标尺与官方对齐、工艺做官方不做的，两者叠加、不对打。且 SKILL.md 是 Claude / Codex / Copilot 通用标准，营造 **runtime 中立**，混编团队反而是主场（v1.9 起验证门 **runtime 感知**：Codex 2026-03 Subagents 的 `sandbox_mode=read-only`+worktree 工具层硬隔离，真实 before/after 验证门可直接跑、连含副作用的测试也能实测）。
@@ -179,8 +179,10 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao
 
 营造的验证机制设计参考以下实证研究：
 
-- MSR [SkillLens](https://arxiv.org/abs/2605.23899)——九维谱系与"改评分离"纪律的实证来源（LLM 自评准确率仅 46.4%）；
-- MSR [SkillOpt](https://arxiv.org/abs/2605.23904)——validation-gated edits 框架；营造的验证门 / 单变量 / 早停与其对齐；
+- MSR [SkillLens](https://microsoft.github.io/SkillLens)——"改评分离"纪律的实证来源（**成对判官**比较两 skill 仅 46.4% 准确、微调后升 73.8%）；九维权重为营造自定义启发式、非论文照搬；
+- MSR [SkillOpt](https://arxiv.org/abs/2605.23904)——validation-gated edits 框架；营造的验证门 / 单变量 / 早停与其对齐（营造是 SkillOpt 的工程孪生）；
+- [SkillRevise](https://arxiv.org/abs/2606.01139)——执行→诊断→修订→效用门控闭环，消融证明"诊断"承重（成功率 53/86 跌至 28/86）；外部印证营造"诊断驱动大修"；
+- [SkillsBench](https://arxiv.org/abs/2602.12670)——86 任务确定性验证器，实测"一次性自生成技能平均无收益"，外部印证营造"真实 before/after 验证门"的必要；
 - [GEPA](https://arxiv.org/abs/2507.19457) · [gepa-ai/gepa](https://github.com/gepa-ai/gepa)——Pareto 候选选择，营造「比样」逐实例胜负面对比的来源；
 - Anthropic [Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)——规则预检清单 + "先建评估再改写"理念；
 - [darwin-skill](https://github.com/alchaincyf/darwin-skill)（3.9k★，花叔）——同谱系优化器，棘轮自述源自 [Karpathy autoresearch](https://github.com/karpathy/autoresearch)；两者评分机制趋同，营造的差异在**团队场景适配 + 生态位（访例 / 定式）+ 双档分流**。

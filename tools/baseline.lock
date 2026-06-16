@@ -1,13 +1,13 @@
-# yingzao 核心完整性基线 · version: 1.9.0 · 由 gen-baseline.sh 生成（开发态发版）
-6696b13fec3a0c8f0c688306c1766bb89d0e08ef0f70c6e52b7983b13f7a7141  SKILL.md
+# yingzao 核心完整性基线 · version: 1.10.0 · 由 gen-baseline.sh 生成（开发态发版）
+14ee6c734cb29e7dbb7f4cf0e9ac68d4bf66e9c3791f923373122efa0db68a0a  SKILL.md
 32f6a92e80297f07dd4570bc3b6f3d843d5e00dd34549288226f9af612e52b52  references/anti-patterns.md
 fd75de448be5f0cc341e18a13c09ce5ccc7890bff6a8ca71b3fa39b4124b8671  references/before-after-protocol.md
 6b2a863a381e56ce8f97bee74d127174ed83d8d61336ac3a2ec74a4401770831  references/case-log.md
-c2a9e4b919b45961aa0ae0f474a84590494d74ee38eb1ec0d3dcfd352a867df1  references/changelog.md
+47eeac466e4ba458a02caf5668bdc9c7553eec9be7e8678b49a70b77f289dfa7  references/changelog.md
 2d63bf4aebafd1d50bd1fd22db139a1034ce2e73d8f6cf02afa26d5880fc5661  references/dogfood-evidence.md
 eba4062823ef58eb65ee5d55433a14d13be3db34a32001e1b8b46f52b696e8f2  references/readme-standards.md
 e52355a434771c2e576c59669df990f680774056233eaa459b5822a9576d9506  references/roles.md
-7e38f0ed4a29437a34a216f40a592c1c3a3e1905ee67176c908f99ba30ff853c  references/scoring.md
+6f220ba3e7a6982522ac962b65968db649aeb1e428c8b20b89ee80dff7c30ad4  references/scoring.md
 2acda98a51235395e3825875f5416c9c53f9100239932b1307320a9b355a1f69  templates/full-report.md
 e80f2020df3a6ec5ca94641c92cb189f2479a63233aabe12ea9cf1f7ad689f48  templates/quick-report.md
 38af9fb5f02eb056a58746bceafe5fecac659dc593fd6b3116508b34e3d09ea4  tools/eval-harness.sh
