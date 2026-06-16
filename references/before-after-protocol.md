@@ -52,6 +52,18 @@ LLM 评委有位置偏置：换 A/B 顺序约 1/3 会翻转判定（**YZ-POSBIAS
 
 评委须**对等长度比较**：两输出长度差大时先判长输出的增量是否真有信息量；注水 / 重复列表 / 空泛样板一律判负，**评分不得因更长而更高**（"重复列表攻击"曾使弱判官 91% 误判，MT-Bench 2306.05685）。可选在 scores.json 记 `cand_len/orig_len`（输出字符数），`eval-harness.sh` 见 cand 远长(>1.5×)且判胜即打注水告警。
 
+## 确定性验证器证据层（D7 · v1.10）
+
+可程序判对错的 skill（脚本型 / 工程工具型：exit code / pytest 断言 / JSON schema）可加一条**确定性验证器证据层**与盲评互补。scores.json 记 `det:true` + `pass_orig/pass_cand`（及可选 `pass_bare`）∈{0,1}（断言全过=1）。`eval-harness.sh` 自动分流：det 项**不进盲评聚合**、单独算 `det_lift=Σpass_cand−Σpass_orig`，**det 门通过 = det_lift≥1 且零回归（无题 pass_cand=0 而 pass_orig=1）**；混合输入时盲评门与 det 门**都过才通过**。`det_skill_lift=Σpass_orig−Σpass_bare` 给 headroom 客观锚。
+
+**形态分流（强制）**：
+| skill 形态 | 确定性验证器 | 说明 |
+|---|---|---|
+| 确定性脚本型 / 工程工具型 | ✅ 可用（强证据·方差≈0·改写者无法讨好评分者） | 有唯一可程序校验产物（文件内容/exit code/断言/schema） |
+| 纯问诊 / 认知 / 风格型 | ❌ 禁用·强制盲评 | 无唯一正确产物·强上 det 会退化成"数关键词" |
+
+**断言陷阱防护**（SkillRevise Appendix E）：① 剔永真断言（裸基线也 pass 的断言无效·须重写）；② 每题断言须语义覆盖核心能力（给断言数下限）；③ oracle 自校验（断言对参考解必须 pass=1，否则断言本身错）。
+
 ## scores.json 格式（v2 · 向后兼容 · 喂给 eval-harness.sh）
 
 ```json
@@ -63,4 +75,5 @@ LLM 评委有位置偏置：换 A/B 顺序约 1/3 会翻转判定（**YZ-POSBIAS
 ```
 - **必填** `prompt / orig / cand`（缺则 harness 判数据错、降级不静默当真）。
 - **可选** `judge`（评委号·同 prompt 多条求均值）、`bare`（裸基线·算 skill_lift）、`order`（"AB"/"BA"·触发换序双判）、`cand_len/orig_len`（输出字符数·触发长度告警）、`pred_gain`（画样 §5b 点估·触发 D3 逐 run 校准对账·calib_err=realized−pred_gain·负=高估）、`set`（"gate"/"holdout"·D2 留位）、`weight`（留位）；区间 `pred_lo/pred_hi`（D3 第二层·未来 run 新要求·当前未生效）。
+- **D7 det 项**：`det:true` + `pass_orig/pass_cand`（必·∈{0,1}）+ `pass_bare`（可选）——确定性验证器项，不进盲评聚合、走 det 门（与盲评互补·形态分流）。
 - **v1.10 冻结**：未知字段一律忽略（向后兼容 v1）；Waves 2-3（D2 holdout / D3 校准 / D7 verifier 分）在此 schema **加列、不改结构**。分值 0-10。

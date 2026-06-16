@@ -83,3 +83,12 @@
 - **价值/边界**：即时价值=把 v1.9 一次性硬编码偏置升级为每轮自动产出的监测量 + 满 ≥5 run 据 Bias 收窄画样预期提分上界；边界=门① 真实 run 现状=0，第二层区间回调"写进去常年待触发"、诚实标未生效。
 - **落地**：`tools/eval-harness.sh`（pred_gain 触发校准行·缺省跳过）+ `references/scoring.md` 硬规则5 扩回调子句 + calib 夹具入自测（4→8 夹具）。
 - **来源**：`reports/skill-study-2026-06-15/analysis/{per_case.json,metrics.json,calib_backtest.py}`；G-Eval(arXiv:2303.16634) 连续分 / 校准科学(2410.21819)。
+
+## YZ-DET-D7 · 确定性验证器证据层（2026-06-16 · v1.10 Wave2 D7）
+
+- **机制**：可程序判对错的脚本/工程型 skill 加 det 证据层（与盲评互补·形态分流）。scores.json `det:true`+`pass_orig/pass_cand`∈{0,1}；eval-harness det 项不进盲评聚合、单算 det_lift=Σpass_cand−Σpass_orig，**det 门=det_lift≥1 且零回归**；混合输入盲评+det 都过才通过。
+- **阻断级修复（deepdive D7 预言·已实测复现并修）**：Wave1 加的"必填 prompt/orig/cand"校验会拒 det 项；旧版盲评聚合对无 orig/cand 的 det 项做除法会 null 崩。重写：校验按 det/盲评分别要求字段；盲评聚合 `select(.det!=true)` 排除 det；**空盲评集（纯 det）守卫 n>0 跳过盲评段**（防除零）。
+- **自测（实测·3 夹具）**：det-pass(det_lift≥1→exit0) / det-regress(某题 pass_cand0&pass_orig1→exit1) / det-mixed(盲评+det 都过→exit0)；**9 盲评夹具零回归**（重写未破盲评路径）。eval-harness 自测 9→12 夹具。
+- **形态分流 + 断言陷阱防护**：纯问诊/认知/风格型禁用强制盲评（强上退化数关键词）；剔永真断言 + 断言语义覆盖下限 + oracle 自校验（断言对参考解须 pass）。
+- **待测（YZ-DET-D7 预注册）**：50 案标"可判/不可判/复合"得 p_det（预期 15-30%·窄但真）+ 可判子集 det 门方差≈0 vs 盲评 panel 方差。
+- **来源**：SkillsBench(arXiv:2602.12670 确定性验证器) / SkillRevise(2606.01139 verifier-driven +25.58pp·Appendix E 断言陷阱)。
