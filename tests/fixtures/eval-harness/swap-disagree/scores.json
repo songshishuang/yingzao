@@ -1,0 +1,6 @@
+[
+  {"prompt":"p1","judge":1,"order":"AB","orig":7.0,"cand":9.0},
+  {"prompt":"p1","judge":1,"order":"BA","orig":9.5,"cand":8.0},
+  {"prompt":"p2","judge":1,"order":"AB","orig":7.0,"cand":9.0},
+  {"prompt":"p2","judge":1,"order":"BA","orig":9.5,"cand":8.0}
+]

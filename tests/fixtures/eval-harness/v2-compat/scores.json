@@ -1,0 +1,4 @@
+[
+  {"prompt":"p1","judge":1,"orig":7.0,"cand":9.0,"set":"gate","weight":1.0},
+  {"prompt":"p2","judge":1,"orig":7.0,"cand":9.0,"set":"gate","weight":1.0}
+]
