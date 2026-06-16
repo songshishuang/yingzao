@@ -101,3 +101,11 @@
 - **待测（YZ-VAK-D5 预注册·三臂）**：从 50 案取 n≥20，A=现状(含 headroom)/B=+VAK/C=+VAK+门0，比回归率（目标<15%·方向性不预设倍数）+ 无效改写率（abstain 拦截）+ 门0 误杀率。
 - **遗留子项**：`tools/validate-report-contract.sh` 加 §5b 的 V/A/K 列存在性校验（涉核心退出逻辑·本轮未做·留 D5 收尾）。
 - **来源**：SkillRevise(arXiv:2606.01139)§3.1/§3.4 消融。
+
+## YZ-CROSSOVER-D6 · 比样 crossover（2026-06-16 · v1.11）
+
+- **机制**：比样多候选默认 best-of-3 独立取优；crossover 子模式（默认关）在两强候选**各擅长不同实例/维度**时生成 merge 候选 C 融合互补优点（GEPA System-Aware Merge / EvoPrompt crossover 营造化）。**严格采纳门**：① C 逐实例 Pareto 不劣于 best(A,B) + realized margin≥1.0 ② merge diff 可追溯 ③ C 新增行为审计；缺一弃 C 回退 best(A,B)（棘轮不破）。crossover 选出的候选仍走正常验证门①（crossover 在比样步内、门①下游不变）。
+- **诚实预期（deepdive D6 对抗评审·本就是缓议项）**：GEPA merge 实测仅 +2%（峰值 5%）、Qwen3-8B 有负迁移；EvoPrompt crossover 平均仅 +2.5~3.5%；**单文件 skill 多无可切分互补区块（触发率预期 <10%）、严格采纳门下采纳率趋近 0** → 默认关、定位"少数真互补案例锦上添花"、**全样本期望增益≈0**。无互补区块不强行 merge（防负迁移）。
+- **待测（YZ-CROSSOVER-D6 预注册）**：比样大修样本中 crossover 触发率 + 采纳率 + 采纳案例的真实 margin；预期触发<10%、采纳≈0、采纳者 margin 小。
+- **定位**：纯方法论增强（crossover 是打磨 Agent 的 LLM 动作·无 harness 改动）；价值在"机制前沿对齐 GEPA/EvoPrompt"而非"普涨"。
+- **来源**：GEPA(arXiv:2507.19457 Pareto+System-Aware Merge)/EvoPrompt(2309.08532 LLM-as-crossover)。

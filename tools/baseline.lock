@@ -1,11 +1,11 @@
-# yingzao 核心完整性基线 · version: 1.10.0 · 由 gen-baseline.sh 生成（开发态发版）
-01035d83f4b991f450e94443cc06fadd1527f966d224f341927de0ba8df52109  SKILL.md
+# yingzao 核心完整性基线 · version: 1.11.0 · 由 gen-baseline.sh 生成（开发态发版）
+ea2d494373dcfcc277e7631093bb7ee3cbc25cfa28bc1e9841aa8a13253e97dd  SKILL.md
 32f6a92e80297f07dd4570bc3b6f3d843d5e00dd34549288226f9af612e52b52  references/anti-patterns.md
 c48a1b46691f7c6ce080b224bfd9f9d07a36289698ae62577010b3b1c44feb24  references/before-after-protocol.md
 6b2a863a381e56ce8f97bee74d127174ed83d8d61336ac3a2ec74a4401770831  references/case-log.md
-16ebf7f401fdc793736b56c00db5b12112e773b47814172e25f045649c4c108c  references/changelog.md
+53e500910d5102b28c97391ee0b6779c2db579f1341c7a6db583dd19bd3c219b  references/changelog.md
 6cfb979abee19059f2c411d8150a2c8592a6e43091f385d585cda72d2daad65f  references/diagnosis-vak.md
-d45e174cd5e279023266cd706e86bfce77b886234bf5020d14576906c12f3b8e  references/dogfood-evidence.md
+617f98e6e3b1d553a8a3e1f044d76f2c00e94d6cec6d9b37c67bd4bbc52d0e7b  references/dogfood-evidence.md
 8fa0754afa35a4d65186055653565c4b2ce17bfb42531a58ea27803a3328c9eb  references/guardrails.md
 eba4062823ef58eb65ee5d55433a14d13be3db34a32001e1b8b46f52b696e8f2  references/readme-standards.md
 e52355a434771c2e576c59669df990f680774056233eaa459b5822a9576d9506  references/roles.md

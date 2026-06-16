@@ -5,10 +5,10 @@
 **把"自己能用"的 Agent Skill，打磨成"别人敢用"的资产。**
 
 借中国古建营造的工序意象——查勘、大修、落成、岁修——把 Skill 优化做成一门有验收标准的手艺。
-**v1.10** · 更新于 2026-06-16 · 与 Microsoft Research [SkillLens](https://microsoft.github.io/SkillLens) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
+**v1.11** · 更新于 2026-06-16 · 与 Microsoft Research [SkillLens](https://microsoft.github.io/SkillLens) / [SkillOpt](https://arxiv.org/abs/2605.23904) 验证谱系同源，为团队多岗位场景做了受控工程适配。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.10.0-blue.svg)](#快速开始)
+[![Version](https://img.shields.io/badge/version-1.11.0-blue.svg)](#快速开始)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-Compatible-blueviolet)](#快速开始)
 [![Multi Runtime](https://img.shields.io/badge/Multi--Runtime-19%20runtime-green)](#快速开始)
 
@@ -73,7 +73,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao && ./install.sh
 | **验证门** | **真实任务 before/after 盲评**严格优于原版才接受（结构分↑≠输出分↑，`tools/eval-harness.sh` 跑、宿主能隔离才记过门）——挡住"好看但跑不动" |
 | **棘轮 + 早停** | 分数只升不降；单轮提升 <1 分自动收手防硬凑 |
 | **边际复测** | 优势微弱加跑一次，仍微弱判不过——不被随机波动骗 |
-| **比样 Pareto**（可选） | 每轮 3 候选逐实例比胜负面，总分高但单点崩坏的不入选 |
+| **比样 Pareto + crossover**（可选·默认关） | 每轮 3 候选逐实例比胜负面；v1.11 加 crossover 融合两强候选互补优点（严格采纳门·诚实标期望增益≈0、仅少数互补案例） |
 | **落架**（卡死保险） | 连续两轮不过门 → 整体重构再同台对比，赢了才换、输了恢复 |
 
 一句话：**别的工具帮你"改"，营造帮你"改 + 证明改对了"。** 每轮数据全留档，可审计、可回退。
@@ -183,7 +183,7 @@ git clone https://github.com/songshishuang/yingzao && cd yingzao
 - MSR [SkillOpt](https://arxiv.org/abs/2605.23904)——validation-gated edits 框架；营造的验证门 / 单变量 / 早停与其对齐（营造是 SkillOpt 的工程孪生）；
 - [SkillRevise](https://arxiv.org/abs/2606.01139)——执行→诊断→修订→效用门控闭环，消融证明"诊断"承重（成功率 53/86 跌至 28/86）；外部印证营造"诊断驱动大修"；
 - [SkillsBench](https://arxiv.org/abs/2602.12670)——86 任务确定性验证器，实测"一次性自生成技能平均无收益"，外部印证营造"真实 before/after 验证门"的必要；
-- [GEPA](https://arxiv.org/abs/2507.19457) · [gepa-ai/gepa](https://github.com/gepa-ai/gepa)——Pareto 候选选择，营造「比样」逐实例胜负面对比的来源；
+- [GEPA](https://arxiv.org/abs/2507.19457) · [gepa-ai/gepa](https://github.com/gepa-ai/gepa)——Pareto 候选选择 + System-Aware Merge，营造「比样」逐实例胜负面对比与 v1.11 crossover 融合的来源；
 - Anthropic [Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)——规则预检清单 + "先建评估再改写"理念；
 - [darwin-skill](https://github.com/alchaincyf/darwin-skill)（3.9k★，花叔）——同谱系优化器，棘轮自述源自 [Karpathy autoresearch](https://github.com/karpathy/autoresearch)；两者评分机制趋同，营造的差异在**团队场景适配 + 生态位（访例 / 定式）+ 双档分流**。
 
