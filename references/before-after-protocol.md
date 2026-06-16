@@ -62,5 +62,5 @@ LLM 评委有位置偏置：换 A/B 顺序约 1/3 会翻转判定（**YZ-POSBIAS
 ]
 ```
 - **必填** `prompt / orig / cand`（缺则 harness 判数据错、降级不静默当真）。
-- **可选** `judge`（评委号·同 prompt 多条求均值）、`bare`（裸基线·算 skill_lift）、`order`（"AB"/"BA"·触发换序双判）、`cand_len/orig_len`（输出字符数·触发长度告警）、`set`（"gate"/"holdout"·Wave2 D2 留位）、`weight`（留位）。
+- **可选** `judge`（评委号·同 prompt 多条求均值）、`bare`（裸基线·算 skill_lift）、`order`（"AB"/"BA"·触发换序双判）、`cand_len/orig_len`（输出字符数·触发长度告警）、`pred_gain`（画样 §5b 点估·触发 D3 逐 run 校准对账·calib_err=realized−pred_gain·负=高估）、`set`（"gate"/"holdout"·D2 留位）、`weight`（留位）；区间 `pred_lo/pred_hi`（D3 第二层·未来 run 新要求·当前未生效）。
 - **v1.10 冻结**：未知字段一律忽略（向后兼容 v1）；Waves 2-3（D2 holdout / D3 校准 / D7 verifier 分）在此 schema **加列、不改结构**。分值 0-10。

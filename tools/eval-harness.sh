@@ -76,6 +76,12 @@ echo "$PER" | jq -r '.[]|[.prompt,(.orig|.*100|round/100),(.cand|.*100|round/100
 realized=$(echo "$mc $mo" | awk '{printf "%.2f", $1-$2}')
 echo "──"
 echo "原版均分 $(printf '%.2f' "$mo")  ｜ 候选均分 $(printf '%.2f' "$mc")  ｜ realized_gain（候选−原版）= $realized"
+# D3 预测校准（第一层·逐 run 点对账）：scores.json 含可选 pred_gain（画样 §5b 点估）时触发，缺省跳过（向后兼容）
+pred=$(jq -r '[.[].pred_gain]|map(select(.!=null))|if length>0 then .[0] else "null" end' "$S")
+if [ "$pred" != "null" ]; then
+  ce=$(awk -v y="$realized" -v p="$pred" 'BEGIN{printf "%.2f", y-p}')
+  echo "── 预测校准（点）── 预测提分 ${pred} vs 实测 ${realized} ｜ 有向误差(实测−预测)=${ce}（负=本轮高估·同向 v1.9 系统性高估；累计 Bias=mean(误差) 见 references/scoring.md 硬规则5）"
+fi
 [ "$SWAP" = "true" ] && [ "$incons" -gt 0 ] && echo "INFO  换序不一致评委 ${incons} 个（其判定按『未达两序一致胜』保守不计胜·消噪生效）"
 if [ "$hasbare" = "true" ]; then
   mb=$(echo "$PER" | jq '([.[].bare]|add)/length')

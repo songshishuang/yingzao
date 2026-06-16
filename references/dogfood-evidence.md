@@ -74,3 +74,12 @@
 - **回溯含义**：2026-06-15 那次 50 案评测仅做 A/B 随机、未换序双判，故其单案胜负带约 1/3 位置噪声——方向稳健、个案需打折看；这正是 D1 换序双判要修的。
 - **落地**：`tools/eval-harness.sh` 加换序双判模式（条目带 `order`→同评委两序都胜才记胜·矛盾不计胜），3 夹具自测过（v2-compat / swap-consistent-win / swap-disagree）。
 - **来源**：`reports/skill-study-2026-06-15/posbias/`（PREREG.md / results.json / verdict.json / analyze.py）；处方 MT-Bench(arXiv:2306.05685)。
+
+## YZ-CALIB-D3 · 预测校准量化（2026-06-16 · v1.10 Wave2 D3）
+
+- **机制**：eval-harness 第一层逐 run 点对账——scores.json 含 `pred_gain`（画样点估）时算 `calib_err = realized − pred_gain`（**负=本轮高估**），累计 `Bias = mean(calib_err)`。第二层（区间覆盖率/PICP 回调）预留未生效（真实门① run 现状=0、需 ≥5–8 run）。
+- **符号统一**：v1.9 报"偏置 +1.58 系统性高估" = `pred − realized` = `−Bias`；文档/工具一律以 `realized − pred`（负=高估）为准。
+- **自证回测（实测·50 案）**：`analysis/calib_backtest.py` 用 per_case.json 50 案算 Bias = mean(realized−pred) = **−1.581**（mean_pred 1.810 / mean_real 0.229），−Bias=1.581 ✓ 复现 metrics.json 的 +1.58 —— 证 eval-harness 点对账逻辑正确。
+- **价值/边界**：即时价值=把 v1.9 一次性硬编码偏置升级为每轮自动产出的监测量 + 满 ≥5 run 据 Bias 收窄画样预期提分上界；边界=门① 真实 run 现状=0，第二层区间回调"写进去常年待触发"、诚实标未生效。
+- **落地**：`tools/eval-harness.sh`（pred_gain 触发校准行·缺省跳过）+ `references/scoring.md` 硬规则5 扩回调子句 + calib 夹具入自测（4→8 夹具）。
+- **来源**：`reports/skill-study-2026-06-15/analysis/{per_case.json,metrics.json,calib_backtest.py}`；G-Eval(arXiv:2303.16634) 连续分 / 校准科学(2410.21819)。
