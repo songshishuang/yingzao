@@ -25,6 +25,7 @@ check v2-compat          0 "v2 额外字段(set/weight)被容忍 + 候选胜 →
 check swap-consistent-win 0 "换序双判：两序都 cand>orig → 计胜 → 门①通过"
 check swap-disagree       1 "换序双判：两序矛盾 → 不计胜（消位置噪声·单序会误判胜）→ 未过门"
 check calib               0 "含 pred_gain → 输出逐 run 点对账校准行（D3·向后兼容·退出码不变）"
+check holdout-noleak      0 "set=holdout 极端分(cand1<<orig9.9)不参与门①、gate(p1/p2)决定过门（D2·防泄漏）"
 echo "── PASS $pass / FAIL $fail ──"
 
 [ "$fail" -eq 0 ]

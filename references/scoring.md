@@ -23,6 +23,8 @@
 3. **四件套门槛**：测试 prompt 缺四件套（成功判据/失败判据/诱饵意图/不可接受输出）→ 不得进入第 9 维计分。
 4. **盲评分离**：评分优先由独立子 Agent 执行；宿主不支持时用全新上下文评分 prompt 并标注「非严格盲评」。
 5. **预测增益校准（v1.9）**：「预期提分 / 增益」一律给**保守区间**（下界默认 0），不给点估；显式区分**结构分 vs 真实任务输出分**——验证门只认输出分（结构分↑≠输出分↑）。原版属「底模掩盖型」（设想/实测裸基线已高、skill 本身 lift≈0）时，增益区间上界压低、优先建议维持/小修（详见 SKILL「画样 · headroom 预判」与 `references/before-after-protocol.md`）。**实证依据**：50 案随机社区样本，大修平均真实输出增益仅 +0.23、回归率 30%、自评预测 vs 实测偏置 +1.58（系统性高估）——故增益声明须保守、须用 before/after 实测而非文档观感。**D3 校准回调（v1.10）**：eval-harness 逐 run 算 `calib_err = realized − pred_gain`（**负=本轮高估**），累计 `Bias = mean(calib_err)`。**符号统一**：本条"偏置 +1.58 系统性高估" = `pred − realized` = `−Bias`（即 Bias≈−1.58）；文档一律以 `realized − pred`（负=高估）为准、避免反号混淆。满 ≥5 run 据 Bias 给画样"预期提分上界**收窄**"建议——把 v1.9 一次性硬编码保守升级为数据驱动随历史偏置回调（区间覆盖率/PICP 等第二层须积累带区间的真实 run 后才生效、当前未生效）。
+6. **冗长护栏（D2·G1）**：候选膨胀比 ρ=字符比（`wc -m`·含 references+templates 净增）>1.5 直接出局；1.15<ρ≤1.5 须 realized_gain ≥ Δ/(ρ−1)·θ（θ 默认 1.0）方过冗长门；落架 `--overhaul` 豁免。运行 `tools/check-bloat.sh`；阈值起点见 `references/guardrails.md`（待 YZ-GUARDRAIL-D2 实测回填，**当前 θ/ρ 为有据启发式非审计实测**）。
+7. **held-out 泛化（D2·G3）**：测试 prompt 切 D_gate/D_holdout（≥30%），落成匾分以 **D_holdout** 计；D_gate↑ 而 D_holdout 不升连续 2 轮=过拟合早停（**仅 N≥4 生效；N<4 退化为单哨兵只告警**）。**切分=移植 GEPA Alg1（有 ICLR2026 背书）；按 D_holdout 背离早停=营造原创启发式（无论文背书·待校准）**。holdout 项不参与门①聚合（eval-harness 隔离、CI 夹具 holdout-noleak 锁死防泄漏）。
 
 ## 形态判定特征与权重修正
 

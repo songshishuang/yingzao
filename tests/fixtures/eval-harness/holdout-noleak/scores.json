@@ -1,0 +1,5 @@
+[
+  {"prompt":"p1","judge":1,"orig":7.0,"cand":9.0,"set":"gate"},
+  {"prompt":"p2","judge":1,"orig":7.0,"cand":9.0,"set":"gate"},
+  {"prompt":"h1","judge":1,"orig":9.9,"cand":1.0,"set":"holdout"}
+]

@@ -27,7 +27,7 @@ SWAP=$(jq 'any(.[]; has("order"))' "$S")   # 任一条目带 order → 换序双
 if [ "$SWAP" = "true" ]; then
   MODE="换序双判（两序都胜才记胜·消位置噪声）"
   PER=$(jq -c --argjson m "$MARGIN" '
-    group_by(.prompt) | map(
+    [.[]|select((.set//"gate")!="holdout")] | group_by(.prompt) | map(
       (group_by(.judge) | map({
         orig: ((map(.orig)|add)/length),
         cand: ((map(.cand)|add)/length),
@@ -47,7 +47,7 @@ if [ "$SWAP" = "true" ]; then
 else
   MODE="单序（无 order 字段·legacy）"
   PER=$(jq -c --argjson m "$MARGIN" '
-    group_by(.prompt) | map(
+    [.[]|select((.set//"gate")!="holdout")] | group_by(.prompt) | map(
       { prompt: .[0].prompt, judges: length,
         orig: ((map(.orig)|add)/length),
         cand: ((map(.cand)|add)/length),
@@ -83,6 +83,13 @@ if [ "$pred" != "null" ]; then
   echo "── 预测校准（点）── 预测提分 ${pred} vs 实测 ${realized} ｜ 有向误差(实测−预测)=${ce}（负=本轮高估·同向 v1.9 系统性高估；累计 Bias=mean(误差) 见 references/scoring.md 硬规则5）"
 fi
 [ "$SWAP" = "true" ] && [ "$incons" -gt 0 ] && echo "INFO  换序不一致评委 ${incons} 个（其判定按『未达两序一致胜』保守不计胜·消噪生效）"
+# D2 held-out 泛化（set=="holdout" 不参与门①聚合、只读报告·落成匾分以此为准）
+HOLD=$(jq -c '[.[]|select(.set=="holdout")]' "$S")
+nhold=$(echo "$HOLD" | jq 'length')
+if [ "$nhold" -gt 0 ]; then
+  hg=$(echo "$HOLD" | jq '((map(.cand)|add)/length)-((map(.orig)|add)/length)')
+  echo "── held-out 泛化（只读·不参与过门·落成匾分以此为准）── ${nhold} 条、cand−orig=$(printf '%.2f' "$hg")（D_gate↑ 但此不升=过拟合告警·N<4 仅哨兵·见 references/guardrails.md）"
+fi
 if [ "$hasbare" = "true" ]; then
   mb=$(echo "$PER" | jq '([.[].bare]|add)/length')
   sl=$(echo "$mo $mb" | awk '{printf "%.2f", $1-$2}')
