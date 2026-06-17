@@ -12,5 +12,6 @@ tools/self-integrity.sh
 tools/validate-report-contract.sh
 tools/eval-harness.sh
 tools/check-bloat.sh
+tools/render-report.py
 tools/baseline.lock
 tools/skill-manifest.txt
