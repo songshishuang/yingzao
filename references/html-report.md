@@ -12,7 +12,7 @@ python3 tools/render-report.py <报告数据.json> <输出.html>
 ```
 
 - **降级**：宿主无 `python3` → 落成步骤**跳过 HTML、只出 markdown**，并在报告与播报标注「因无 python3 未出 HTML 档」。HTML 是 markdown 的**叠加**，缺失不阻塞交付。
-- HTML 与 markdown **同源同数据**：人话版、九维分、差距、验证门记录一致；markdown 仍是默认、可 diff、研发友好，HTML 主打直观/对外/给运营 PM。
+- HTML 与 markdown **同源同数据**：核心结论、九维分、差距、验证门记录一致；markdown 仍是默认、可 diff、研发友好，HTML 主打直观/对外/给运营 PM。
 - **脱敏**：外发版 HTML 同 markdown 规则——内部路径换代号；JSON 里就不要放真实内部路径（落成匾/执行计划等字段写代号）。
 
 ## 数据契约（JSON schema）
@@ -23,7 +23,7 @@ python3 tools/render-report.py <报告数据.json> <输出.html>
 |------|------|------|------|
 | `kind` | 是 | `"full"` / `"quick"` | 大修 / 查勘 |
 | `meta` | 是 | 对象 | 报告头元信息 |
-| `human` | 推荐 | 对象 | 人话版区块（运营/PM 画像**必填**·研发可省） |
+| `human` | 推荐 | 对象 | 核心结论区块（运营/PM 画像**必填**·研发可省） |
 | `verdict` | full | 对象 | 落成匾结果卡 |
 | `scores` | 推荐 | 数组 | 九维达成率（雷达图） |
 | `headroom` | full 可选 | 对象 | 真实任务 before/after 对照条 |
@@ -37,7 +37,7 @@ python3 tools/render-report.py <报告数据.json> <输出.html>
 {
   "kind": "full",
   "meta": {"skill":"…","date":"YYYY-MM-DD","form":"方法论型","role":"PM","target":"开源","mode":"比样 best-of-3","run":"隔离实测"},
-  "human": {                                  // 人话版·零术语·每条只说「什么问题→改完有何不同」
+  "human": {                                  // 核心结论·零术语·每条只说「什么问题→改完有何不同」
     "score_now": 94, "score_after": 94,
     "items": [{"problem":"白话问题","why":"为什么是问题","after":"改完用起来有什么不同"}]
   },
@@ -69,6 +69,6 @@ python3 tools/render-report.py <报告数据.json> <输出.html>
 
 ## 设计原则（三处可见 · 不删机制）
 
-1. **人话版优先**：HTML 顶部即「给非技术同事的人话版」（蓝卡·零术语），工程明细在后——对应 v1.12 [scoring 受众分层]。
+1. **核心结论优先**：HTML 顶部即「核心结论」（蓝卡·零术语），工程明细在后——对应 v1.12 [scoring 受众分层]。
 2. **自包含**：单文件、内联 SVG、零外部依赖——外发/邮件/离线都能开。
 3. **确定性可测**：渲染是纯函数，`tests/test-render-report.sh` 用夹具守护（改坏即门禁红）。

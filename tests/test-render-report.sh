@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 营造 · HTML 报告渲染引擎自测（CI 用）—— 锁死 tools/render-report.py 的产物契约：
-# 自包含(零外链) / SVG 雷达 / 人话版 / 深浅色 / kind 分流 / 坏数据退出码 / 缺字段优雅跳过。
+# 自包含(零外链) / SVG 雷达 / 核心结论 / 深浅色 / kind 分流 / 坏数据退出码 / 缺字段优雅跳过。
 # 退出码语义（见 render-report.py 头注）：0 渲染成功 / 2 用法或数据错。
 # 无 python3 → 整体 SKIP（降级只出 markdown 是设计·不算失败）。
 set -uo pipefail
@@ -53,9 +53,9 @@ n=$(grep -cE 'https?://|<script|<link |cdn|src=' "$TMP/full.html" 2>/dev/null ||
 n=$(grep -o '<polygon' "$TMP/full.html" | wc -l | tr -d ' ')
 [ "$n" -eq 5 ] && ok "full SVG 雷达 5 polygon（4 网格+1 数据）" || bad "full SVG polygon=${n}（期望 5）"
 
-# 4. 人话版 + 深浅色自适应
-grep -q '给非技术同事的人话版' "$TMP/full.html" && grep -q 'prefers-color-scheme:dark' "$TMP/full.html" \
-  && ok "full 含人话版区块 + 深浅色自适应" || bad "full 缺人话版或深浅色"
+# 4. 核心结论 + 深浅色自适应
+grep -q '核心结论' "$TMP/full.html" && grep -q 'prefers-color-scheme:dark' "$TMP/full.html" \
+  && ok "full 含核心结论区块 + 深浅色自适应" || bad "full 缺核心结论或深浅色"
 
 # 5. full 含落成匾/headroom/验证门时间线
 grep -q '落成匾' "$TMP/full.html" && grep -q 'headroom 判定' "$TMP/full.html" && grep -q 'timeline' "$TMP/full.html" \

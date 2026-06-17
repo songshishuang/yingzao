@@ -78,7 +78,7 @@ def human_block(h):
         aft = (' 打磨后预计 <b>%s</b> 分（往低了估）' % esc(sa)) if sa is not None else ""
         head = '<p class="hlead">现在 <b>%s</b> 分。%s最该改的几件事：</p>' % (esc(sn), aft)
     return ('<section class="card human"><div class="sech"><span class="ico">&#9829;</span>'
-            '给非技术同事的人话版（运营/PM 先看 · 零术语）</div>%s<ul class="hlist">%s</ul>'
+            '核心结论（运营/PM 先看 · 零术语）</div>%s<ul class="hlist">%s</ul>'
             '<p class="hnote">下面是工程细节（研发 / 留档看），不影响理解上面的结论。</p></section>'
             % (head, items))
 
